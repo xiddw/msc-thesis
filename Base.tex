@@ -1,0 +1,127 @@
+% **************************************************************************************************************
+% Note:
+%    * You must not use "u etc. in strings/commands that will be spaced out (use \"u or real umlauts instead)
+%    * New enumeration (small caps): \begin{aenumerate} \end{aenumerate}
+%    * For margin notes: \marginpar or \graffito{}
+%    * Do not use bold fonts in this style, it is designed around them
+%    * Use tables as in the examples
+%    * See classicthesis-preamble.sty for useful commands
+% **************************************************************************************************************
+% To Do:
+%		 * [high] Check this out: http://www.golatex.de/koma-script-warnung-in-verbindung-mit-listings-package-t2058.html
+%    * [medium] mathbb in section-titles/chapter-titles => disappears somehow in headlines!!!
+% **************************************************************************************************************
+\documentclass[ twoside, titlepage, numbers=noenddot, headinclude,%1headlines,% letterpaper a4paper %%%openright,%%%
+                footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
+                BCOR=5mm,paper=letter,fontsize=12pt,%11pt,a4paper,%
+                ngerman,american,%
+                ]{scrreprt}
+
+%********************************************************************
+% Note: Make all your adjustments in here
+%*******************************************************
+\input{classicthesis-config}
+
+%********************************************************************
+% Hyphenation
+%*******************************************************
+%\hyphenation{put special hyphenation here}
+
+%********************************************************************
+% MINE :)
+\usepackage{comment} 
+%*******************************************************
+
+\setlength{\parskip}{0.7\baselineskip}
+%\setlength{\parindent}{0.7cm}
+
+\def\mb{\textbf}
+
+\newcommand{\sd}{\textit{speaker diarisation}}
+\newcommand{\SD}{\textit{Speaker Diarisation}}
+\newcommand{\MFCC}{\textit{MFCC}}
+\newcommand{\unk}{1-de-\textit{K}}
+\newcommand{\aem}{\textit{expectation-maximization}}
+
+\newcommand{\estep}{\textit{E-step}}
+\newcommand{\mstep}{\textit{M-step}}
+
+\newcommand{\abf}{\textit{backward-forward}}
+\newcommand{\bstep}{\textit{backward-step}}
+\newcommand{\fstep}{\textit{forward-step}}
+
+\numberwithin{equation}{chapter}
+\numberwithin{figure}{chapter}
+
+% ********************************************************************
+% GO!GO!GO! MOVE IT!
+%*******************************************************
+\begin{document}
+\frenchspacing
+\raggedbottom
+ 
+\selectlanguage{spanish}
+%\renewcommand{\bibname}{Referencias}
+%\renewcommand{\tablename}{Tabla}
+%\setbibpreamble{}
+\pagenumbering{roman}
+\pagestyle{plain}
+
+%********************************************************************
+% Frontmatter
+%*******************************************************
+%\include{FrontBackmatter/DirtyTitlepage}
+%\include{FrontBackmatter/Titlepage}
+%\include{FrontBackmatter/Titleback}
+
+%\cleardoublepage\include{FrontBackmatter/Dedication}
+%\cleardoublepage\include{FrontBackmatter/Foreword}
+%\cleardoublepage\include{FrontBackmatter/Abstract}
+%\cleardoublepage\include{FrontBackmatter/Publication}
+%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\pagestyle{scrheadings}
+\cleardoublepage\include{FrontBackmatter/Contents}
+
+%********************************************************************
+% Mainmatter
+%*******************************************************
+\pagenumbering{arabic}
+%\cleardoublepage
+
+\include{Chapters/Chapter01}
+%\cleardoublepage
+
+%\part{The Showcase}
+\include{Chapters/Chapter02}
+%\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
+
+\include{Chapters/Chapter03}
+
+\include{Chapters/Chapter04}
+
+\include{Chapters/Chapter05}
+
+\include{Chapters/Chapter06}
+
+%\include{multiToC} % <--- just debug stuff, ignore for your documents
+
+% ********************************************************************
+% Backmatter
+%*******************************************************
+%\appendix
+\cleardoublepage
+%\part{Apéndice}
+%\include{Chapters/Chapter0A}
+
+%********************************************************************
+% Other Stuff in the Back
+%*******************************************************
+%\cleardoublepage\include{FrontBackmatter/Bibliography}
+%\cleardoublepage\include{FrontBackmatter/Colophon}
+%\cleardoublepage\include{FrontBackmatter/Declaration}
+
+% ********************************************************************
+% Game Over: Restore, Restart, or Quit?
+%*******************************************************
+\end{document}
+% ********************************************************************
