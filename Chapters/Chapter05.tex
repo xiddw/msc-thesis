@@ -60,15 +60,15 @@ A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto 
   \myfloatalign
   \subfloat[Señal original con silencio identificado.]
   {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}} \quad
-  
+
   \subfloat[Señal procesada y recortada.]
   {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}} \quad
   
-  \caption{Identificación y eliminación de silencio en señal.}
-  \label{fig:sig_silence}
+  \caption{Identificación y eliminación de silencio en señal.}  
+  \label{fig:sign_trunc}  
 \end{figure}
 
-Como se observa en la \autoref{fig:sig_silence} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
+Como se observa en la \autoref{fig:sign_trunc} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
 
 Con esto, se obtiene una señal en general más pequeña, y que se podría  considerar sólo contiene realmente los datos que se desea modelar.
 
@@ -97,4 +97,37 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le aplica la transformada de Fourier, y entonces a ésta es a quien se le aplica el banco de filtros.
 
-Sea pues \autoref{fig:sign_orig} una señal 
+Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la FFT y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mel}} \quad
+  \caption{Respuesta al banco de filtros.}
+  \label{fig:sign_melres}
+\end{figure}
+
+La dimensionalidad de la respuesta al banco de filtros dependerá de la misma contrucción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
+
+Para esto, la respuesta obtenida del banco de filtros se le aplicará la DCT (Transformada Discreta del Coseno), para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
+
+Después de este proceso, nuestros datos se podrían representar de la siguiente maneta (\autoref{fig:sign_mfcc}) que son los MFCC que antes habíamos mencionado.
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mfcc}} \quad
+  \caption{Mel Frequency Cepstrum Coefficients.}
+  \label{fig:sign_mfcc}
+\end{figure}
+
+Por útlimo, para los modelos que usaremos, se necesitan que las características estén de cierta forma \textit{discretizadas}, es decir, no nos es útil el tener para cada observación en el tiempo un vector de características; sino que necesitamos una etiqueta o clase para cada observación. 
+
+Para esto, podemos utilizar diferentes métodos tanto de reducción de dimensionalidad como de agrupación/clasificación. Como primer idea, utilizaremos el método de \textit{k-means} para agrupar los vectores de acuerdo a su cercanía en el espacio euclidiano.
+
+Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida:
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-clusters}} \quad
+  \caption{MFCC agrupados con k-means++.}
+  \label{fig:sign_clusters}
+\end{figure}
+Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} y que propone una mejor inicialización para obtener mejores resultados.
+
+Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetos que le correspondan.
