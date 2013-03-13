@@ -41,7 +41,7 @@ Se considera que se tiene una señal digital de voz, y que a partir de ésta se 
 
 \begin{figure}[bth]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/orig}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-orig}} \quad
   \caption{Señal original de audio.}
   \label{fig:sign_orig}
 \end{figure}
@@ -59,18 +59,18 @@ A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto 
 \begin{figure}[bth]
   \myfloatalign
   \subfloat[Señal original con silencio identificado.]
-  {\includegraphics[width=0.9\linewidth]{gfx/silence1}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}} \quad
   
   \subfloat[Señal procesada y recortada.]
-  {\includegraphics[width=0.9\linewidth]{gfx/silence2}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}} \quad
   
   \caption{Identificación y eliminación de silencio en señal.}
   \label{fig:sig_silence}
 \end{figure}
 
-Como se observa en la \autoref{fig:sig_silence} basta entonces con eliminar los segmentos que mayormente son silencios y reagrupar la señal restante.
+Como se observa en la \autoref{fig:sig_silence} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
 
-Con esto, se obtiene una señal en general más pequeña, y que se podría  considerar solo contiene realmente los datos que se desea modelar.
+Con esto, se obtiene una señal en general más pequeña, y que se podría  considerar sólo contiene realmente los datos que se desea modelar.
 
 \subsection{Obtención de características acústicas}
 
@@ -90,7 +90,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 \begin{figure}[bth]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/melfb}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/melfb}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
   \label{fig:sign_melfb}
 \end{figure}
