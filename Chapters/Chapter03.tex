@@ -6,36 +6,25 @@
 
 \section{Estimación de parámetros del HMM}
 
-Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, se pueden determinar 
-los parámetros del HMM usando máxima verosimilitud. La función de verosimilitud se obtiene de la distribución 
-conjunta \eqref{eqn:3-11} al marginalizar las variables latentes.
+Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, se pueden determinar los parámetros del HMM usando máxima verosimilitud. La función de verosimilitud se obtiene de la distribución conjunta \eqref{eqn:3-11} al marginalizar las variables latentes.
 \begin{equation}
-p(\mb{X}, \theta) = \sum_Z p(\mb{X}, \mb{Z} ~|~ \theta)
+  p(\mb{X}, \theta) = \sum_Z p(\mb{X}, \mb{Z} ~|~ \theta)
 \label{eqn:3-12}
 \end{equation}
 
-Sin embargo, la función obtenida presenta algunas dificultades, pues no se pueden con respecto a $n$, puesto que 
-las variables latentes $z_n$ dependen del estado anterior. Además, no es factible separar las sumas de estas $N$ 
-variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número 
-de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas 
-otras razones, es que se descarta el estimar los parámetros del modelo por máxima verosimilitud.
+Sin embargo, la función obtenida presenta algunas dificultades, pues no se pueden con respecto a $n$, puesto que las variables latentes $z_n$ dependen  del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo por máxima verosimilitud.
 
-Entonces, se buscará usar el algoritmo de \aem, en donde se hace una selección inicial de los parámetros que 
-denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem, conocido como \estep, se toman estos 
-parámetros para encontrar la probabilidad a posteriori de las variables latetes $p(\mb{Z} ~|~ \mb{X}, \theta^{old})$.
-que se usará para evaluar la esperanza de el logaritmo de una función de verosimilitud completa, que es una función 
-tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
+Entonces, se buscará usar el algoritmo de \aem, en donde se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem, conocido como \estep, se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latetes $p(\mb{Z} ~|~ \mb{X}, \theta^{old})$ que se usará para evaluar la esperanza de el logaritmo de una función de verosimilitud completa, que es una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
 
 La función de verosimilitud completa se define entonces como sigue:
 \begin{equation}
-\mathcal{Q}(\theta, \theta^{old}) = \sum_{\mb{Z}} p(\mb{Z} ~|~ \mb{X}, \theta^{old})
-ln p(\mb{X}, \mb{Z} ~|~ \theta).
+\mathcal{Q}(\theta, \theta^{old}) = 
+  \sum_{\mb{Z}} p(\mb{Z} ~|~ \mb{X}, \theta^{old})
+  ln p(\mb{X}, \mb{Z} ~|~ \theta).
 \label{eqn:3-13}
 \end{equation}
 
-Se introduce además cierta notación para simplificar las expresiones que ahora se usarán. Se usará $\gamma(z_n)$
-para denotar la distribución marginal posterior de la variable latente $z_n$, y $\xi(z_{n-1}, z_n)$ para 
-denotar la distribución conjunta posterior de dos variables latentes sucesivas, es decir: 
+Se introduce además cierta notación para simplificar las expresiones que ahora se usarán. Se usará $\gamma(z_n)$ para denotar la distribución marginal posterior de la variable latente $z_n$, y $\xi(z_{n-1}, z_n)$ para denotar la distribución conjunta posterior de dos variables latentes sucesivas, es decir: 
 \begin{gather}
 \gamma(z_n) = p(z_n ~|~ \mb{X}, \theta^{old}) \label{eqn:3-14} \\
 \xi(z_{n-1}, z_n) = p(z_{n-1}, z_n ~|~ \mb{X}, \theta^{old}) \label{eqn:3-15}
@@ -57,73 +46,59 @@ las definiciones \eqref{eqn:3-16} y \eqref{eqn:3-17}, y luego desarrollando el l
 \begin{equation}
 \begin{split}
 \mathcal{Q}(\theta, \theta^{old}) = 
-\sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + 
-\sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} + \\
-\sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) ln p(x_n ~|~ \phi_k)
+  \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + 
+  \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} + \\
+  \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) ln p(x_n ~|~ \phi_k)
 \label{eqn:3-18}
 \end{split}
 \end{equation}
 
-Por lo que entonces en el \estep~ se debe evaluar tanto $\gamma(z_{nk})$ como $\xi(z_{n-1,j}, z_{nk})$ de forma 
-eficiente para luego continuar con la segunda etapa del algoritmo.
+Por lo que entonces en el \estep~ se debe evaluar tanto $\gamma(z_{nk})$ como $\xi(z_{n-1,j}, z_{nk})$ de forma eficiente para luego continuar con la segunda etapa del algoritmo.
 
-El segundo paso, también conocido como \mstep, consiste en maximizar la función $\mathcal{Q}(\theta, \theta^{old})$
-con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora 
-$\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
+El segundo paso, también conocido como \mstep, consiste en maximizar la unción $\mathcal{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
 
-Para maximizar entonces $\pi$, se deriva $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$,
-usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
+Para maximizar entonces $\pi$, se deriva $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$, usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
 \begin{equation*}
-\frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
-\frac {\partial}{\partial \pi_k} \left[
-\sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + \lambda (\sum_{k=1}^K \pi_k - 1) 
-\right]
+  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
+  \frac {\partial}{\partial \pi_k} 
+  \left[
+    \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + \lambda (\sum_{k=1}^K \pi_k - 1) 
+  \right]
 \end{equation*}
 y derivando y encontrando el valor de $\lambda$, para luego despejar $\pi_k$, se obtiene:
 \begin{equation}
-\pi_k = \frac{\gamma(z_{1k})}{\sum_{j=1}^K \gamma(z_1j)}
+  \pi_k = \frac{\gamma(z_{1k})}{\sum_{j=1}^K \gamma(z_1j)}
 \label{eqn:3-19}
 \end{equation}
-mientras que para maximizar $\mb{A}$, se deriva entonces $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $A_{jk}$,x
-considerando también las restricciones, es decir
+mientras que para maximizar $\mb{A}$, se deriva entonces $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $A_{jk}$,x considerando también las restricciones, es decir
 \begin{equation*}
-\frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
-\frac {\partial}{\partial \pi_k} \left[
-\sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} 
-+ \lambda (\sum_{k=1}^K A_{jk} - 1) 
-\right]
+  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
+  \frac {\partial}{\partial \pi_k} 
+  \left[
+    \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} 
+    + \lambda (\sum_{k=1}^K A_{jk} - 1) 
+  \right]
 \end{equation*}
 y de la misma manera, resolviendo para $A_{jk}$ se obtiene
 \begin{equation}
-A_{jk} = \sum_{n=2}^N \frac{\xi(z_{n-1,j}, z_{nk})}{ \sum_{l=1}^K \xi(z_{n-1,j}, z_{nl})}
+A_{jk} = \sum_{n=2}^N 
+  \frac{\xi(z_{n-1,j}, z_{nk})}
+  {\sum_{l=1}^K \xi(z_{n-1,j}, z_{nl})}
 \label{eqn:3-20}
 \end{equation}
 
-Entonces, el algoritmo EM, debe ser inicializado escogiendo algunos valores para $\pi$ y $\mathbf{A}$, 
-considerando las restricciones que implican cada uno, pues representan ciertas probabilidades. Por tanto, 
-se puede inicializar tanto $\pi$ como $\mathbf{A}$ con valores aleatorios, siempre y cuando cumplan con 
-las restricciones propias de una probabilidad. 
+Entonces, el algoritmo EM, debe ser inicializado escogiendo algunos valores para $\pi$ y $\mathbf{A}$, considerando las restricciones que implican cada uno, pues representan ciertas probabilidades. Por tanto, se puede inicializar tanto $\pi$ como $\mathbf{A}$ con valores aleatorios, siempre y cuando cumplan con las restricciones propias de una probabilidad. 
 
-Por último, para estimar el parámetro $\theta$, que en realidad corresponde a estimar los parámetros propios 
-de la distribución de emisión, éstos dependen de la distribución propia de las variables observadas, aunque basta 1
-observar que en \eqref{eqn:3-18} únicamente en el último término aparece $\theta$ en forma de una suma 
-ponderada de $ln p(x_n ~|~  \phi_k)$; y en el caso de que los parámetros $\phi_k$ sean independientes para los 
-diferentes componentes de la mezcla o suma ponderada, entonces maximizar con respecto a esos parámetros se puede 
-realizar de forma sencilla.
+Por último, para estimar el parámetro $\theta$, que en realidad corresponde a estimar los parámetros propios de la distribución de emisión, éstos dependen de la distribución propia de las variables observadas, aunque basta 1 observar que en \eqref{eqn:3-18} únicamente en el último término aparece $\theta$ en forma de una suma ponderada de $ln p(x_n ~|~  \phi_k)$; y en el caso de que los parámetros $\phi_k$ sean independientes para los diferentes componentes de la mezcla o suma ponderada, entonces maximizar con respecto a esos parámetros se puede realizar de forma sencilla.
 
 \section{Algoritmo \abf}
 
-Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto $\gamma(z_{nk})$ como 
-$\xi(z_{n-1, j}, z_{nk})$ que se requieren para el \estep~ del algoritmo de EM.
+Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto $\gamma(z_{nk})$ como $\xi(z_{n-1, j}, z_{nk})$ que se requieren para el \estep~ del algoritmo de EM.
 
-Para deducir el algoritmo, primero se deben tener en cuenta varias propiedades de una cadena de Márkov, que nos permitirán
-simplificar varios cálculos (Ver apéndice). Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente 
-de las probabilidades de emisión $p(x ~|~ z)$, y entonces no importa si las variables observadas son discretas o continuas, 
-pues lo único que se requiere es poder evaluar $p(x_n ~|~ z_n)$ para cada $z_n$, que sabemos que son discretas.
+Para deducir el algoritmo, primero se deben tener en cuenta varias propiedades de una cadena de Márkov, que nos permitirán simplificar varios cálculos (Ver apéndice). Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente de las probabilidades de emisión $p(x ~|~ z)$, y entonces no importa si las variables observadas son discretas o continuas, pues lo único que se requiere es poder evaluar $p(x_n ~|~ z_n)$ para cada $z_n$, que sabemos que son discretas.
 
 \begin{comment}
-Entonces, es importante recordar algunas propiedades de una cadena de Márkov, que ennumera Jordan (paper 2007) y que se
-pueden deducir usando el teorema de separación-d.
+Entonces, es importante recordar algunas propiedades de una cadena de Márkov, que ennumera Jordan (paper 2007) y que se pueden deducir usando el teorema de separación-d.
 \begin{align}
 \begin{split}
 p(\mb{X} ~|~ z_n) =~ &p(x_1, ..., x_n ~|~ z_n) \\ &p(x_{n+1}, ..., x_N ~|~ z_n)
@@ -141,10 +116,9 @@ p(z_{N+1} ~|~ z_N, \mb{X}) =~ &p(z_{N+1} ~|~ z_N) \\
 \end{align}
 donde $\mb{X} = \lbrace x_1, ..., x_N \rbrace$. 
 
-Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori $p(z_n ~|~ x_1, ..., x_N)$ de $z_n$ dado un 
-conjunto de datos $x_1, ..., x_N$. Entonces, usando el teorema de bayes se tiene que
-
+Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori $p(z_n ~|~ x_1, ..., x_N)$ de $z_n$ dado un conjunto de datos $x_1, ..., x_N$. Entonces, usando el teorema de bayes se tiene que
 \begin{equation}
-\gamma(z_n) = p(\mb{z}_n ~|~ \mb{X}) = \frac{p(\mb{X} ~|~ \mb{z}_n) p(\mb{z}_n)}{p(\mb{X})} 
+  \gamma(z_n) = p(\mb{z}_n ~|~ \mb{X}) = 
+    \frac{p(\mb{X} ~|~ \mb{z}_n) p(\mb{z}_n)}{p(\mb{X})} 
 \end{equation}
 \end{comment}
