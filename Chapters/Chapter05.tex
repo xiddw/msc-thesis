@@ -131,3 +131,55 @@ Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida
 Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} y que propone una mejor inicialización para obtener mejores resultados.
 
 Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetos que le correspondan.
+
+\section{Resolver usando modelo HMM usando EM} 
+\label{sec:sd-hmm-em}
+
+Para las pruebas que se han realizado hasta ahora, se han usado grabaciones creadas sintéticamente; esto es, usando un sintetizador de voz. El hacer las grabaciones con voces sintéticas nos permite tener un mayor control sobre la calidad de la grabación (no hay ruidos aditivos o interferencias), además de poder generar muchos más casos de prueba sin tantas complicaciones.
+
+Para las primeras pruebas, se utilizó la grabación correspondiente a un fragmento de la obra "La vida es sueño", del dramaturgo Pedro Calderón de la Barca.
+
+Mediante bootstrap, se busca hacer la elección del número correcto de speakers identificados; por lo que para estos casos se mostrarán las segmentaciones obtenidas usando desde 2 hasta 4 speakers; además de comparar el ground truth.
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=1.2\linewidth]{gfx/chap5/cald-1}} \quad
+  \caption{Parámetros estimados para Prueba 1}
+  \label{fig:cald-1}
+\end{figure}
+
+En la \autoref{fig:cald-1} se muestran los parámetros estimadosa a forma de matrices en falso color: la matriz inicial o a priori, la matriz de transiciones entre speakers, la matriz de emisión para cada speaker y todo el diccionario de palabras, así como la secuencia recuperada.
+
+En la \autoref{fig:cald-2} se muestra la secuencia recuperada, como una serie de tiempo en donde además se marcan en rojo los errores al asignar a una persona equivocada.
+
+Se puede observar como para el caso en que el modelo se ajusta para 3 personas, la secuencia recuperada en escencia es la misma, exceptuando algunos saltos que se presentan a veces; pero en general logra detectar de forma correcta cada que hay un cambio de interlocutor en la grabación original.
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/cald-2}} \quad
+  \caption{Secuencia recuperada para Prueba 1}
+  \label{fig:cald-2}
+\end{figure}
+
+Para la segunda prueba, se utilizó un segmento del guión teatral "The King Lear", del escritor William Shakespeare.
+
+Se muestran a continuación los resultados obtenidos de la misma manera.
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=1.2\linewidth]{gfx/chap5/lear-1}} \quad
+  \caption{Parámetros estimados para Prueba 2}
+  \label{fig:lear-1}
+\end{figure}
+
+En estaas gráficas se observa de igual manera cómo se logró estimar de forma correcta el número de interlocutores. Cuando se aplica el modelo para un número menor que el real, se detectan las inconsistencias y aumenta la tasa de error; así como cuando se ajusta el modelo para un número mayor de personas, se sobreajusta el modelo y se marcan como errores.
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/lear-2}} \quad
+  \caption{Secuencia recuperada para Prueba 2}
+  \label{fig:lear-2}
+\end{figure}
+
+
+% section section_name (end)
