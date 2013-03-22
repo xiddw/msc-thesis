@@ -38,19 +38,19 @@ p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n)
 En cambio, para expresar la dependencia entre un grupo de observaciones ecuenciales, se puede utilizar entonces un modelo probabilístico llamado \textit{modelo de Markov}, en el que usando la regla del producto \graffito{Dar ejemplo de regla} se expresa la distribución conjunta de las observaciones de la siguiente manera:
 \begin{equation}
 \label{eqn:2-2}
-p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n ~|~ x_1, ..., x_{n-1}).
+p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n \,|\, x_1, ..., x_{n-1}).
 \end{equation}
 
 Ahora, si se asume que cada $x_n$ es independiente de las observaciones anteriores excepto de la más reciente $x_{n-1}$, se tiene que la distribución conjunta se puede escribir de forma más sencilla utilizando el teorema de separación D \footnote{Ver anexo}, puesto que 
 \begin{equation}
 \label{eqn:2-3}
-p(x_n ~|~ x_1, ..., x_{n-1}) ~=~ p(x_n ~|~ x_{n-1})
+p(x_n \,|\, x_1, ..., x_{n-1}) ~=~ p(x_n \,|\, x_{n-1})
 \end{equation}
 
 A este modelo probabilístico se le conoce como cadena de Márkov de primer orden y la probabilidad conjunta de las observaciones está dada por:
 \begin{equation}
 \label{eqn:2-4}
-p(x_1, ..., x_N) ~=~ p(x_1) \prod_{n=2}^N p(x_n ~|~ x_{n-1}).
+p(x_1, ..., x_N) ~=~ p(x_1) \prod_{n=2}^N p(x_n \,|\, x_{n-1}).
 \end{equation}
 mientras que su modelo gráfico corresponde a la \autoref{fig:mod_mm1}
 \begin{figure}[bt]
@@ -65,10 +65,10 @@ Aunque el modelo es mucho más general que el asumir que todas las observaciones
 De la misma manera en que se consideró para cuando $x_n$ depende únicamente de la observación anterior, se puede extender esta idea para por ejemplo, que $x_n$ dependa sólo de las dos observaciones previas. A este modelo se le conoce como cadena de Márkov de segundo orden; y siguiendo el mismo proceso, la distribución conjunta de las observaciones se puede escribir como 
 \begin{equation}
 \label{eqn:2-5}
-p(x_1, ..., x_N) ~=~ p(x_1) \cdot p(x_2 ~|~ x_1) 
-        \prod_{n=3}^N p(x_n ~|~ x_{n-1}, x_{n-2})
+p(x_1, ..., x_N) ~=~ p(x_1) \cdot p(x_2 \,|\, x_1) 
+        \prod_{n=3}^N p(x_n \,|\, x_{n-1}, x_{n-2})
 \end{equation}
-puesto que se tiene que $x_n \perp x_1, ..., x_{n-3} ~|~ x_{n-1}, x_{n-2}$.
+puesto que se tiene que $x_n \perp x_1, ..., x_{n-3} \,|\, x_{n-1}, x_{n-2}$.
 
 En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en el que se puede observar la dependencia de una $x_n$ en específico únicamente con sus dos observaciones anteriores.
 
@@ -88,15 +88,15 @@ Se considera entonces una variable latente $z_n$ correspondiente a cada  observa
 Se asumirá entonces 
 \begin{equation}
 \label{eqn:2-6}
-z_{n+1} \perp z_{n-1} ~|~ z_{n}
+z_{n+1} \perp z_{n-1} \,|\, z_{n}
 \end{equation}
 
 Y entonces, usando la regla de la cadena, la distribución conjunta para este modelo es la siguiente: 
 \begin{equation}
 \label{eqn:2-7}
 p(x_1, ..., x_N, z_1, ..., z_N) ~=~ 
-        p(z_1) \left [ \prod_{n=2}^N p(z_n ~|~ z_{n-1}) \right ] 
-\prod_{n=1}^N p(x_n ~|~ z_{n}).
+        p(z_1) \left [ \prod_{n=2}^N p(z_n \,|\, z_{n-1}) \right ] 
+\prod_{n=1}^N p(x_n \,|\, z_{n}).
 \end{equation}
 
 \begin{figure}[hbt]
@@ -118,20 +118,20 @@ Nuestro modelo HMM, se puede pensar como una mezcla de distribuciones en la que 
 
 Se puede considerar entonces, que cada variable latente $z_n$ tendrá una distribución multinomial discreta, que indicará cuál componente de la mezcla de distribuciones es la que ha generado la observación $x_n$. Para ésto, se usará la notación \unk, que corresponde a un conjunto de variables indicador $z_{nk} \in \lbrace 0, 1 \rbrace$, donde $k = 1, ..., K$ señalando cuál de las $K$ distribuciones generó a la variable $x_n$, \ie, si el componente generador de $x_n$ fue la $k$-ésima mezcla, entonces $z_{nk} = 1$ y $z_{nj} = 0$ para todo $j \neq k$.
 
-Ahora, se tiene que cada variable $z_n$ depende únicamente de $z_{n-1}$, y puesto que las variables latente son vectores binarios de $K$ dimensiones, entonces se tendría que la probabilidad condicional de $z_n ~|~ z_{n-1}$ se puede representar mediante una tabla o matriz, que se denotará como $\mb{A}$, y será referida como \textit{matriz de probabilidades de transición}. 
+Ahora, se tiene que cada variable $z_n$ depende únicamente de $z_{n-1}$, y puesto que las variables latente son vectores binarios de $K$ dimensiones, entonces se tendría que la probabilidad condicional de $z_n \,|\, z_{n-1}$ se puede representar mediante una tabla o matriz, que se denotará como $\mb{A}$, y será referida como \textit{matriz de probabilidades de transición}. 
 
-Los componentes de la matriz de transición se definen tal que $A_{jk} \equiv p(z_{nk} = 1 ~|~  z_{n-1, j} = 1)$, y puesto que son probabilidades, se cumple que $0 \leq A_{jk} \leq 1$ además de que $\sum_k A_{jk} = 1$. Considerando estas restricciones, entonces la matriz $\mb{A}$ tiene $K (K-1)$ parámetros independientes.
+Los componentes de la matriz de transición se definen tal que $A_{jk} \equiv p(z_{nk} = 1 \,|\,  z_{n-1, j} = 1)$, y puesto que son probabilidades, se cumple que $0 \leq A_{jk} \leq 1$ además de que $\sum_k A_{jk} = 1$. Considerando estas restricciones, entonces la matriz $\mb{A}$ tiene $K (K-1)$ parámetros independientes.
 
 Se puede escribir entonces la probabilidad condicional de una variable latente $z_n$ dada la anterior variable latente $z_{n-1}$ de la siguiente forma: 
 \begin{equation}
 \label{eqn:2-8}
-p(z_n ~|~ z_{n-1}, \mb{A}) = \prod_{k=1}^K \prod_{j=1}^K A_{jk}^{z_{n-1, j} 
+p(z_n \,|\, z_{n-1}, \mb{A}) = \prod_{k=1}^K \prod_{j=1}^K A_{jk}^{z_{n-1, j} 
         \cdot z_{nk}}
 \end{equation}
 
 Además, se tiene que considerar la variable latente inicial $z_1$, puesto que ésta no tiene una variable latente anterior, la \autoref{eqn:2-7} no aplica; por lo que entonces la probabilidad marginal de $z_1$ está representada por un vector de probabilidades $\pi$ tal que $\pi_k \equiv p(z_{1k})$, por lo que se puede reescribir como sigue: 
 \begin{equation}
-p(z_1 ~|~ \pi) = \prod_{k=1}^K \pi_k^{z_{1k}}
+p(z_1 \,|\, \pi) = \prod_{k=1}^K \pi_k^{z_{1k}}
 \label{eqn:2-9}
 \end{equation}
 y además se cumple que $\sum_k \pi_k = 1$ por definición.
@@ -154,20 +154,20 @@ De la misma manera, el grafo correspondiente a la matriz de transición, se pued
         \label{fig:mod_hmm3}
 \end{figure}
 
-Por último, para completar el modelo se tiene que considerar además la distribución condicional de las variables observadas, es decir $p(x_n ~|~ z_n, \phi)$ donde $\phi$ es un conjunto de parámetros específicos a la distribución de $x$. Se les conoce como probabilidades de emisión, y puede ser tanto una distribución discreta como una continua. Para el caso en que la probabilidad de emisión esté dada por una distribución discreta, entonces se tendrá una tabla de probabilidades.
+Por último, para completar el modelo se tiene que considerar además la distribución condicional de las variables observadas, es decir $p(x_n \,|\, z_n, \phi)$ donde $\phi$ es un conjunto de parámetros específicos a la distribución de $x$. Se les conoce como probabilidades de emisión, y puede ser tanto una distribución discreta como una continua. Para el caso en que la probabilidad de emisión esté dada por una distribución discreta, entonces se tendrá una tabla de probabilidades.
 
 Para calcular entonces esta probabilidad de emisión, se tiene tanto $z_n$ como unos parámetros $\phi$ dados, por lo que entonces se tienen un vector de $K$ valores para cada uno de los posibles estados del vector indicador $z_n$.
 
 Se puede escribir entonces la probabilidad de emisión como sigue:
 \begin{equation}
-p(x_n ~|~ z_n, \phi) = \prod_{k=1}^K p(x_n ~|~ \phi_k) ^ {z_{nk}}
+p(x_n \,|\, z_n, \phi) = \prod_{k=1}^K p(x_n \,|\, \phi_k) ^ {z_{nk}}
 \label{eqn:2-10}
 \end{equation}
 y entonces la probabilidad conjunta quedaría definida de la siguiente manera:
 \begin{equation}
-p(\mb{X}, \mb{Z} ~|~ \theta) 
-= p(z_1 ~|~ \pi) \left[ \prod_{n=2}^N p(z_n ~|~ z_{n-1}, \mb{A}) \right]
-        \prod_{n=1}^N p(x_n ~|~ z_n, \phi)
+p(\mb{X}, \mb{Z} \,|\, \theta) 
+= p(z_1 \,|\, \pi) \left[ \prod_{n=2}^N p(z_n \,|\, z_{n-1}, \mb{A}) \right]
+        \prod_{n=1}^N p(x_n \,|\, z_n, \phi)
 \label{eqn:2-11}
 \end{equation}
 donde $\mb{X} = \lbrace x_1, ..., x_N \rbrace$,~ $\mb{Z} = \lbrace z_1, ..., z_N \rbrace$~ y ~ $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ es el conjunto de parámetros requeridos por el modelo.
