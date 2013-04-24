@@ -1,10 +1,14 @@
 %!TEX root = ../Base.tex
 
 %*****************************************
-\chapter{Hidden Markov Model}\label{ch:chap2}
+\chapter{Modelos de Márkov}\label{ch:chap2}
 %*****************************************
 
-Cuando se tienen datos secuenciales, se pueden agrupar en dos tipos de acuerdo a las características de la distribución que los generó: distribuciones estacionarias y distribuciones no estacionarias.
+Por modelo generativo, se entiende un modelo probabilístico para generar datos aleatoriamente que correspondan a la naturaleza de un cierto conjunto de datos que tengamos.
+
+Al proponer un modelo generativo, se busca representar y de forma concisa poder parametrizar un fenómeno o situación de la que se obtuvieron los datos. Esto se hace al establecer funciones de densidad de probabilidades para las variables observadas, y muestreando a partir de ellas; o bien, especificando probabilidades condicionales para el caso de modelos más complejos.
+
+Cuando los datos son secuenciales, se suelen agrupar en dos tipos, de acuerdo a las características de la distribución que los generó: distribuciones estacionarias y distribuciones no estacionarias.
 
 En el caso de secuencias de datos estacionarias, se considera que los datos \textit{evolucionan} a través del tiempo, pero la distribución a partir de la cuál fueron generados permanece igual; mientras que para el caso de datos no estacionarios, su distribución generativa varía también según pasa el tiempo.
 
@@ -16,7 +20,7 @@ Comúnmente se suelen considerar únicamente las observaciones más recientes, p
 
 Para trabajar con este tipo de datos, se puede usar entonces un modelo de Márkov que es una red bayesiana en la que se asume la independecia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas.
 
-\section{Modelo de Markov}
+\section{Cadena de Markov}
 
 El modelo generativo más sencillo que se podría pensar, es considerar que todas las observaciones son independientes, es decir, que son variables aleatorias i.i.d, cuyo modelo gráfico se muestra en la \autoref{fig:mod_iid}.
 
@@ -108,7 +112,7 @@ p(x_1, ..., x_N, z_1, ..., z_N) ~=~
 
 Para éste último modelo gráfico, si las variables latentes son discretas, entonces se le conoce como Modelo oculto de Márkov o HMM (\textit{Hidden Markov Model}), y es justo el modelo que se utilizará para resolver la tarea de \sd.
 
-\section{Modelo oculto de Márkov}
+\section{Cadena oculto de Márkov}
 
 Un modelo oculto de Márkov, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
 

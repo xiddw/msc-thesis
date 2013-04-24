@@ -14,9 +14,9 @@ Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbr
 \label{eqn:3-1}
 \end{equation}
 
-Sin embargo, la función obtenida presenta algunas dificultades, pues no se pueden con respecto a $n$, puesto que las variables latentes $z_n$ dependen  del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo por máxima verosimilitud.
+Sin embargo, la función obtenida presenta algunas dificultades, pues no se puede tratar $z_n$ como si fuearn variables independientes y separarlas, puesto que cada variable latente $z_n$ depende del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo de forma directa por máxima verosimilitud.
 
-Entonces, se buscará usar el algoritmo de \aem, en donde se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem, conocido como \estep, se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latetes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$ que se usará para evaluar la esperanza de el logaritmo de una función de verosimilitud completa, que es una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
+Por esto, se usará el algoritmo de \aem para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
 
 La función de verosimilitud completa se define entonces como sigue:
 \begin{equation}
@@ -131,10 +131,10 @@ Primero, desarrollamos \eqref{eqn:3-12} como sigue:
   \alpha(z_n) &= p(x_1, ..., x_{n-1}, z_n) p(x_n \,|\, z_n)
   \notag
 \end{align}
-donde primero factorizamos $p(z_n)$ y luego $p(x_n \,|\, z_n)$ del resto, puesto que $x_n \perp x_1, ... , x_{n-1} \,|\, z_n$; para luego volver a juntar $p(z_n)$
+donde se factorizo $p(z_n)$ y luego $p(x_n \,|\, z_n)$ del resto, puesto que $x_n \perp x_1, ... , x_{n-1} \,|\, z_n$; para luego volver a juntar $p(z_n)$
 usando el Teorema de Bayes.
 
-Luego, marginalizando sobre $z_1$, podemos escribir
+Luego, marginalizando sobre $z_{n-1}$, podemos escribir
 \begin{align}  
   \alpha(z_n) &= p(x_n \,|\, z_n) \sum_{z_{n-1}} 
     p(x_1, ..., x_{n-1}, z_{n-1}, z_n) 
@@ -258,13 +258,60 @@ donde
 \end{equation}
 y por lo tanto tampoco presentaría problemas numéricos el cálculo de $\hat \beta{z_n}$, puesto que vuelve a ser un cociente de probabilidades. En este caso, de la condicional de las variables observadas desde $x_{n+1}, ..., x_N$ dada la variable latente $z_n$ sobre la probabilidad condicional de las mismas variables observadas dadas todas las variables anteriores a $x_{n+1}$.
 
-Entonces, para calcular recursivamente los valroes de $\hat \beta(z_n)$, se deriva que 
+Entonces, para calcular recursivamente los valores de $\hat \beta(z_n)$, se deriva que 
 \begin{equation}
   c_{n+1} \hat \beta(z_n) = \sum_{z_{n+1}} \hat \beta(z_{n+1})
     p(x_{n+1} \,|\, z_{n+1}) p(z_{n+1} \,|\, z_n)    
+  \label{eqn:3-28}
 \end{equation}
 donde usamos los coeficientes de reescalaciemtno que ya habíamos calculado (y almacenado) junto con los valores de $\hat \alpha(z_n)$.
 
-%Por último, para calcular la verosimilitud.
-\section{Selección de número de interlocutores usando bootstrap}
+Con las nuevas variables reescaladas, ya se pueden realizar todos los cálculos necesarios. 
+
+Por ejemplo, para calcular la verosimilitud del modelo, usando \eqref{eqn:3-23} se tiene que
+\begin{equation}
+  p(\mb{X}) =  \prod_i^N c_i
+\end{equation}
+
+Así como para el algoritmo de backward-forward, se pueden reescribir tanto     \eqref{eqn:1111} como \eqref{eqn:1112} usando las nuevas variables 
+\begin{align}
+  \gamma(z_n) &= \hat \alpha(z_n) \hat \beta(z_n) \\
+  \xi(z_{n-1}, z_n) &= c_n \hat \alpha(z_{n-1}) p(x_n \,|\, z_n) 
+      p(z_n \,|\, z_{n-1}) \hat \beta(z_n) 
+\end{align}
+
+\section{Selección de modelo}
+
+Hasta ahora, se tiene la metodología completa para estimar los parámetros del modelo HMM propuesto; sin embargo, hasta este punto se considera que se sabe a priori el número de interlocutores que participan en la grabación y que a partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
+
+Puesto que el problema abarca también el detectar cuántos speakers están involucrados en la grabación, se propondrán modelos para diferentes números de speakers, y a partir de una función de costo se escojerá al que mejor se ajuste.
+
+\subsection{Selección de modelo usando bootstrap}
+
+Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico.
+
 ...
+
+\subsection{Selección de modelo usando BIC}
+
+\begin{comment} 
+Una vez que se tienen los parámetros estimados para cada uno de los modelos correspondientes a las propuestas, se necesita ver cuál es el modelo que mejor se ajusta a los datos.
+\end{comment} 
+
+Otra manera de realizar la selección del modelo que mejor se adecua a los datos que se observan, es usar una métrica específica para la selección de modelos.
+
+Entre las más comunes, se encuentran por ejemplo AIC o BIC, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
+
+Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar BIC o Bayesian Information Criterion.
+
+Este criterio se calcula de la siguiente manera: 
+\begin{equation}
+BIC(M) = 2 log-likelihood_{max}(M) - (log n ) dim(M)
+\end{equation}
+para cada propuesta de modelo $M$, donde $dim(M)$ es el número estimado de parámetros libres que le corresponden, y $n$ es el tamaño de nuestra muestra de datos.
+
+Para estimar el número de parámetros libres de nuestro modelo, se consideran todas las probabilidades que rigen al HMM, que en este caso son: la matriz a priori o inicial, la matriz de transiciones entre los interlocutores, así como la matriz de emisión de cada persona para todo el diccionario de palabras.
+
+Esta selección se enfoca en escoger el candidato modelo con la mayor probabilidad dados los datos, pero penalizando la complejidad de cada propuesta. Se preferirán entonces los modelos con una mayor verosimilitud que involucren la menor cantidad de parámetros posibles. 
+
+
