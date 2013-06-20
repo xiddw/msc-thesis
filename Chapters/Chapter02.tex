@@ -39,7 +39,7 @@ Es decir, si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..
 p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n)
 \end{equation}
 
-En cambio, para expresar la dependencia entre un grupo de observaciones ecuenciales, se puede utilizar entonces un modelo probabilístico llamado \textit{modelo de Markov}, en el que usando la regla del producto \graffito{Dar ejemplo de regla} se expresa la distribución conjunta de las observaciones de la siguiente manera:
+En cambio, para expresar la dependencia entre un grupo de observaciones ecuenciales, se puede utilizar entonces un modelo probabilístico llamado \textit{modelo o cadena de Markov}, en el que usando la regla del producto \graffito{Dar ejemplo de regla} se expresa la distribución conjunta de las observaciones de la siguiente manera:
 \begin{equation}
 \label{eqn:2-2}
 p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n \,|\, x_1, ..., x_{n-1}).
@@ -112,9 +112,9 @@ p(x_1, ..., x_N, z_1, ..., z_N) ~=~
 
 Para éste último modelo gráfico, si las variables latentes son discretas, entonces se le conoce como Modelo oculto de Márkov o HMM (\textit{Hidden Markov Model}), y es justo el modelo que se utilizará para resolver la tarea de \sd.
 
-\section{Cadena oculto de Márkov}
+\section{Cadena oculta de Márkov}
 
-Un modelo oculto de Márkov, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
+Una cadena oculta de Márkov, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
 
 Usando un HMM entonces podemos modelar un proceso bivariado discreto en el tiempo, con ciertas propiedades interesantes que se mencionarán más adelante.
 

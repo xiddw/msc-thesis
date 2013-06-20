@@ -282,13 +282,28 @@ Así como para el algoritmo de backward-forward, se pueden reescribir tanto     
 
 \section{Selección de modelo}
 
-Hasta ahora, se tiene la metodología completa para estimar los parámetros del modelo HMM propuesto; sin embargo, hasta este punto se considera que se sabe a priori el número de interlocutores que participan en la grabación y que a partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
+Hasta ahora, se tiene la metodología completa para estimar los parámetros del un modelo HMM propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
+
+Para la estimación de los parámetros usando EM, se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se estable un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contíguas. 
+
+Con esto, se obtiene la estimación de parámatros de el modelo así como su verosimilitud, partiendo de una inicialización aleatoria.
 
 Puesto que el problema abarca también el detectar cuántos speakers están involucrados en la grabación, se propondrán modelos para diferentes números de speakers, y a partir de una función de costo se escojerá al que mejor se ajuste.
 
-\subsection{Selección de modelo usando bootstrap}
+\subsection{Selección de modelo usando likelihood ratio testing}
 
-Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico.
+Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico para comparar el modelo correspondiente de $d$ estados contra el de $d+1$ estados ocultos.
+
+La prueba que se realiza es comparando la máxima verosimilitud estimada (MLE) $\hat \theta^{(d)}$ y $\hat \theta^{(d+1)}$ de los modelos de $d$ y $d+1$ estados respectivamente. Para la comparación se usa la estadística \textit{log likelihood ratio} que corresponde a la diferencia de las log-verosimilitudes mencionadas
+\begin{equation}
+  LR^{(d)}_{obs} = log \frac{L(\hat \theta^{(d+1)}; y_{1:n})}{L(\hat \theta^{(d)}; y_{1:n})} =
+    log L(\hat \theta^{(d+1)}; y_{1:n}) - 
+    log L(\hat \theta^{(d)}; y_{1:n})
+\end{equation}
+
+Para calcular la MLE de un modelo, se estimó la verosimilitud varias veces con diferentes parámetros iniciales aleatorios. Se iteró el algoritmo EM hasta convergencia, un numero $iter_hmm$ fijo de iteraciones, esto para evitar el estancamiento del algoritmo en un máximo local, y obtener así una buena estimación de la máxima verosimilitud del modelo.
+
+Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados.
 
 ...
 
@@ -314,4 +329,4 @@ Para estimar el número de parámetros libres de nuestro modelo, se consideran t
 
 Esta selección se enfoca en escoger el candidato modelo con la mayor probabilidad dados los datos, pero penalizando la complejidad de cada propuesta. Se preferirán entonces los modelos con una mayor verosimilitud que involucren la menor cantidad de parámetros posibles. 
 
-
+...
