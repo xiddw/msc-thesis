@@ -1,10 +1,12 @@
 %!TEX root = ../Base.tex
 
 %************************************************
-\chapter{HMM usando EM} \label{ch:chap3}
+\chapter{Máxima Verosimilitud del HMM} \label{ch:chap3}
 %************************************************
 
-Para resolver el modelo HMM, es decir, lograr estimar los parámetros que lo conforman, existen diferentes métodos y técnicas. En este trabajo de tesis se presentarán y platicará sobre dos de ellas. A saber, usando Expectation-Maximization, y usando simulaciones tipo Markov Chain MonteCarlo.
+La tarea de aprendizaje de parámetros del HMM es encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
+
+Hasta el momento no se conoce algún algoritmo para resolver esta problema de forma exacta, pero sí hay métodos para estimar la máxima verosimilitud del modelo de forma local usando el algoritmo de Baum–Welch, que se explicará con más detalle a continuación.
 
 \section{Estimación de parámetros del HMM}
 

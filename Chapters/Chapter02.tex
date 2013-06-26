@@ -1,10 +1,19 @@
 %!TEX root = ../Base.tex
 
+
 %*****************************************
 \chapter{Modelos de Márkov}\label{ch:chap2}
 %*****************************************
 
-Por modelo generativo, se entiende un modelo probabilístico para generar datos aleatoriamente que correspondan a la naturaleza de un cierto conjunto de datos que tengamos.
+\epigraphhead[70]{
+\epigraph{Essentially, all models are wrong, but some are useful.}
+         {George E. P. Box}}
+
+Como ya se mencionó en la Introducción, se debe proponer un modelo acústico o generativo, que será la forma en que entenderemos y trataremos de abstraer la conversación o diálogo, de acuerdo a las características que nos interesan recuperar.
+
+Puesto que lo que nos interesa principalmente es identificar a las diferentes personas que participan en una conversación, nuestro modelo se deberá parametrizar de forma que logre capturar las características esenciales en la conversación; así como no tomar en cuenta información que no nos sea de utilidad para esta tarea, como por ejemplo, qué es lo que se está diciendo.
+
+En aprendizaje máquina, por modelo generativo se entiende un modelo probabilístico para generar datos aleatoriamente que correspondan a la naturaleza de un cierto conjunto de datos que tengamos.
 
 Al proponer un modelo generativo, se busca representar y de forma concisa poder parametrizar un fenómeno o situación de la que se obtuvieron los datos. Esto se hace al establecer funciones de densidad de probabilidades para las variables observadas, y muestreando a partir de ellas; o bien, especificando probabilidades condicionales para el caso de modelos más complejos.
 
@@ -18,7 +27,9 @@ Este tipo de abstracción, permiten modelar una gran cantidad de situaciones, en
 
 Comúnmente se suelen considerar únicamente las observaciones más recientes, pues son las que pudiéramos pensar son más informativas para la predicción; además de que al asumir que las predicciones de nuevos datos sólo dependen de las últimas observaciones, nos permite simplificar mucho el modelo de la distribución generativa.
 
-Para trabajar con este tipo de datos, se puede usar entonces un modelo de Márkov que es una red bayesiana en la que se asume la independecia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas.
+Para trabajar con este tipo de datos, se puede usar entonces un modelo de Márkov que es un proceso aleatorio muy trabajado en la teoría de probabilidad, que incorpora una cantidad mínima de memoria, sin necesariamente llegar a ser un proceso sin memoria.
+
+Se puede pensar como una red bayesiana en la que se asume la independecia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas (i.e. el futuro es independiente del pasado, dado el presente).
 
 \section{Cadena de Markov}
 
