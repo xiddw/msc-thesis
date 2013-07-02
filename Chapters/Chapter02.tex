@@ -15,8 +15,7 @@ Puesto que lo que nos interesa principalmente es identificar a las diferentes pe
 
 En aprendizaje máquina, por modelo generativo se entiende un modelo probabilístico para generar datos aleatoriamente que correspondan a la naturaleza de un cierto conjunto de datos que tengamos.
 
-Al proponer un modelo generativo, se busca representar y de forma concisa poder parametrizar un fenómeno o situación de la que se obtuvieron los datos. Esto se hace al establecer funciones de densidad de probabilidades para las variables observadas, y muestreando a partir de ellas; o bien, especificando probabilidades condicionales para el caso de modelos más complejos.
-
+Al proponer un modelo generativo, se busca representar y de forma concisa poder parametrizar un fenómeno o situación de la que se obtuvieron los datos.
 Cuando los datos son secuenciales, se suelen agrupar en dos tipos, de acuerdo a las características de la distribución que los generó: distribuciones estacionarias y distribuciones no estacionarias.
 
 En el caso de secuencias de datos estacionarias, se considera que los datos \textit{evolucionan} a través del tiempo, pero la distribución a partir de la cuál fueron generados permanece igual; mientras que para el caso de datos no estacionarios, su distribución generativa varía también según pasa el tiempo.
@@ -33,7 +32,9 @@ Se puede pensar como una red bayesiana en la que se asume la independecia de las
 
 \section{Cadena de Markov}
 
-El modelo generativo más sencillo que se podría pensar, es considerar que todas las observaciones son independientes, es decir, que son variables aleatorias i.i.d, cuyo modelo gráfico se muestra en la \autoref{fig:mod_iid}.
+\graffito{Se entiende por v.a. i.i.d aquellas que son independientes entre sí y que fueron muestreadas de la misma distribución}
+
+El modelo generativo más sencillo que se podría pensar, es considerar que todas las observaciones son variables aleatorias independientes e idénticas distribuidas (v.a. i.i.d) cuyo modelo gráfico se muestra en la \autoref{fig:mod_iid}.
 
 \begin{figure}[bt]
         \myfloatalign
@@ -42,21 +43,24 @@ El modelo generativo más sencillo que se podría pensar, es considerar que toda
         \label{fig:mod_iid}
 \end{figure}
 
-Al asumir que los datos no están relacionados, sin embargo, se puede perder gran cantidad de información relativa al orden en que se fueron dando estas observaciones.
+Al asumir que no hay ninguna dependencia entre los datos, sin embargo, se pierde la información relativa al orden en que se fueron dando estas observaciones; situación que en muchos casos nos interesa conservar.
 
-Es decir, si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..., x_n \rbrace$, y se asume que son i.i.d, la distribución conjunta de la secuencia de datos se puede escribir como sigue:
+Si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..., x_n \rbrace$, y se asume que son i.i.d, la distribución conjunta de la secuencia de datos se puede escribir como sigue:
 \begin{equation}
 \label{eqn:2-1}
 p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n)
 \end{equation}
 
-En cambio, para expresar la dependencia entre un grupo de observaciones ecuenciales, se puede utilizar entonces un modelo probabilístico llamado \textit{modelo o cadena de Markov}, en el que usando la regla del producto \graffito{Dar ejemplo de regla} se expresa la distribución conjunta de las observaciones de la siguiente manera:
+En cambio, para expresar la dependencia entre un grupo de observaciones secuenciales, se puede utilizar un modelo probabilístico llamado \textit{modelo o cadena de Markov}. Si por ejemplo, se considera que cada variable depende de todas las observaciones anteriores, entonces usando el teorema de bayes
+\graffito{Del teorema de Bayes se tiene la siguiente expresión
+$${P(A \,|\, B) = \frac{P(B \,|\,A) P(A)}{P(B)}}$$ } 
+se puede escribir la distribución conjunta de las observaciones de la siguiente manera:
 \begin{equation}
 \label{eqn:2-2}
 p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n \,|\, x_1, ..., x_{n-1}).
 \end{equation}
 
-Ahora, si se asume que cada $x_n$ es independiente de las observaciones anteriores excepto de la más reciente $x_{n-1}$, se tiene que la distribución conjunta se puede escribir de forma más sencilla utilizando el teorema de separación D \footnote{Ver anexo}, puesto que 
+Ahora, si se asume que cada $x_n$ es independiente de las observaciones anteriores excepto de la observación anterior $x_{n-1}$, se tiene que la distribución conjunta se puede escribir de forma más sencilla utilizando el teorema de separación D \footnote{Ver anexo}, puesto que 
 \begin{equation}
 \label{eqn:2-3}
 p(x_n \,|\, x_1, ..., x_{n-1}) ~=~ p(x_n \,|\, x_{n-1})
@@ -75,9 +79,9 @@ mientras que su modelo gráfico corresponde a la \autoref{fig:mod_mm1}
         \label{fig:mod_mm1}
 \end{figure}
 
-Aunque el modelo es mucho más general que el asumir que todas las observaciones son independientes entre sí; aún el modelo tiene ciertas restricciones. 
+Aunque el modelo es mucho más general, puede que se necesite representar de forma más fuerte la dependencia con las osbervaciones anteriores, por lo que se pueden usar cadenas de Márkov de órdenes superiores.
 
-De la misma manera en que se consideró para cuando $x_n$ depende únicamente de la observación anterior, se puede extender esta idea para por ejemplo, que $x_n$ dependa sólo de las dos observaciones previas. A este modelo se le conoce como cadena de Márkov de segundo orden; y siguiendo el mismo proceso, la distribución conjunta de las observaciones se puede escribir como 
+Al caso en el que $x_n$ dependa de las dos observaciones previas se le conoce como cadena de Márkov de segundo orden; y siguiendo el mismo proceso, la distribución conjunta de las observaciones se puede escribir como 
 \begin{equation}
 \label{eqn:2-5}
 p(x_1, ..., x_N) ~=~ p(x_1) \cdot p(x_2 \,|\, x_1) 
@@ -94,9 +98,9 @@ En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en 
         \label{fig:mod_mm2}
 \end{figure}
 
-Se puede generalizar entonces para cualquier $M$ con modelos de Márkov de $M$-ésimo orden, aunque al considerar demasiados estados previos se puede complicar de más el modelo; pues el número de parámetros implicados aumenta de forma exponencial al orden del modelo de Márkov.
+Se puede generalizar entonces para cualquier $M$ un modelo de Márkov de $M$-ésimo orden, aunque al considerar demasiados estados previos se puede complicar de más el modelo; pues el número de parámetros implicados aumenta de forma exponencial al orden del modelo de Márkov.
 
-Para evitar que el modelo se vuelva demasiado complejo, así como para no hacer alguna suposición a priori sobre de qué orden es del modelo generativo, se puede introducir una variable oculta, que permita cambiar el planteamiento del modelo. 
+Para evitar que el modelo se vuelva demasiado complejo, así como para no hacer alguna suposición a priori sobre cuál es el orden es del modelo generativo, se puede introducir una variable oculta, que permita cambiar el planteamiento del modelo. 
 
 Se considera entonces una variable latente $z_n$ correspondiente a cada  observación $x_n$, y entonces el conjunto de variables latentes forman una cadena de Márkov, como se muestra en la \autoref{fig:mod_hmm1}.
 
