@@ -1,3 +1,203 @@
 %!TEX root = ../Base.tex
 
-\chapter{HMM usando MCMC}\label{ch:chap4}
+\chapter{Speaker diarisation}\label{ch:chap4}
+
+Se conoce como \SD~ al problema de segmentación automática de audio a partir de la identificación de las diferentes personas que participan en una grabación. Esto se realiza generalmente identificando los segmentos que son más \textit{homogéneos} y a partir de estos, identificar el número de personas que hablan en la grabación.
+
+Se considera que cada persona posee ciertas características propias que la diferencian de los demás. Por ejemplo, tanto la tesitura como el timbre son rasgos que varían de persona a persona.
+
+La idea básica cuando se busca abordar este problema es el de poder segmentar la señal de audio de acuerdo a los cambios que ocurren en ésta. Es decir, detectar por ejemplo las variaciones en la voz (que usualmente implican que alguien más está hablando) y luego, con todos los segmentos obtenidos, tratar de agruparlos según características similares; pues una misma persona tiene características propias en su voz. 
+
+\section{Aplicaciones de \sd}
+
+Por la misma naturaleza del algoritmo, cuando se realiza \sd, lo que se trata de inferir es cuántas personas hablan, y cuándo habla cada una de ellas; es decir, se identifica a un grupo $n$ de personas, pero no se dice nada acerca de ellos o su identidad. 
+
+Por el mismo planteamiento del problema, las etiquetas asignadas a cada persona identificada en la grabación puede cambiar, pues no hay nada que nos permita asociar de manera no arbitraria una etiqueta a una persona en especifico. Es decir, el orden en que se asignan las etiquetas puede cambiar, aunque la segmentación obtenida sea en esencia la misma.
+
+La segmentación y agrupación de voz, es una parte importante de la transcripción de voz, así como también del reconocimiento de voz e identificación de personas que hablan. 
+
+Es de gran ayuda para la tarea de reconocimiento de voz, puesto que éste se basa en identificar palabras completas; por lo que al lograr segmentar una señal de audio de acuerdo a las personas que hablan, se tendrá entonces muy seguramente una buena segmentación tanto de palabras como oraciones completas.
+
+En cuanto a la identificación de personas y alguna otra modelación acústica que se quiera realizar; es importante que los modelos que se entrenan usen segmentos de audio homogéneos (en este caso, que se tenga la certeza que corresponden a la misma persona), para que en realidad se esté modelando la voz de la persona, y no algo diferente a ella.
+
+Como último ejemplo, la transcripción automática de voz, es el proceso en el que además de lograr identificar cuándo habla cada persona, se identifica de quién se trata realmente esta persona, y qué es lo que está diciendo. Ésto sirve por ejemplo, cuando se tiene una gran cantidad de grabaciones de audio; y se desea etiquetar de qué se habla en cada una de estas grabaciones. 
+
+\section{Procesamiento de señal}
+
+Antes de abordar de lleno el problema de \sd, se tiene que realizar cierto tratamiento a la señal de audio con la que se trabajará. 
+
+Es decir, a partir de la señal de entrada (que se considerará es digital) se tratarán de obtener vectores de características cada cierto tiempo, que representen de forma adecuada los rasgos que nos interesan distinguir.
+
+Una vez que se tienen estos vectores, se les aplica un algoritmo de aglomeración para entonces obtener un conjunto de etiquetas que se podrían considerar como posibles estados o palabras de diccionario referentes a la señal de audio.
+
+El proceso en detalle se especifica a continuación: 
+\subsection{Esquema general del sistema}
+
+--Insertar dibujo y explicarlo--.
+
+\subsection{Pre-procesamiento de señal de audio}
+
+Se considera que se tiene una señal digital de voz, y que a partir de ésta se identificarán a las diferentes personas que hablan durante la grabación.
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-orig}} \quad
+  \caption{Señal original de audio.}
+  \label{fig:sign_orig}
+\end{figure}
+
+El primer paso en el procesamiento de la señal, es tanto la detección como eliminación de silencios; pues éstos realmente no nos interesan para la modelación del sistema.
+
+\graffito{Nota: Tanto en ancho de la ventana, como el umbral para definir si será silencio se pueden ajustar dependiendo del tipo de señal.}
+
+Para realizar entonces la detección de los silencios, en esta primer etapa y como un primer intento para la eliminación de silencios, se hace una detección básica de qué partes de la señal son mayormente silencios.
+
+Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo señal, y que irá calculando el total de energía de la señal dentro de la ventana. Se considerará entonces silencio aquellas partes de la señal cuyo total de energía esté debajo de un umbral específico.
+
+A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto al silencio, como a la señal que realmente se desea modelar.
+
+\begin{figure}[bth]
+  \myfloatalign
+  \subfloat[Señal original con silencio identificado.]
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}} \quad
+
+  \subfloat[Señal procesada y recortada.]
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}} \quad
+  
+  \caption{Identificación y eliminación de silencio en señal.}  
+  \label{fig:sign_trunc}  
+\end{figure}
+
+Como se observa en la \autoref{fig:sign_trunc} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
+
+Con esto, se obtiene una señal en general más pequeña, y que se podría  considerar sólo contiene realmente los datos que se desea modelar.
+
+\subsection{Obtención de características acústicas}
+
+Una vez que se tiene la señal ya sin silencios, se trata de buscar características propias de la señal de audio que nos permitan identificar de buena forma los cambios de voz a través de la señal.
+
+Tanto la extracción como selección de la mejor representación paramétrica de la señal de audio es una importante tarea en el diseño de cualquier sistema relacionado al reconocimiento o procesamiento de señales de audio. 
+
+Para la tarea de \sd, se usarán los Coeficientes Cepstrales de Frecuencia Mel  (\MFCC), que son ampliamente utilizados por ejemplo en \textit{speech recognition} entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimr la señal de audio eliminando la información que no es útil para análisis fonético.
+
+Cabe mencionar, que originalmente los \MFCC~ fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra  fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
+
+Ésto va en contra del proceso requerido en \sd, puesto que se desea identificar a las diferentes personas que hablan, sin dar tanta importancia a qué es lo que están diciendo; por lo que la tarea de segmentación de señales de audio se vuelve un poco más complicada.
+
+Para calcular los \MFCC, se usa la Escala de Frecuencia Mel, que está espaciada de forma lineal en frecuencias bajas, mientras que aumenta su separación de forma logarítmica para frecuencias más altas. Este cambio de separación se realiza comúnmente a partir de los $1000Hz$. 
+
+A partir de esta escala, se diseña un banco de filtros triangulares que después se usará (Ver \autoref{fig:sign_melfb}); y esto corresponde de forma similar a la que el oído (la cóclea) captura las características importantes del habla. 
+
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/melfb}} \quad
+  \caption{Banco de filtros triangulares en frecuencia Mel.}
+  \label{fig:sign_melfb}
+\end{figure}
+
+Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le aplica la transformada de Fourier, y entonces a ésta es a quien se le aplica el banco de filtros.
+
+Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la FFT y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mel}} \quad
+  \caption{Respuesta al banco de filtros.}
+  \label{fig:sign_melres}
+\end{figure}
+
+La dimensionalidad de la respuesta al banco de filtros dependerá de la misma contrucción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
+
+Para esto, la respuesta obtenida del banco de filtros se le aplicará la DCT (Transformada Discreta del Coseno), para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
+
+Después de este proceso, nuestros datos se podrían representar de la siguiente maneta (\autoref{fig:sign_mfcc}) que son los MFCC que antes habíamos mencionado.
+\begin{figure}[bth]
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mfcc}} \quad
+  \caption{Mel Frequency Cepstrum Coefficients.}
+  \label{fig:sign_mfcc}
+\end{figure}
+
+Por útlimo, para los modelos que usaremos, se necesitan que las características estén de cierta forma \textit{discretizadas}, es decir, no nos es útil el tener para cada observación en el tiempo un vector de características; sino que necesitamos una etiqueta o clase para cada observación. 
+
+Para esto, podemos utilizar diferentes métodos tanto de reducción de dimensionalidad como de agrupación/clasificación. Como primer idea, utilizaremos el método de \textit{k-means} para agrupar los vectores de acuerdo a su cercanía en el espacio euclidiano.
+
+Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida:
+\begin{figure}[bth]
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-clusters}} \quad
+  \caption{MFCC agrupados con k-means++.}
+  \label{fig:sign_clusters}
+\end{figure}
+Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} y que propone una mejor inicialización para obtener mejores resultados.
+
+(------Agregar algoritmo de kmeans++ ------)
+
+Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetos que le correspondan.
+
+\section{Resolver modelo HMM usando EM} 
+\label{sec:sd-hmm-em}
+
+Para las pruebas que se han realizado hasta ahora, se han usado grabaciones creadas sintéticamente; esto es, usando un sintetizador de voz. El hacer las grabaciones con voces sintéticas nos permite tener un mayor control sobre la calidad de la grabación (no hay ruidos aditivos o interferencias), además de poder generar muchos más casos de prueba sin tantas complicaciones.
+
+Para las primeras pruebas, se utilizó una grabación correspondiente a varios poemas de la autoría de Manuel Acuña, recitados por varios interlocutores.
+
+Mediante bootstrap se busca genera un modelo representativo para cada una de las propuestas, y  se hace la elección del número correcto de speakers identificados mediande BIC.
+
+Para las pruebas, se analizaron modelos desde 2 hasta 7 personas participantes, mientras que los resultados que se prensentan son las segmentaciones obtenidas usando desde 2 hasta 4 speakers; además de comparar el ground truth.
+
+\begin{comment}
+\begin{figure}[bth]
+  \centerline
+  {\includegraphics[width=1.7\linewidth]{gfx/chap5/cuerv-1}} \quad
+  \caption{Parámetros estimados para Prueba 1}
+  \label{fig:cald-1}
+\end{figure}
+\end{comment}
+
+En la \autoref{fig:cald-1} se muestran los parámetros estimadosa a forma de matrices en falso color: la matriz inicial o a priori, la matriz de transiciones entre speakers, la matriz de emisión de cada speaker para todo el diccionario de palabras, así como la secuencia recuperada.
+
+Como ya se había mencionado, hay un problema de identificación con los interlocutores, por lo que en muchos casos las matrices no corresponderán tal cual, sino que puede que haya intercambio entre las personas que se identificaron.
+
+A partir de esto, y dependiendo de que la segmentación sea confiable, se puede usar algún algoritmo para deducir y emparejar a cada uno de los speakers detectados con su correspondiente en el ground truth.
+
+Se muestra esta comparación, en tanto en \autoref{fig:cald-21} como en \autoref{fig:cald-22}. Las secuencias recuperadas se representan como series de tiempo en donde además se marcan en rojo los errores al asignar a una persona equivocada.
+
+Se puede observar como para el caso en que el modelo se ajusta para 3 personas, la secuencia recuperada en escencia es la misma, exceptuando algunos saltos que se presentan a veces; pero en general logra detectar de forma correcta cada que hay un cambio de interlocutor en la grabación original.
+
+\begin{comment}
+
+\begin{figure}[bth]
+  \centerline
+  {\includegraphics[width=1.5\linewidth]{gfx/chap5/cuerv-21}} \quad
+  \caption{Secuencia recuperada para Prueba 1}
+  \label{fig:cald-21}
+\end{figure}
+
+\begin{figure}[bth]
+  \centerline
+  {\includegraphics[width=1.5\linewidth]{gfx/chap5/cuerv-22}} \quad
+  \caption{Secuencia recuperada para Prueba 1}
+  \label{fig:cald-22}
+\end{figure}
+
+\end{comment}
+
+Ahora, al usar BIC para la selección del modelo, obtenemos la siguiente gráfica, con la que se observa que el modelo que se ajusta de mejor manera es en efecto el correspondiente a 6 personas, como se puede observar en la gráfica 
+
+\begin{comment}
+\begin{figure}[bth]
+  \centerline
+  {\includegraphics[width=0.9\linewidth]{gfx/chap5/cuerv-0}} \quad
+  \caption{Selección de modelo usando BIC}
+  \label{fig:cald-0}
+\end{figure}
+\end{comment}
+
+Para la segunda prueba, se utilizon varias composiciones del escritor Edgar Allan Poe, que fueron generadas de la misma manera sintéticamente, pero ahora utilizando un motor de voz en inglés.
+
+Se muestran a continuación los resultados obtenidos de la misma manera.
+
+En estas gráficas se observa de igual manera cómo se logró estimar de forma correcta el número de interlocutores. Cuando se aplica el modelo para un número menor que el real, se detectan las inconsistencias y aumenta la tasa de error; así como cuando se ajusta el modelo para un número mayor de personas, se sobreajusta el modelo y se marcan como errores.
+
+
+
+% section section_name (end)
