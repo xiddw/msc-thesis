@@ -292,7 +292,7 @@ Con esto, se obtiene la estimación de parámatros de el modelo así como su ver
 
 Puesto que el problema abarca también el detectar cuántos speakers están involucrados en la grabación, se propondrán modelos para diferentes números de speakers, y a partir de una función de costo se escojerá al que mejor se ajuste.
 
-\subsection{Selección de modelo usando likelihood ratio testing}
+\subsection{Selección de modelo usando bootsrap con likelihood ratio testing}
 
 Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico para comparar el modelo correspondiente de $d$ estados contra el de $d+1$ estados ocultos.
 
@@ -305,9 +305,33 @@ La prueba que se realiza es comparando la máxima verosimilitud estimada (MLE) $
 
 Para calcular la MLE de un modelo, se estimó la verosimilitud varias veces con diferentes parámetros iniciales aleatorios. Se iteró el algoritmo EM hasta convergencia, un numero $iter_hmm$ fijo de iteraciones, esto para evitar el estancamiento del algoritmo en un máximo local, y obtener así una buena estimación de la máxima verosimilitud del modelo.
 
-Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados.
+Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_obs$.
 
-...
+Ahora, para hacer la prueba con boostrap, simularemos 
+
+\begin{algorithm}[tp]
+   \caption{Muestreo ancestral para un HMM}
+   \label{alg:ancsamp}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} \\
+   núm. de estados $N$, núm. de muestras en el tiempo $T$ \\
+   núm. de posibles valores en el diccionario $K$, \\
+   $ \pi \in \mathcal{R}^{N}; ~~ \pi_j = p(z_{1j})$ \\
+   $ \mathbf{A} \in \mathcal{R}^{N \times N}; ~~
+   \mathbf{A}_{jk} = p(z_{nk} \,|\, z_{n-1, j})$ \\
+
+   $ \mathbf{E} \in \mathcal{R}^{K \times N}; ~~
+   \mathbf{E}_{jk} = p(x_{nk} \,|\, z_{n, j})$\\  
+   \STATE
+   \STATE $z_1 \sim Multinomial(\pi)$   
+   \STATE $x_1 \sim Multinomial(\mathbf{E}_{[z_1,~:]})$
+
+   \FOR{$i = 1 \to T$} 
+    \STATE $z_t \sim Multinomial(\mathbf{A}_{[z_{t-1},~:]})$ 
+    \STATE $x_t \sim Multinomial(\mathbf{E}_{[z_t,~:]})$
+   \ENDFOR   
+\end{algorithmic}
+\end{algorithm}
 
 \subsection{Selección de modelo usando BIC}
 
