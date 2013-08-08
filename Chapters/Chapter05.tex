@@ -29,63 +29,314 @@ Si bien, para probar el desepeño contra otras propuestas del estado del arte se
 
 Usando dos motores para el sintetizador de voz, uno con voces en inglés y otro con voces en español, se generaron 6 secuencias de audio (3 en cada idioma) cuya duración así como el número de interlocutores que participan varía.
 
-\subsubsection{Prueba 1: Calderon de la Barca} % (fold)
+\subsubsection{Secuencia 1: Edgar Allan Poe} % (fold)
 \label{ssub:calderon}
 
-En esta primer secuencia, se tomaron fragmentos de la obra 'La vida es sueño', de Calderón de la Barca, y se utilizaron 3 diferentes voces en español. La secuencia de audio original es de 1:07m.
+En esta primer secuencia, se tomaron varios poemas del escritor Edgar Allan Poe, y se utilizaron 6 diferentes voces en inglés. La secuencia de audio original es de 12:06m.
 
-Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 160 centros iniciales.
+Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales.
 
 \setlength{\abovecaptionskip}{-10pt plus 0pt minus 0pt}
 
-\begin{figure}[bth]
+\begin{figure}[H]
   \centerline
-  {\includegraphics[width=1.1\linewidth]{gfx/chap6/cald1}} \quad
-  \caption{Parámetros encontrados para Prueba 1.}
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/cuervo1}} \quad
+  \caption{Parámetros encontrados para Secuencia 1.}
   \label{fig:prb1_par}
 \end{figure}
 
 En la \autoref{fig:prb1_par} se muestran los parámetros obtenidos para diferentes modelos que se propusieron. Se observa como para el modelo correcto tanto la matriz de emisión así como la secuencia en falso color corresponden con el ground truth.
 
-Más a detalle, en la \autoref{fig:prb1_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.
+Utilizando nuestra metodología, primero realizamos una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables. 
 
-Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.
+Se realiza un análisis de sensibilidad primero para determinar cuál es el parámetro $\lambda$ adecuado que penaliza de forma adecuada la logverosimilitud. Para esto, primero realizamos: 
 
-\begin{figure}[h]
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic3}
+  } \quad
+  \caption{Superficie y curva de nivel BIC para Secuencia 1.}
+  \caption*{\\ En la primera imagen, se muestra la superficie generada variar el valor de lambda para evaluar BIC. En la segunda imagen, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la tercera imagen se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado.}
+  \label{fig:prb1_sup}
+\end{figure}
+
+Después, planteamos una prueba de hipótesis para ver qué tan acertada fue nuestra selección de modelo. Realizaremos la prueba de hipótesis para los modelos que obtuvieron una mejor valoración por BIC, y de ahi discrmiminaremos cuál es el que se ajusta mejor, utilizando bootstrap .... .
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot2} }
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot3}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot4}
+  } \quad
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 1.}
+  \label{fig:prb1_boot}
+\end{figure}
+
+Por último, ya con el modelo seleccionado, se procede a calcular el error relativo de predicción que se obtuvo, comparando con el ground truth que se dispone para esa secuencia, con lo que se obtiene: 
+
+...
+
+\begin{figure}[H]
   \centerline
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cald1_}} \quad
+  {\includegraphics[width=1\linewidth]{gfx/chap6/cuervo1_}} \quad
   \caption{Secuencias encontradas para Prueba 1.}
   \label{fig:prb1_seq}
 \end{figure}
 
-Hasta ahora, se han propuesto varios modelos, y si se compara con el ground truth se puede llegar a discriminar cuál es el modelo correcto ya sea por inspección visual o comparando el error absoluto.
+Más a detalle, en la \autoref{fig:prb1_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.
 
-\begin{figure}[bth]
+Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.
+
+\newpage
+\subsubsection{Secuencia 2: Gabriel García Márquez}
+
+-------------------------
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/soledad1}} \quad
+  \caption{Parámetros encontrados para Secuencia 2.}
+  \label{fig:prb1_par}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cald20}
-   \includegraphics[width=0.8\linewidth]{gfx/chap6/cald21}
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic3}
   } \quad
-  \caption{Superficie y curva de nivel BIC para Prueba 1.}
+  \caption{Superficie y curva de nivel BIC para Secuencia 2.}
+  \caption*{\\Descripción.}
   \label{fig:prb1_sup}
 \end{figure}
 
-\begin{figure}[bth]
-  \centerline
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cald11}} \quad
-  \caption{Curva BIC con lambda seleccionado para Prueba 1.}
-  \label{fig:prb1_curv}
-\end{figure}
+-------------------------
 
-\begin{figure}[bth]
+\begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/caldb1}
-   \includegraphics[width=0.8\linewidth]{gfx/chap6/caldb2} }
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/soledadboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/soledadboot2} }
   \centerline  
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/caldb3}
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/soledadboot3}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/soledadboot4}
   } \quad
-  \caption{Pruebas de hipótesis con bootstrap para Prueba 1.}
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 2.}
   \label{fig:prb1_boot}
 \end{figure}
 
-% subsubsection calderon_de_la_barca (end)
-% section experimentos (end)
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1\linewidth]{gfx/chap6/soledad1_}} \quad
+  \caption{Secuencias encontradas para Prueba 2.}
+  \label{fig:prb1_seq}
+\end{figure}
+
+\newpage
+\subsubsection{Secuencia 3: William Shakespeare}
+
+-------------------------
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/lear31}} \quad
+  \caption{Parámetros encontrados para Secuencia 3.}
+  \label{fig:prb1_par}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/learbic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/learbic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/learbic3}
+  } \quad
+  \caption{Superficie y curva de nivel BIC para Secuencia 3.}
+  \caption*{\\Descripción.}
+  \label{fig:prb1_sup}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/learboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/learboot2} }
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/learboot3}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/learboot4}
+  } \quad
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 3.}
+  \label{fig:prb1_boot}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1\linewidth]{gfx/chap6/lear31_}} \quad
+  \caption{Secuencias encontradas para Prueba 3.}
+  \label{fig:prb1_seq}
+\end{figure}
+
+\newpage
+\subsubsection{Secuencia 4: Manuel Acuña}
+
+-------------------------
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/noct1}} \quad
+  \caption{Parámetros encontrados para Secuencia 4.}
+  \label{fig:prb1_par}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic3}
+  } \quad
+  \caption{Superficie y curva de nivel BIC para Secuencia 4.}
+  \caption*{\\Descripción.}
+  \label{fig:prb1_sup}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot2} }
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+  } \quad
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 4.}
+  \label{fig:prb1_boot}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1\linewidth]{gfx/chap6/noct1_}} \quad
+  \caption{Secuencias encontradas para Prueba 4.}
+  \label{fig:prb1_seq}
+\end{figure}
+
+\newpage
+\subsubsection{Secuencia 5: Calderón de la Barca}
+
+-------------------------
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/cald1}} \quad
+  \caption{Parámetros encontrados para Secuencia 5.}
+  \label{fig:prb1_par}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic3}
+  } \quad
+  \caption{Superficie y curva de nivel BIC para Secuencia 5.}
+  \caption*{\\Descripción.}
+  \label{fig:prb1_sup}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot2} }
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+  } \quad
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 5.}
+  \label{fig:prb1_boot}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1\linewidth]{gfx/chap6/noct1_}} \quad
+  \caption{Secuencias encontradas para Prueba 5.}
+  \label{fig:prb1_seq}
+\end{figure}
+
+\newpage
+\subsubsection{Secuencia 6: Andrew Lloyd Webber}
+
+-------------------------
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1.3\linewidth]{gfx/chap6/cats1}} \quad
+  \caption{Parámetros encontrados para Secuencia 6.}
+  \label{fig:prb1_par}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic1} ~
+   \includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic2} }
+  \centerline  
+  {\includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic3}
+  } \quad
+  \caption{Superficie y curva de nivel BIC para Secuencia 6.}
+  \caption*{\\Descripción.}
+  \label{fig:prb1_sup}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/catsboot1}
+   \includegraphics[width=0.6\linewidth]{gfx/chap6/catsboot2} }
+  \centerline  
+  {\includegraphics[width=0.6\linewidth]{gfx/chap6/catsboot3}
+  } \quad
+  \caption{Pruebas de hipótesis con bootstrap para Secuencia 6.}
+  \label{fig:prb1_boot}
+\end{figure}
+
+-------------------------
+
+\begin{figure}[H]
+  \centerline
+  {\includegraphics[width=1\linewidth]{gfx/chap6/cats1_}} \quad
+  \caption{Secuencias encontradas para Prueba 6.}
+  \label{fig:prb1_seq}
+\end{figure}
