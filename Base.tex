@@ -14,7 +14,7 @@
 \documentclass[ twoside, titlepage, numbers=noenddot, headinclude,
                 %1headlines,% letterpaper a4paper %%%openright,%%%
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
-                BCOR=5mm,paper=letter,fontsize=12pt,%11pt,a4paper,%
+                BCOR=5mm,paper=letterpaper,fontsize=12pt,%11pt,a4paper,%
                 %ngerman,american%
                 ]{scrreprt}
 
@@ -33,7 +33,7 @@
 \usepackage{comment} 
 \usepackage{epigraph}
 
-%\usepackage{subfigure}
+\usepackage{subcaption}
 
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -91,7 +91,7 @@
 %\cleardoublepage\include{FrontBackmatter/Publication}
 %\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
-%\cleardoublepage\include{FrontBackmatter/Contents}
+\cleardoublepage\include{FrontBackmatter/Contents}
 
 %********************************************************************
 % Mainmatter
@@ -99,20 +99,19 @@
 \pagenumbering{arabic}
 %\cleardoublepage
 
-%\include{Chapters/Chapter01}
+\include{Chapters/Chapter01}
 %\cleardoublepage
 
 %\part{The Showcase}
-%\include{Chapters/Chapter02}
+\include{Chapters/Chapter02}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
 
-%\include{Chapters/Chapter03}
-
-%\include{Chapters/Chapter04}
+\include{Chapters/Chapter03}
+\include{Chapters/Chapter04}
 \setcounter{chapter}{4}
 \include{Chapters/Chapter05}
 
-%\include{Chapters/Chapter06}
+\include{Chapters/Chapter06}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 

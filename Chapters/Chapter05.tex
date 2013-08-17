@@ -52,13 +52,20 @@ Utilizando nuestra metodología, primero realizamos una inspección por medio de
 Se realiza un análisis de sensibilidad primero para determinar cuál es el parámetro $\lambda$ adecuado que penaliza de forma adecuada la logverosimilitud. Para esto, primero realizamos: 
 
 \begin{figure}[H]
-  \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic2} }
-  \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/cuervobic3}
-  } \quad
-  \caption{Superficie y curva de nivel BIC para Secuencia 1.}
+  \begin{center}
+  \begin{subfigure}[t]{0.5\textwidth}
+   \includegraphics[height=\textwidth]{gfx/chap6/cuervobic2}
+   \caption{}
+  \end{subfigure} \\ \qquad
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[height=\textwidth]{gfx/chap6/cuervobic1} 
+    \caption{}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.4\textwidth}
+    \includegraphics[height=\textwidth]{gfx/chap6/cuervobic3} 
+    \caption{}
+  \end{subfigure}
+  \end{center}
   \caption*{\\ En la primera imagen, se muestra la superficie generada variar el valor de lambda para evaluar BIC. En la segunda imagen, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la tercera imagen se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado.}
   \label{fig:prb1_sup}
 \end{figure}
@@ -83,7 +90,7 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/cuervo1_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cuervo1_}} \quad
   \caption{Secuencias encontradas para Prueba 1.}
   \label{fig:prb1_seq}
 \end{figure}
@@ -109,10 +116,10 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic2} }
+  {\includegraphics[width=0.55\linewidth]{gfx/chap6/soledadbic1} ~
+   \includegraphics[width=0.5\linewidth]{gfx/chap6/soledadbic2} }
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/soledadbic3}
+  {\includegraphics[width=0.4\linewidth]{gfx/chap6/soledadbic3}
   } \quad
   \caption{Superficie y curva de nivel BIC para Secuencia 2.}
   \caption*{\\Descripción.}
@@ -137,7 +144,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/soledad1_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/soledad1_}} \quad
   \caption{Secuencias encontradas para Prueba 2.}
   \label{fig:prb1_seq}
 \end{figure}
@@ -159,10 +166,10 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/learbic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/learbic2} }
+  {\includegraphics[width=0.55\linewidth]{gfx/chap6/learbic1} ~
+   \includegraphics[width=0.5\linewidth]{gfx/chap6/learbic2} }
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/learbic3}
+  {\includegraphics[width=0.4\linewidth]{gfx/chap6/learbic3}
   } \quad
   \caption{Superficie y curva de nivel BIC para Secuencia 3.}
   \caption*{\\Descripción.}
@@ -187,7 +194,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/lear31_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/lear31_}} \quad
   \caption{Secuencias encontradas para Prueba 3.}
   \label{fig:prb1_seq}
 \end{figure}
@@ -209,10 +216,10 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic2} }
+  {\includegraphics[width=0.55\linewidth]{gfx/chap6/noctbic1} ~
+   \includegraphics[width=0.5\linewidth]{gfx/chap6/noctbic2} }
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/noctbic3}
+  {\includegraphics[width=0.4\linewidth]{gfx/chap6/noctbic3}
   } \quad
   \caption{Superficie y curva de nivel BIC para Secuencia 4.}
   \caption*{\\Descripción.}
@@ -237,7 +244,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/noct1_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/noct1_}} \quad
   \caption{Secuencias encontradas para Prueba 4.}
   \label{fig:prb1_seq}
 \end{figure}
@@ -259,10 +266,10 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic2} }
+  {\includegraphics[width=0.55\linewidth]{gfx/chap6/caldbic1} ~
+   \includegraphics[width=0.5\linewidth]{gfx/chap6/caldbic2} }
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/caldbic3}
+  {\includegraphics[width=0.4\linewidth]{gfx/chap6/caldbic3}
   } \quad
   \caption{Superficie y curva de nivel BIC para Secuencia 5.}
   \caption*{\\Descripción.}
@@ -273,11 +280,11 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot1}
-   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot2} }
+  {\includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot1}
+   \includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot2} }
   \centerline  
-  {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
-   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+  {\includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot3}
+   \includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot3}
   } \quad
   \caption{Pruebas de hipótesis con bootstrap para Secuencia 5.}
   \label{fig:prb1_boot}
@@ -287,7 +294,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/noct1_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/noct1_}} \quad
   \caption{Secuencias encontradas para Prueba 5.}
   \label{fig:prb1_seq}
 \end{figure}
@@ -309,10 +316,10 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic1} ~
-   \includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic2} }
+  {\includegraphics[width=0.55\linewidth]{gfx/chap6/catsbic1} ~
+   \includegraphics[width=0.5\linewidth]{gfx/chap6/catsbic2} }
   \centerline  
-  {\includegraphics[width=0.75\linewidth]{gfx/chap6/catsbic3}
+  {\includegraphics[width=0.4\linewidth]{gfx/chap6/catsbic3}
   } \quad
   \caption{Superficie y curva de nivel BIC para Secuencia 6.}
   \caption*{\\Descripción.}
@@ -336,7 +343,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 
 \begin{figure}[H]
   \centerline
-  {\includegraphics[width=1\linewidth]{gfx/chap6/cats1_}} \quad
+  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cats1_}} \quad
   \caption{Secuencias encontradas para Prueba 6.}
   \label{fig:prb1_seq}
 \end{figure}

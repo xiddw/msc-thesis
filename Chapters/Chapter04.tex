@@ -57,15 +57,20 @@ Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo se�
 A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto al silencio, como a la señal que realmente se desea modelar.
 
 \begin{figure}[bth]
-  \myfloatalign
-  \subfloat[Señal original con silencio identificado.]
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}} \quad
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}
+    \caption{Señal original con silencio identificado.}
+    \label{fig:sign_silence}  
+  \end{subfigure}
 
-  \subfloat[Señal procesada y recortada.]
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}} \quad
+  \begin{subfigure}[b]{\textwidth}
+    \includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}
+    \caption{Señal procesada y recortada.}
+    \label{fig:sign_trunc}  
+  \end{subfigure}
   
   \caption{Identificación y eliminación de silencio en señal.}  
-  \label{fig:sign_trunc}  
+  \label{fig:sign_ident}  
 \end{figure}
 
 Como se observa en la \autoref{fig:sign_trunc} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
