@@ -29,59 +29,110 @@ Si bien, para probar el desepeño contra otras propuestas del estado del arte se
 
 Usando dos motores para el sintetizador de voz, uno con voces en inglés y otro con voces en español, se generaron 6 secuencias de audio (3 en cada idioma) cuya duración así como el número de interlocutores que participan varía.
 
-\subsubsection{Secuencia 1: Edgar Allan Poe} % (fold)
+\subsection{Secuencia 1: Edgar Allan Poe} % (fold)
 \label{ssub:calderon}
 
 En esta primer secuencia, se tomaron varios poemas del escritor Edgar Allan Poe, y se utilizaron 6 diferentes voces en inglés. La secuencia de audio original es de 12:06m.
 
 Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales.
 
-\setlength{\abovecaptionskip}{-10pt plus 0pt minus 0pt}
+%\setlength{\abovecaptionskip}{-10pt plus 0pt minus 0pt}
 
-\begin{figure}[H]
-  \centerline
-  {\includegraphics[width=1.3\linewidth]{gfx/chap6/cuervo1}} \quad
-  \caption{Parámetros encontrados para Secuencia 1.}
-  \label{fig:prb1_par}
+\begin{figure}
+\captionsetup{labelformat=empty}
+\renewcommand \thesubfigure{\roman{subfigure}}
+\foreach \row in {1, ..., 9}{%  
+  \centerline{
+    \hspace{1.2cm}
+    \foreach \col in {1, ..., 4}{%
+      \begin{subfigure}[b]{0.35\textwidth}  
+        \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
+        \IfFileExists{\imgfile.png}{
+          \includegraphics[width=1\textwidth]{\imgfile}
+          \caption{}
+          \label{fig:seq1p_\col_\row}
+        }{
+          \hspace{1\textwidth}
+        }
+      \end{subfigure}
+    }
+  }
+}
+\label{fig:seq1p}
 \end{figure}
 
-En la \autoref{fig:prb1_par} se muestran los parámetros obtenidos para diferentes modelos que se propusieron. Se observa como para el modelo correcto tanto la matriz de emisión así como la secuencia en falso color corresponden con el ground truth.
+\clearpage
+
+\begin{figure}
+\captionsetup{labelformat=adja-page}
+\ContinuedFloat
+\caption{ En la \autoref{fig:seq1p} se muestran por columnas los diferentes parámetros tanto del modelo generativo como de algunos modelos propuestos. 
+En las figuras \autoref{fig:seq1p_1_1}, \autoref{fig:seq1p_2_1}, \autoref{fig:seq1p_3_1}, \autoref{fig:seq1p_4_1} se muestran las probabilidades a priori de participación para cada uno de los interlocutores de acuerdo a los diferentes modelos. 
+Las figuras \autoref{fig:seq1p_1_2}, \autoref{fig:seq1p_2_2}, \autoref{fig:seq1p_3_2}, \autoref{fig:seq1p_4_2} corresponden a las matrices de transición entre interlocutores para cada uno de los modelos mencionados.
+Las últimas figuras \autoref{fig:seq1p_1_3}, ..., \autoref{fig:seq1p_4_8} representan las probabilidades de emisión de las palabras del diccionario para cada una de los interlocutores de acuerdo al modelo seleccionado.
+ }
+
+\end{figure}
+
+En la \autoref{fig:seq1p} se muestran los parámetros obtenidos para diferentes modelos que se propusieron. Se observa como para el modelo correcto tanto la matriz de emisión así como la secuencia en falso color corresponden con el ground truth.
 
 Utilizando nuestra metodología, primero realizamos una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables. 
 
 Se realiza un análisis de sensibilidad primero para determinar cuál es el parámetro $\lambda$ adecuado que penaliza de forma adecuada la logverosimilitud. Para esto, primero realizamos: 
 
 \begin{figure}[H]
-  \begin{center}
-  \begin{subfigure}[t]{0.5\textwidth}
-   \includegraphics[height=\textwidth]{gfx/chap6/cuervobic2}
+  \centerline{
+  \begin{subfigure}[b]{0.6\textwidth}
+    \includegraphics[width=\textwidth]{gfx/chap6/cuervobic1} 
+    \caption{}
+    \label{fig:seq1_bic1}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\textwidth}
+   \includegraphics[width=1\textwidth]{gfx/chap6/cuervobic2}
    \caption{}
-  \end{subfigure} \\ \qquad
-  \begin{subfigure}[b]{0.5\textwidth}
-    \includegraphics[height=\textwidth]{gfx/chap6/cuervobic1} 
+   \label{fig:seq1_bic2}
+  \end{subfigure}  
+  }
+  \begin{subfigure}[b]{0.75\textwidth}
+    \includegraphics[width=\textwidth]{gfx/chap6/cuervobic3} 
     \caption{}
+    \label{fig:seq1_bic3}
   \end{subfigure}
-  \begin{subfigure}[b]{0.4\textwidth}
-    \includegraphics[height=\textwidth]{gfx/chap6/cuervobic3} 
-    \caption{}
-  \end{subfigure}
-  \end{center}
-  \caption*{\\ En la primera imagen, se muestra la superficie generada variar el valor de lambda para evaluar BIC. En la segunda imagen, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la tercera imagen se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado.}
-  \label{fig:prb1_sup}
+  \caption{En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de lambda para evaluar BIC. En la \autoref{fig:seq1_bic2}, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la \autoref{fig:seq1_bic3} se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}.}
+  \label{fig:seq1_bic}
 \end{figure}
 
 Después, planteamos una prueba de hipótesis para ver qué tan acertada fue nuestra selección de modelo. Realizaremos la prueba de hipótesis para los modelos que obtuvieron una mejor valoración por BIC, y de ahi discrmiminaremos cuál es el que se ajusta mejor, utilizando bootstrap .... .
 
 \begin{figure}[H]
   \centerline  
-  {\includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot1}
-   \includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot2} }
+  { \begin{subfigure}[b]{0.7\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot1}
+      \caption{}
+      \label{fig:seq1_boot1}
+    \end{subfigure}
+    \hspace{-0.5cm}
+    \begin{subfigure}[b]{0.7\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot2}
+      \caption{}
+      \label{fig:seq1_boot1}
+    \end{subfigure}
+  }
   \centerline  
-  {\includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot3}
-   \includegraphics[width=0.6\linewidth]{gfx/chap6/cuervoboot4}
-  } \quad
-  \caption{Pruebas de hipótesis con bootstrap para Secuencia 1.}
-  \label{fig:prb1_boot}
+  { \begin{subfigure}[b]{0.7\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot3}
+      \caption{}
+      \label{fig:seq1_boot1}
+    \end{subfigure}
+    \hspace{-0.5cm}
+    \begin{subfigure}[b]{0.7\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot4}
+      \caption{}
+      \label{fig:seq1_boot1}
+    \end{subfigure}
+  }
+  \caption{En la \autoref{fig:seq1_boot1} se muestra la prueba de hipótesis realizada para comparar el modelo $k$ contra el $k+1$}. Como se observa, se rechaza la hipótesis. 
+  \label{fig:seq1_boot}
 \end{figure}
 
 Por último, ya con el modelo seleccionado, se procede a calcular el error relativo de predicción que se obtuvo, comparando con el ground truth que se dispone para esa secuencia, con lo que se obtiene: 
@@ -100,7 +151,7 @@ Más a detalle, en la \autoref{fig:prb1_seq} se observa en azul el orden en el q
 Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.
 
 \newpage
-\subsubsection{Secuencia 2: Gabriel García Márquez}
+\subsection{Secuencia 2: Gabriel García Márquez}
 
 -------------------------
 -------------------------
@@ -150,7 +201,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 \end{figure}
 
 \newpage
-\subsubsection{Secuencia 3: William Shakespeare}
+\subsection{Secuencia 3: William Shakespeare}
 
 -------------------------
 -------------------------
@@ -200,7 +251,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 \end{figure}
 
 \newpage
-\subsubsection{Secuencia 4: Manuel Acuña}
+\subsection{Secuencia 4: Manuel Acuña}
 
 -------------------------
 -------------------------
@@ -234,7 +285,8 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
    \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot2} }
   \centerline  
   {\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
-   \includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot3}
+    \hspace{0.6\linewidth}
+   %\includegraphics[width=0.6\linewidth]{gfx/chap6/noctboot4}
   } \quad
   \caption{Pruebas de hipótesis con bootstrap para Secuencia 4.}
   \label{fig:prb1_boot}
@@ -250,7 +302,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 \end{figure}
 
 \newpage
-\subsubsection{Secuencia 5: Calderón de la Barca}
+\subsection{Secuencia 5: Calderón de la Barca}
 
 -------------------------
 -------------------------
@@ -284,7 +336,8 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
    \includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot2} }
   \centerline  
   {\includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot3}
-   \includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot3}
+   \hspace{0.6\linewidth}
+   %\includegraphics[width=0.7\linewidth]{gfx/chap6/caldboot4}
   } \quad
   \caption{Pruebas de hipótesis con bootstrap para Secuencia 5.}
   \label{fig:prb1_boot}
@@ -300,7 +353,7 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
 \end{figure}
 
 \newpage
-\subsubsection{Secuencia 6: Andrew Lloyd Webber}
+\subsection{Secuencia 6: Andrew Lloyd Webber}
 
 -------------------------
 -------------------------
