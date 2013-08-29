@@ -34,7 +34,10 @@
 \usepackage{epigraph}
 
 \usepackage{subcaption}
+\usepackage{rotating}
 \usepackage{pgffor}
+
+% \usepackage{lipsum}
 
 \usepackage{algorithm}
 \usepackage{algorithmic}
@@ -61,13 +64,35 @@
 \newcommand{\bstep}{\textit{backward-step}}
 \newcommand{\fstep}{\textit{forward-step}}
 
+\newcommand\myheader[1]{%
+  \ifcase#1\relax invisible
+  \or (a)
+  \or (b)
+  \or (c)    
+  \or (d)
+  \or (e)    
+  \or (f)    
+  \or (g)    
+  \or (h)    
+  \or (i)
+  \or (j)
+  \or (k)
+  \or (l)
+  \or (m)
+  \else (z)
+  \fi
+}
+
 \numberwithin{equation}{chapter}
 \numberwithin{figure}{chapter}
+
 
 % ********************************************************************
 % GO!GO!GO! MOVE IT!
 %*******************************************************
 \begin{document}
+\captionsetup{parskip=10pt,format=plain,indention=0.5cm}
+
 \frenchspacing
 \raggedbottom
  
@@ -94,7 +119,8 @@
 %\cleardoublepage\include{FrontBackmatter/Publication}
 %\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
-\cleardoublepage\include{FrontBackmatter/Contents}
+\cleardoublepage
+%\include{FrontBackmatter/Contents}
 
 %********************************************************************
 % Mainmatter
@@ -102,19 +128,19 @@
 \pagenumbering{arabic}
 %\cleardoublepage
 
-\include{Chapters/Chapter01}
+%\include{Chapters/Chapter01}
 %\cleardoublepage
 
 %\part{The Showcase}
-\include{Chapters/Chapter02}
+%\include{Chapters/Chapter02}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
 
-\include{Chapters/Chapter03}
-\include{Chapters/Chapter04}
+%\include{Chapters/Chapter03}
+%\include{Chapters/Chapter04}
 \setcounter{chapter}{4}
 \include{Chapters/Chapter05}
 
-\include{Chapters/Chapter06}
+%\include{Chapters/Chapter06}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 

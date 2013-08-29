@@ -32,79 +32,125 @@ Usando dos motores para el sintetizador de voz, uno con voces en inglés y otro 
 \subsection{Secuencia 1: Edgar Allan Poe} % (fold)
 \label{ssub:calderon}
 
-En esta primer secuencia, se tomaron varios poemas del escritor Edgar Allan Poe, y se utilizaron 6 diferentes voces en inglés. La secuencia de audio original es de 12:06m.
+En esta primer secuencia se tomaron varios poemas del escritor Edgar Allan Poe, y se utilizaron 6 diferentes voces en inglés. La secuencia de audio original es de 12:06min.
 
-Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales.
+Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales, mientras que el banco de filtros fue el mismo que anteriormente se mencionó.
 
-%\setlength{\abovecaptionskip}{-10pt plus 0pt minus 0pt}
-
-\begin{figure}
-\captionsetup{labelformat=empty}
-\renewcommand \thesubfigure{\roman{subfigure}}
-\foreach \row in {1, ..., 9}{%  
+\begin{figure}[bht]
   \centerline{
     \hspace{1.2cm}
-    \foreach \col in {1, ..., 4}{%
-      \begin{subfigure}[b]{0.35\textwidth}  
-        \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
-        \IfFileExists{\imgfile.png}{
-          \includegraphics[width=1\textwidth]{\imgfile}
-          \caption{}
-          \label{fig:seq1p_\col_\row}
-        }{
-          \hspace{1\textwidth}
-        }
-      \end{subfigure}
+    \parbox[c]{0.35\textwidth}{\centering Modelo generador}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_4$}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_5$}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_6$}
+  }
+  \vspace{0.5cm}
+  \foreach \row in {1, ..., 2}{%  
+    \centerline{
+      \parbox[c]{1cm}{
+        \vspace{-0.5cm}
+        \myheader{\row}
+      }
+      \foreach \col in {1, ..., 4}{%
+        \begin{subfigure}[c]{0.35\textwidth}  
+          \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
+          \IfFileExists{\imgfile.png}{
+            \includegraphics[width=1\textwidth]{\imgfile}
+            %\caption{}
+            \label{fig:seq1p_\col_\row}
+          }{
+            \hspace{1\textwidth}
+          }
+        \end{subfigure}
+      }
     }
   }
-}
+\caption{Por columnas, se muestran los parámetros obtenidos para varios modelos propuestos. La primer columna corresponde a los parámetros verdaderos.
+En la primer fila \textup{(a)} se muestran las probabilidades a priori de que cada uno de los interlocutores empiecen la conversación. En la segunda fila \textup{(b)} se muestra en falso color la matriz de transición entre interlocutores para cada uno de los modelos mostrados.}
 \label{fig:seq1p}
 \end{figure}
 
-\clearpage
+En las \autoref{fig:seq1p} y \autoref{fig:seq1q} se muestran los parámetros estimados para los diferentes modelos que se propusieron. La primer columna corresponde a los parámetros verdaderos, mientras que las demás son los parámetros obtenidos para algunos modelos. 
 
-\begin{figure}
-\captionsetup{labelformat=adja-page}
-\ContinuedFloat
-\caption{ En la \autoref{fig:seq1p} se muestran por columnas los diferentes parámetros tanto del modelo generativo como de algunos modelos propuestos. 
-En las figuras \autoref{fig:seq1p_1_1}, \autoref{fig:seq1p_2_1}, \autoref{fig:seq1p_3_1}, \autoref{fig:seq1p_4_1} se muestran las probabilidades a priori de participación para cada uno de los interlocutores de acuerdo a los diferentes modelos. 
-Las figuras \autoref{fig:seq1p_1_2}, \autoref{fig:seq1p_2_2}, \autoref{fig:seq1p_3_2}, \autoref{fig:seq1p_4_2} corresponden a las matrices de transición entre interlocutores para cada uno de los modelos mencionados.
-Las últimas figuras \autoref{fig:seq1p_1_3}, ..., \autoref{fig:seq1p_4_8} representan las probabilidades de emisión de las palabras del diccionario para cada una de los interlocutores de acuerdo al modelo seleccionado.
- }
+En la primer fila de la \autoref{fig:seq1p} se muestran las probabilidades a priori de que cada uno de los interlocutores empiecen el diálogo. En la segunda fila se muestra en falso color la matriz de transición para cada uno de los modelos. Esta matriz representa la probabilidad de cambio entre las personas que participan en la conversación.
 
+Se observa como en general para todos los modelos propuestos la matriz de transición que se recupera tiene una estructura diagonal, puesto que en este tipo de problemas, una persona suele hablar durante un periodo considerablemente largo, para que luego otra persona empiece a hablar.
+
+\begin{figure}[t!]
+  \centerline{
+    \hspace{1.2cm}
+    \parbox[c]{0.35\textwidth}{\centering Modelo generador}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_4$}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_5$}
+    \parbox[c]{0.35\textwidth}{\centering Modelo $n_6$}
+  }
+  \vspace{0.5cm}
+  \foreach \row in {3, ..., 9}{%  
+    \centerline{
+      \parbox[c]{1cm}{
+        \vspace{-0.3cm}
+        \myheader{\row}
+      }
+      \foreach \col in {1, ..., 4}{%
+        \begin{subfigure}[c]{0.35\textwidth}  
+          \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
+          \IfFileExists{\imgfile.png}{
+            \includegraphics[width=1\textwidth]{\imgfile}
+            %\caption{}
+            \label{fig:seq1p_\col_\row}
+          }{
+            \hspace{1\textwidth}
+          }
+        \end{subfigure}
+      }
+    }
+  }
+\caption{Por columnas, se muestran las probabilidades de emisión para cada uno de los interlocutores de acuerdo al modelo. Cada fila representa las probabilidad de emisión de las palabras en el diccionario. La fila \textup{(c)} para la primer persona, la fila \textup{(d)} para la segunda persona y así de forma consecutiva, de acuerdo al número de personas que contempla cada modelo.}
+\label{fig:seq1q}
 \end{figure}
 
-En la \autoref{fig:seq1p} se muestran los parámetros obtenidos para diferentes modelos que se propusieron. Se observa como para el modelo correcto tanto la matriz de emisión así como la secuencia en falso color corresponden con el ground truth.
+En la \autoref{fig:seq1q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación, como se explicó anteriormente en el algoritmo (ref). Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
 
-Utilizando nuestra metodología, primero realizamos una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables. 
+Para la selección del modelo y siguiendo la metodología propuesta, primero se efectúa una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables.
 
-Se realiza un análisis de sensibilidad primero para determinar cuál es el parámetro $\lambda$ adecuado que penaliza de forma adecuada la logverosimilitud. Para esto, primero realizamos: 
-
-\begin{figure}[H]
+\begin{figure}[t!]
   \centerline{
-  \begin{subfigure}[b]{0.6\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \includegraphics[width=\textwidth]{gfx/chap6/cuervobic1} 
     \caption{}
     \label{fig:seq1_bic1}
   \end{subfigure}
-  \begin{subfigure}[b]{0.75\textwidth}
+  \begin{subfigure}[b]{0.6\textwidth}
    \includegraphics[width=1\textwidth]{gfx/chap6/cuervobic2}
    \caption{}
    \label{fig:seq1_bic2}
   \end{subfigure}  
   }
-  \begin{subfigure}[b]{0.75\textwidth}
+  \centerline{
+  \begin{subfigure}[b]{0.6\textwidth}
     \includegraphics[width=\textwidth]{gfx/chap6/cuervobic3} 
     \caption{}
     \label{fig:seq1_bic3}
   \end{subfigure}
+  \hspace{0.6\textwidth}
+  }
   \caption{En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de lambda para evaluar BIC. En la \autoref{fig:seq1_bic2}, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la \autoref{fig:seq1_bic3} se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}.}
   \label{fig:seq1_bic}
 \end{figure}
 
-Después, planteamos una prueba de hipótesis para ver qué tan acertada fue nuestra selección de modelo. Realizaremos la prueba de hipótesis para los modelos que obtuvieron una mejor valoración por BIC, y de ahi discrmiminaremos cuál es el que se ajusta mejor, utilizando bootstrap .... .
+En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de $\lambda$ para diferentes curvas de selección BIC. Se observa cómo al principio $\lambda$ es muy pequeño, y entonces el término de penalización no funciona por lo que se prefieren los modelos más complejos y sobreajustados. Por otro lado, cuando $\lambda$ es muy grande, la penalización no permite mas que escoger los modelos más simples.
 
-\begin{figure}[H]
+Haciendo un análisis de sensibilidad se puede determinar cuál es el parámetro $\lambda$ adecuado que penaliza de buena forma la logverosimilitud.
+
+En la \autoref{fig:seq1_bic2} se muestran las curvas de nivel de la figura anterior, además de la dirección del gradiente de la misma. Así mismo, en falso color se resaltan las zonas en las que el gradiente es menor. 
+
+Lo que nos interesa encontrar en la superficie, es el valor de $\lambda$ que representa el punto de inflexión entre la selección de modelos demasiado complejos y modelos más simples. Para esto, se busca la zona en la que el gradiente sea lo más cercano a cero, pues implicaría que es un punto crítico.
+
+Debido a la escala y a la forma en la que se calculó el gradiente, aunque para algunos valores cercanos de $\lambda$ no haya mucha variación en esa dirección; si BIC está penalizando mal, entonces sí habrá gran variación para los diferentes modelos. Es por esto, que sólo en la zona en que la penalización sea del mismo orden de magnitud que la verosimilitud la variación en la curva BIC con el $\lambda$ adecuado no será tan grande como en otras zonas.
+
+Por último, se muestra en \autoref{fig:seq1_bic3} la curva BIC con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}. El o los modelos que tengan un mayor valor BIC serán los que se seleccionarán como modelos ganadores.
+
+\begin{figure}[t!]
   \centerline  
   { \begin{subfigure}[b]{0.7\textwidth}
       \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot1}
@@ -115,40 +161,52 @@ Después, planteamos una prueba de hipótesis para ver qué tan acertada fue nue
     \begin{subfigure}[b]{0.7\textwidth}
       \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot2}
       \caption{}
-      \label{fig:seq1_boot1}
+      \label{fig:seq1_boot2}
     \end{subfigure}
   }
   \centerline  
   { \begin{subfigure}[b]{0.7\textwidth}
       \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot3}
       \caption{}
-      \label{fig:seq1_boot1}
+      \label{fig:seq1_boot3}
     \end{subfigure}
     \hspace{-0.5cm}
     \begin{subfigure}[b]{0.7\textwidth}
       \includegraphics[width=1\linewidth]{gfx/chap6/cuervoboot4}
       \caption{}
-      \label{fig:seq1_boot1}
+      \label{fig:seq1_boot4}
     \end{subfigure}
   }
-  \caption{En la \autoref{fig:seq1_boot1} se muestra la prueba de hipótesis realizada para comparar el modelo $k$ contra el $k+1$}. Como se observa, se rechaza la hipótesis. 
+  \caption{En la \autoref{fig:seq1_boot1} se muestra la prueba de hipótesis realizada para comparar el modelo $n_4$ contra $n_5$. Como se observa, se rechaza la hipótesis de que el modelo correcto sea $n_4$. En la \autoref{fig:seq1_boot2} se hace la prueba del modelo $n_5$ contra $n_6$, y de la misma manera, se rechaza la hipótesis de que el modelo correcto sea $n_5$. Se sigue con la prueba de hipótesis del modelo $n_6$ contra $n_7$ en la \autoref{fig:seq1_boot3}, y en este caso el valor observado no cae dentro de la región de rechazo, por lo que no podemos rechazar que el modelo $n_6$ sea el correcto. Por último en la \autoref{fig:seq1_boot4}, se hace la prueba del modelo $n_7$ contra el modelo $n_8$, y se vuelve a rechazar.}
   \label{fig:seq1_boot}
 \end{figure}
+
+En caso de que después de utilizar BIC se presente ambigüedad para determinar un modelo ganador, o ya sea para realizar un análisis más exhaustivo, se puede propone hacer una prueba de hipótesis para determinar cuál modelo se ajusta mejor a los datos.
+
+A diferencia de la primer etapa, en la que se usa BIC como criterio para  seleccionar el mejor modelo de un conjunto no definido de modelos con diferentes parámetros, la intención de hacer pruebas de hipótesis es determinar en un pequeño conjunto de probables modelos, cuál es mejor, y qué tan bueno es un modelo respecto a otro.
+
+Al plantear la prueba de hipótesis se harán una gran cantidadad de simulaciones para ver qué tan bien se ajusta cada modelo a los datos originales, por lo que este proceso es computacionalmente intensivo y sólo se recomienda hacerlo para evitar la ambigüedad entre un par de modelos.
+
+...
 
 Por último, ya con el modelo seleccionado, se procede a calcular el error relativo de predicción que se obtuvo, comparando con el ground truth que se dispone para esa secuencia, con lo que se obtiene: 
 
 ...
 
-\begin{figure}[H]
+\begin{figure}[bht]
   \centerline
   {\includegraphics[width=0.8\linewidth]{gfx/chap6/cuervo1_}} \quad
-  \caption{Secuencias encontradas para Prueba 1.}
+  \caption{La secuencia original en comparación con la secuencia recuperada del modelo ganador. En la segunda figura se muestran en rojo los errores cometidos respecto a la primera secuencia. }
   \label{fig:prb1_seq}
 \end{figure}
 
 Más a detalle, en la \autoref{fig:prb1_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.
 
 Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{comment}
 
 \newpage
 \subsection{Secuencia 2: Gabriel García Márquez}
@@ -400,3 +458,5 @@ Se observa también que la mayoría de las veces, en la secuencia recuperada se 
   \caption{Secuencias encontradas para Prueba 6.}
   \label{fig:prb1_seq}
 \end{figure}
+
+\end{comment}
