@@ -14,7 +14,7 @@
 \documentclass[titlepage, numbers=noenddot, headinclude,
                 %1headlines,% letterpaper a4paper %%%openright,%%%
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
-                BCOR=5mm,paper=letterpaper,fontsize=11pt,%11pt,a4paper,%
+                BCOR=5mm, letterpaper,fontsize=11.5pt,%11pt,a4paper,%
                 %ngerman,american%
                 ]{scrreprt}
 
@@ -42,7 +42,6 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
-\DeclareCaptionLabelFormat{adja-page}{\hrulefill\\#1 #2 \emph{(página anterior)}}
 %*******************************************************
 
 \setlength{\parskip}{0.7\baselineskip}
@@ -66,20 +65,11 @@
 
 \newcommand\myheader[1]{%
   \ifcase#1\relax invisible
-  \or (a)
-  \or (b)
-  \or (c)    
-  \or (d)
-  \or (e)    
-  \or (f)    
-  \or (g)    
-  \or (h)    
-  \or (i)
-  \or (j)
-  \or (k)
-  \or (l)
-  \or (m)
-  \else (z)
+  \or (a) \or (b) \or (c) \or (d) \or (e) \or (f) 
+  \or (g) \or (h) \or (i) \or (j) \or (k) \or (l) 
+  \or (m) \or (n) \or (o) \or (p) \or (q) \or (r) 
+  \or (s) \or (t) \or (u) \or (v) \or (w) \or (x) 
+  \or (y) \else (z)
   \fi
 }
 
@@ -120,7 +110,7 @@
 %\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \cleardoublepage
-%\include{FrontBackmatter/Contents}
+\include{FrontBackmatter/Contents}
 
 %********************************************************************
 % Mainmatter
@@ -128,26 +118,26 @@
 \pagenumbering{arabic}
 %\cleardoublepage
 
-%\include{Chapters/Chapter01}
-%\cleardoublepage
+\include{Chapters/Chapter01}
 
+%\cleardoublepage
 %\part{The Showcase}
-%\include{Chapters/Chapter02}
+
+\include{Chapters/Chapter02}
 %\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
 
-%\include{Chapters/Chapter03}
-%\include{Chapters/Chapter04}
+\include{Chapters/Chapter03}
+\include{Chapters/Chapter04}
 \setcounter{chapter}{4}
 \include{Chapters/Chapter05}
-
-%\include{Chapters/Chapter06}
+\include{Chapters/Chapter06}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 
 % ********************************************************************
 % Backmatter
 %*******************************************************
-%\appendix
+\appendix
 \cleardoublepage
 %\part{Apéndice}
 %\include{Chapters/Chapter0A}
@@ -155,7 +145,8 @@
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
-%\cleardoublepage\include{FrontBackmatter/Bibliography}
+\cleardoublepage
+\include{FrontBackmatter/Bibliography}
 %\cleardoublepage\include{FrontBackmatter/Colophon}
 %\cleardoublepage\include{FrontBackmatter/Declaration}
 
