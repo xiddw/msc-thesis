@@ -1,25 +1,76 @@
-\begin{thebibliography}{3}
-\providecommand{\natexlab}[1]{#1}
-\providecommand{\url}[1]{\texttt{#1}}
-\expandafter\ifx\csname urlstyle\endcsname\relax
-  \providecommand{\doi}[1]{doi: #1}\else
-  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{MBE{\etalchar{+}}12}
 
-\bibitem[Bishop(2006)]{Bishop2006}
+\bibitem[Bis06]{Bishop2006}
 Christopher~M. Bishop.
-\newblock \emph{{P}attern {R}ecognition and {M}achine {L}earning}.
+\newblock {\em {P}attern {R}ecognition and {M}achine {L}earning}.
 \newblock Information Science and Statistics. Springer, 2006.
 
-\bibitem[Claeskens(2010)]{Claeskens2010}
-Nils~Lid Claeskens, Gerda;~Hjort.
-\newblock \emph{{M}odel {S}election and {M}odel {A}veraging}.
+\bibitem[CH10]{Claeskens2010}
+Gerda Claeskens and Nils~Lid Hjort.
+\newblock {\em {M}odel {S}election and {M}odel {A}veraging}.
 \newblock Cambridge Series in Statistical and Probabilistic Mathematics.
   Cambridge University Press, 2010.
 
-\bibitem[Jelinek(1998)]{Jelinek1998}
+\bibitem[FSJW11]{Fox2011}
+E.B. Fox, E.B. Sudderth, M.I. Jordan, and A.S. Willsky.
+\newblock {A Sticky HDP-HMM with Application to Speaker Diarization}.
+\newblock {\em Annals of Applied Statistics}, 5(2A):1020--1056, 2011.
+
+\bibitem[IFM{\etalchar{+}}05]{Istrate2005}
+Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and
+  Jean-François Bonastre.
+\newblock Nist rt'05s evaluation: Pre-processing techniques and speaker
+  diarization on multiple microphone meetings.
+\newblock In Steve Renals and Samy Bengio, editors, {\em MLMI}, volume 3869 of
+  {\em Lecture Notes in Computer Science}, pages 428--439. Springer, 2005.
+
+\bibitem[Jel98]{Jelinek1998}
 Frederick Jelinek.
-\newblock \emph{Statistical Methods for Speech Recognition}.
+\newblock {\em Statistical Methods for Speech Recognition}.
 \newblock Language, Speech, and Communication. MIT Press, 1998.
-\newblock ISBN 0262100665.
+
+\bibitem[MBE{\etalchar{+}}12]{Miro2012}
+Xavier~Anguera Miró, Simon Bozonnet, Nicholas W.~D. Evans, Corinne Fredouille,
+  Gerald Friedland, and Oriol Vinyals.
+\newblock Speaker diarization: A review of recent research.
+\newblock {\em IEEE Transactions on Audio, Speech \& Language Processing},
+  20:356--370, 2012.
+
+\bibitem[MS91]{Morgan1991}
+David~P. Morgan and Christopher~L. Scofield.
+\newblock {\em {N}eural {N}etworks and {S}peech {P}rocessing}.
+\newblock The Kluwer International Series in Engineering and Computer Science.
+  Kluwer Academic Publishers, 1991.
+
+\bibitem[Rab89]{Rabiner1989}
+Lawrence~R Rabiner.
+\newblock A tutorial on hidden markov models and selected applications in
+  speech recognition.
+\newblock {\em Proceedings of the IEEE}, 77:257--286, 1989.
+\newblock errata at
+  http://alumni.media.mit.edu/~rahimi/rabiner/rabiner-errata/rabiner-errata.html.
+
+\bibitem[RJ93]{Rabiner1993}
+Lawrence Rabiner and Biing-Hwang Juang.
+\newblock {\em Fundamentals of speech recognition}.
+\newblock Prentice-Hall, Inc., Upper Saddle River, NJ, USA, 1993.
+
+\bibitem[RS07]{Rabiner2007}
+L.R. Rabiner and R.W. Schafer.
+\newblock Introduction to digital speech processing.
+\newblock {\em Foundations and trends in signal processing}, 1:1--194, 2007.
+
+\bibitem[Ryd08]{Ryden2008}
+Tobias Ryden.
+\newblock {EM versus Markov chain Monte Carlo for Estimation of Hidden Markov
+  Models: A Computational Perspective}.
+\newblock {\em Bayesian Analysis}, 2008.
+
+\bibitem[TR06]{Tranter2006}
+Sue Tranter and Douglas Reynolds.
+\newblock An overview of automatic speaker diarisation systems.
+\newblock {\em IEEE Transactions on Speech, Audio \& Language Processing,
+  Special Issue on Rich Transcription}, pages 1557--1565, 2006.
 
 \end{thebibliography}

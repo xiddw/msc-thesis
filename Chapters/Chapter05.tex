@@ -65,7 +65,7 @@ Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 ce
       }
     }
   }
-\caption{Por columnas, se muestran los parámetros obtenidos para varios modelos propuestos. La primer columna corresponde a los parámetros verdaderos.
+\caption[Secuencia 1: Parámetros estimados (1)]{Por columnas, se muestran los parámetros obtenidos para varios modelos propuestos. La primer columna corresponde a los parámetros verdaderos.
 En la primer fila \textup{(a)} se muestran las probabilidades a priori de que cada uno de los interlocutores empiecen la conversación. En la segunda fila \textup{(b)} se muestra en falso color la matriz de transición entre interlocutores para cada uno de los modelos mostrados.}
 \label{fig:seq1p}
 \end{figure}
@@ -107,7 +107,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
       }
     }
   }
-\caption{Por columnas, se muestran las probabilidades de emisión para cada uno de los interlocutores de acuerdo al modelo. Cada fila representa las probabilidad de emisión de las palabras en el diccionario. La fila \textup{(c)} para la primer persona, la fila \textup{(d)} para la segunda persona y así de forma consecutiva, de acuerdo al número de personas que contempla cada modelo.}
+\caption[Secuencia 1: Parámetros estimados (2)]{Por columnas, se muestran las probabilidades de emisión para cada uno de los interlocutores de acuerdo al modelo. Cada fila representa las probabilidad de emisión de las palabras en el diccionario. La fila \textup{(c)} para la primer persona, la fila \textup{(d)} para la segunda persona y así de forma consecutiva, de acuerdo al número de personas que contempla cada modelo.}
 \label{fig:seq1q}
 \end{figure}
 
@@ -136,7 +136,7 @@ Para la selección del modelo y siguiendo la metodología propuesta, primero se 
   \end{subfigure}
   \hspace{0.6\textwidth}
   }
-  \caption{En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de lambda para evaluar BIC. En la \autoref{fig:seq1_bic2}, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la \autoref{fig:seq1_bic3} se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}.}
+  \caption[Secuencia 1: Pruebas BIC]{En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de lambda para evaluar BIC. En la \autoref{fig:seq1_bic2}, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la \autoref{fig:seq1_bic3} se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}.}
   \label{fig:seq1_bic}
 \end{figure}
 
@@ -179,7 +179,7 @@ Por último, se muestra en \autoref{fig:seq1_bic3} la curva BIC con el valor de 
       \label{fig:seq1_boot4}
     \end{subfigure}
   }
-  \caption{En la \autoref{fig:seq1_boot1} se muestra la prueba de hipótesis realizada para comparar el modelo $n_4$ contra $n_5$. Como se observa, se rechaza la hipótesis de que el modelo correcto sea $n_4$. En la \autoref{fig:seq1_boot2} se hace la prueba del modelo $n_5$ contra $n_6$, y de la misma manera, se rechaza la hipótesis de que el modelo correcto sea $n_5$. Se sigue con la prueba de hipótesis del modelo $n_6$ contra $n_7$ en la \autoref{fig:seq1_boot3}, y en este caso el valor observado no cae dentro de la región de rechazo, por lo que no podemos rechazar que el modelo $n_6$ sea el correcto. Por último en la \autoref{fig:seq1_boot4}, se hace la prueba del modelo $n_7$ contra el modelo $n_8$, y se vuelve a rechazar.}
+  \caption[Secuencia 1: Pruebas de hipótesis usando bootstrap]{En la \autoref{fig:seq1_boot1} se muestra la prueba de hipótesis realizada para comparar el modelo $n_4$ contra $n_5$. Como se observa, se rechaza la hipótesis de que el modelo correcto sea $n_4$. En la \autoref{fig:seq1_boot2} se hace la prueba del modelo $n_5$ contra $n_6$, y de la misma manera, se rechaza la hipótesis de que el modelo correcto sea $n_5$. Se sigue con la prueba de hipótesis del modelo $n_6$ contra $n_7$ en la \autoref{fig:seq1_boot3}, y en este caso el valor observado no cae dentro de la región de rechazo, por lo que no podemos rechazar que el modelo $n_6$ sea el correcto. Por último en la \autoref{fig:seq1_boot4}, se hace la prueba del modelo $n_7$ contra el modelo $n_8$, y se vuelve a rechazar.}
   \label{fig:seq1_boot}
 \end{figure}
 
@@ -198,7 +198,7 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
 \begin{figure}[bht]
   \centerline
   {\includegraphics[width=0.8\linewidth]{gfx/chap6/cuervo1_}} \quad
-  \caption{La secuencia original en comparación con la secuencia recuperada del modelo ganador. En la segunda figura se muestran en rojo los errores cometidos respecto a la primera secuencia. }
+  \caption[Secuencia 1: Secuencia recuperada]{La secuencia original en comparación con la secuencia recuperada del modelo ganador. En la segunda figura se muestran en rojo los errores cometidos respecto a la primera secuencia. }
   \label{fig:prb1_seq}
 \end{figure}
 
