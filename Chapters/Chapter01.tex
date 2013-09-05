@@ -7,12 +7,15 @@
 %\epigraphhead[70]{
 %\epigraph{Essentially, all models are wrong, but some are useful.}
 %         {George E. P. Box}}
-         
-En los últimos años la tarea de \SD~ se ha vuelto una parte importante de diferentes procesos que se realizan con las grabaciones de audio, tales como la identificación y navegación por segmentos en específico, así como la búsqueda y recuperación de información en grandes volúmenes de secuencias de audio.
+
+\section{Definicion del problema} 
+\label{sec:definicion}
+        
+En los últimos años la tarea de \SD~ se ha vuelto una parte importante de diferentes procesos que se realizan con las grabaciones de audio, tales como la identificación y navegación por segmentos en específico, además de la búsqueda y recuperación de información en grandes volúmenes de secuencias de audio.
 
 La investigación desarrollada referente a \sd~ se ha guiado principalmente de acuerdo a la financiación existente para proyectos específicos. Hasta principios de la década de 1990, el trabajo de investigación se concentraba en trabajar con grabaciones telefónicas. Principalmente se usaba para segmentar la conversación, así como etapa de pre-procesamiento para luego realizar reconocimiento y/o transcripción del habla.
 
-Para la década del 2000, las aplicaciones fueron cambiando, así como aumentando la capacidad disponible de almacenamiento; por lo que creció el interés de mantener un registro de forma automática de noticieros televisivos  y transmisiones de radio a lo largo de todo el planeta. Entre la información más útil que se registraba de las grabaciones, era la transcripción del diálogo, meta-etiquetas referentes al contenido así como la segmentación y le orden de las personas que intervienen en la grabación.
+Para la década del 2000, las aplicaciones fueron cambiando, a la par que aumentaba la capacidad disponible de almacenamiento; por lo que creció el interés de mantener un registro de forma automática de noticieros televisivos  y transmisiones de radio a lo largo de todo el planeta. Entre la información más útil que se registraba de las grabaciones, era la transcripción del diálogo, meta-etiquetas referentes al contenido así como la segmentación y le orden de las personas que intervienen en la grabación.
 
 A principios del año 2002, empezaron a surgir varios proyectos de investigación cuya principal intención era mejorar la comunicación interpersonal, y en especial la que ocurre a larga distancia y de forma multimodal. La investigación y desarrollo se enfocó en extracción del contenido y su etiquetación de acuerdo a las personas que participan, ya sea para mantener un archivo histórico, o para fácil disposición de personas interesadas en su contenido.
 
@@ -31,5 +34,8 @@ En este trabajo de tesis se abordará el problema usando un escenario similar al
 \section{Trabajo previo}
 \label{sec:previo}
 
-De acuerdo a todo este trabajo desarrollado, se puede distinguir que hay dos grandes enfoques que se usan para \sd: \textit{bottom-up} y \textit{top-down}
+De acuerdo al trabajo desarrollado hasta ahora, se puede distinguir que hay dos grandes enfoques que se usan para \sd: \textit{bottom-up} (de abajo a arriba) y \textit{top-down} (de arriba a abajo). De forma general, se consideran \textit{bottom-up} las metodologías en las que se inicia la estimación con pocos clústers (e incluso un sólo segmento), y \textit{top-down} aquellas en las que se inicia la estimación con muchos más clústers de los que se esperan encontrar.
 
+Ambos enfoques iteraran hasta converger a un número de clústers óptimo, en que cada grupo debe corresponder a un interlocutor.
+
+Para ambas estrategias se suelen usar Modelos Ocultos de Markov (HMM por sus siglas en inglés) así como Modelos de Mezclas de Gaussianas (GMM también por sus siglas en inglés) para cada uno de los estados correspondientes, 

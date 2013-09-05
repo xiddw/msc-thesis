@@ -1,7 +1,7 @@
 %!TEX root = ../Base.tex
 
 %************************************************
-\chapter{Máxima Verosimilitud del HMM} \label{ch:chap3}
+\chapter{Estimación de Máxima Verosimilitud del HMM} \label{ch:chap3}
 %************************************************
 
 \epigraphhead[70]{
@@ -286,6 +286,8 @@ Así como para el algoritmo de backward-forward, se pueden reescribir tanto     
       p(z_n \,|\, z_{n-1}) \hat \beta(z_n) 
 \end{align}
 
+\chapter{Selección de modelo}
+
 \section{Selección de modelo}
 
 Hasta ahora, se tiene la metodología completa para estimar los parámetros del un modelo HMM propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
@@ -307,9 +309,9 @@ La prueba que se realiza es comparando la máxima verosimilitud estimada (MLE) $
     log L(\hat \theta^{(d)}; y_{1:n})
 \end{equation}
 
-Para calcular la MLE de un modelo, se estimó la verosimilitud varias veces con diferentes parámetros iniciales aleatorios. Se iteró el algoritmo EM hasta convergencia, un numero $iter_hmm$ fijo de iteraciones, esto para evitar el estancamiento del algoritmo en un máximo local, y obtener así una buena estimación de la máxima verosimilitud del modelo.
+Para calcular la MLE de un modelo, se estimó la verosimilitud varias veces con diferentes parámetros iniciales aleatorios. Se iteró el algoritmo EM hasta convergencia, un numero $iter_{hmm}$ fijo de iteraciones, esto para evitar el estancamiento del algoritmo en un máximo local, y obtener así una buena estimación de la máxima verosimilitud del modelo.
 
-Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_obs$.
+Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_{obs}$.
 
 Ahora, para hacer la prueba con boostrap, simularemos 
 
