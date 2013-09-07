@@ -31,11 +31,17 @@ Por eso, se considera el caso de reuniones como el escenario completo para las t
 
 En este trabajo de tesis se abordará el problema usando un escenario similar al del noticiero, en donde no hay ruido ambiental y los diálogos son más o menos continuos, además de que los participantes no se interrumpen al hablar.
 
-\section{Trabajo previo}
+\section{Principales enfoques}
 \label{sec:previo}
 
 De acuerdo al trabajo desarrollado hasta ahora, se puede distinguir que hay dos grandes enfoques que se usan para \sd: \textit{bottom-up} (de abajo a arriba) y \textit{top-down} (de arriba a abajo). De forma general, se consideran \textit{bottom-up} las metodologías en las que se inicia la estimación con pocos clústers (e incluso un sólo segmento), y \textit{top-down} aquellas en las que se inicia la estimación con muchos más clústers de los que se esperan encontrar.
 
 Ambos enfoques iteraran hasta converger a un número de clústers óptimo, en que cada grupo debe corresponder a un interlocutor.
 
-Para ambas estrategias se suelen usar Modelos Ocultos de Markov (HMM por sus siglas en inglés) así como Modelos de Mezclas de Gaussianas (GMM también por sus siglas en inglés) para cada uno de los estados correspondientes, 
+Para ambas estrategias se suelen usar Modelos Ocultos de Markov (HMM por sus siglas en inglés) donde cada estado se representa muchas veces como Modelos de Mezclas de Gaussianas (GMM también por sus siglas en inglés) y corresponde a cada interlocutor. Las matrices de transición entre estados representan el cambio entre la persona que está hablando; mientras que las matrices de una emisión corresponden a la probabilidad de los interlocutores de \textit{decir} cada una de las \textit{palabras} que se definan.
+
+Es importante remarcar que con \textit{decir una palabra} no necesariamente se refiere a la acción de que una persona pronuncie una palabra; sino que se definirá un \textit{diccionario de palabras} que en realidad es conjunto de vectores de características que representen la señal de audio de forma discreta; y cada interlocutor tendrá una probabilidad de emisión asociada para cada uno de estos vectores.
+
+\section{Trabajos previos}
+
+En el trabajo de Anguera \cite{, 

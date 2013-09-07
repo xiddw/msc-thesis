@@ -1,364 +1,195 @@
 %!TEX root = ../Base.tex
 
-%************************************************
-\chapter{Estimación de Máxima Verosimilitud del HMM} \label{ch:chap3}
-%************************************************
+%*****************************************
+\chapter{Modelos de Márkov}\label{ch:chap2}
+%*****************************************
 
 \epigraphhead[70]{
-\epigraph{``Data! Data! Data!'' he cried impatiently. 
-``I can't make bricks without clay.''}{Sherlock Holmes}}
+\epigraph{Essentially, all models are wrong, but some are useful.}
+         {George E. P. Box}}
 
-La tarea de aprendizaje de parámetros del HMM es encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
+Como ya se mencionó en la Introducción, se debe proponer un modelo acústico o generativo, que será la forma en que entenderemos y trataremos de abstraer la conversación o diálogo, de acuerdo a las características que nos interesan recuperar.
 
-Hasta el momento no se conoce algún algoritmo para resolver esta problema de forma exacta, pero sí hay métodos para estimar la máxima verosimilitud del modelo de forma local usando el algoritmo de Baum–Welch, que se explicará con más detalle a continuación.
+Puesto que lo que nos interesa principalmente es identificar a las diferentes personas que participan en una conversación, nuestro modelo se deberá parametrizar de forma que logre capturar las características esenciales en la conversación; así como no tomar en cuenta información que no nos sea de utilidad para esta tarea, como por ejemplo, qué es lo que se está diciendo.
 
-\section{Estimación de parámetros del HMM}
+En aprendizaje máquina, por modelo generativo se entiende un modelo probabilístico para generar datos aleatoriamente que correspondan a la naturaleza de un cierto conjunto de datos que tengamos.
 
-Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, se pueden determinar los parámetros del HMM usando máxima verosimilitud. La función de verosimilitud se obtiene de la distribución conjunta \eqref{eqn:2-11} al marginalizar las variables latentes.
+Al proponer un modelo generativo, se busca representar y de forma concisa poder parametrizar un fenómeno o situación de la que se obtuvieron los datos.
+Cuando los datos son secuenciales, se suelen agrupar en dos tipos, de acuerdo a las características de la distribución que los generó: distribuciones estacionarias y distribuciones no estacionarias.
+
+En el caso de secuencias de datos estacionarias, se considera que los datos \textit{evolucionan} a través del tiempo, pero la distribución a partir de la cuál fueron generados permanece igual; mientras que para el caso de datos no estacionarios, su distribución generativa varía también según pasa el tiempo.
+
+Para el problema de \sd, consideraremos que los datos son estacionarios; es decir, supondremos que su distribución generativa no cambia. Para resolver nuestro problema entonces trataremos a partir de los datos ajustar una distribución inicial e inferir sus parámetros correspondientes.
+
+Este tipo de abstracción, permiten modelar una gran cantidad de situaciones, en las que se tienen observaciones de acuerdo al tiempo y se quiere predecir el siguiente valor en la serie, dadas la observaciones que se tienen hasta el momento.
+
+Comúnmente se suelen considerar únicamente las observaciones más recientes, pues son las que pudiéramos pensar son más informativas para la predicción; además de que al asumir que las predicciones de nuevos datos sólo dependen de las últimas observaciones, nos permite simplificar mucho el modelo de la distribución generativa.
+
+Para trabajar con este tipo de datos, se puede usar entonces un modelo de Márkov que es un proceso aleatorio muy trabajado en la teoría de probabilidad, que incorpora una cantidad mínima de memoria, sin necesariamente llegar a ser un proceso sin memoria.
+
+Se puede pensar como una red bayesiana en la que se asume la independecia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas (i.e. el futuro es independiente del pasado, dado el presente).
+
+\section{Cadena de Markov}
+
+\graffito{Se entiende por v.a. i.i.d aquellas que son independientes entre sí y que fueron muestreadas de la misma distribución}
+
+El modelo generativo más sencillo que se podría pensar, es considerar que todas las observaciones son variables aleatorias independientes e idénticas distribuidas (v.a. i.i.d) cuyo modelo gráfico se muestra en la \autoref{fig:mod_iid}.
+
+\begin{figure}[bt]
+        \myfloatalign
+        {\includegraphics[width=0.6\linewidth]{gfx/chap2/mod-iid}}        
+        \caption{Observaciones independientes e idénticamente distribuidas.}
+        \label{fig:mod_iid}
+\end{figure}
+
+Al asumir que no hay ninguna dependencia entre los datos, sin embargo, se pierde la información relativa al orden en que se fueron dando estas observaciones; situación que en muchos casos nos interesa conservar.
+
+Si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..., x_n \rbrace$, y se asume que son i.i.d, la distribución conjunta de la secuencia de datos se puede escribir como sigue:
 \begin{equation}
-  p(\mb{X}, \theta) = \sum_Z p(\mb{X}, \mb{Z} \,|\, \theta)
-\label{eqn:3-1}
+\label{eqn:2-1}
+p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n)
 \end{equation}
 
-Sin embargo, la función obtenida presenta algunas dificultades, pues no se puede tratar $z_n$ como si fuearn variables independientes y separarlas, puesto que cada variable latente $z_n$ depende del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo de forma directa por máxima verosimilitud.
-
-Por esto, se usará el algoritmo de \aem para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
-
-La función de verosimilitud completa se define entonces como sigue:
+En cambio, para expresar la dependencia entre un grupo de observaciones secuenciales, se puede utilizar un modelo probabilístico llamado \textit{modelo o cadena de Markov}. Si por ejemplo, se considera que cada variable depende de todas las observaciones anteriores, entonces usando el teorema de bayes
+\graffito{Del teorema de Bayes se tiene la siguiente expresión
+$${P(A \,|\, B) = \frac{P(B \,|\,A) P(A)}{P(B)}}$$ } 
+se puede escribir la distribución conjunta de las observaciones de la siguiente manera:
 \begin{equation}
-\mathcal{Q}(\theta, \theta^{old}) = 
-  \sum_{\mb{Z}} p(\mb{Z} \,|\, \mb{X}, \theta^{old})
-  ln p(\mb{X}, \mb{Z} \,|\, \theta).
-\label{eqn:3-2}
+\label{eqn:2-2}
+p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n \,|\, x_1, ..., x_{n-1}).
 \end{equation}
 
-Se introduce además cierta notación para simplificar las expresiones que ahora se usarán. Se usará $\gamma(z_n)$ para denotar la distribución marginal posterior de la variable latente $z_n$, y $\xi(z_{n-1}, z_n)$ para denotar la distribución conjunta posterior de dos variables latentes sucesivas, es decir: 
-\begin{gather}
-\gamma(z_n) = p(z_n \,|\, \mb{X}, \theta^{old}) \label{eqn:3-3} \\
-\xi(z_{n-1}, z_n) = p(z_{n-1}, z_n \,|\, \mb{X}, \theta^{old}) \label{eqn:3-4}
-\end{gather}
-
-Considerando entonces que $z_n$ es un vector binario, entonces se puede extender esta notación para cada uno de los componentes de la variable latente $z_n$, es decir, para denotar la probabilidad condicional $z_{nk} = 1$. Se
-tomará entonces la esperanza de tanto $\gamma(z_{nk})$ como $\xi(z_{n-1, j}, z_{nk})$ y entonces
-\begin{gather}
-\gamma(z_{nk}) = \mathbb{E} \left[ z_{nk} \right] = \sum_Z  \gamma(\mb{z}) z_{nk} \label{eqn:3-5} \\
-\xi(z_{n-1,j}, z_{nk}) = \mathbb{E} \left[z_{n-1, j} \cdot z_{nk} \right] = \sum_Z  \gamma(\mb{z}) z_{n-1, j} 
-\cdot z_{nk}
-\label{eqn:3-6}
-\end{gather}
-
-Si se sustituye $p(\mb{X}, \mb{Z} \,|\, \theta)$ de \eqref{eqn:2-11} en \eqref{eqn:3-2}, así como usando las definiciones \eqref{eqn:3-5} y \eqref{eqn:3-6}, y luego desarrollando el logaritmo, se obtiene: 
-
+Ahora, si se asume que cada $x_n$ es independiente de las observaciones anteriores excepto de la observación anterior $x_{n-1}$, se tiene que la distribución conjunta se puede escribir de forma más sencilla utilizando el teorema de separación D \footnote{Ver anexo}, puesto que 
 \begin{equation}
-\begin{split}
-\mathcal{Q}(\theta, \theta^{old}) = 
-  \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + 
-  \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} + \\
-  \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) ln p(x_n \,|\, \phi_k)
-\label{eqn:3-7}
-\end{split}
+\label{eqn:2-3}
+p(x_n \,|\, x_1, ..., x_{n-1}) ~=~ p(x_n \,|\, x_{n-1})
 \end{equation}
 
-Por lo que entonces en el \estep~ se debe evaluar tanto $\gamma(z_{nk})$ como $\xi(z_{n-1,j}, z_{nk})$ de forma eficiente para luego continuar con la segunda etapa del algoritmo.
-
-El segundo paso, también conocido como \mstep, consiste en maximizar la unción $\mathcal{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
-
-Para maximizar entonces $\pi$, se deriva $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$, usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
-\begin{equation*}
-  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
-  \frac {\partial}{\partial \pi_k} 
-  \left[
-    \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + \lambda (\sum_{k=1}^K \pi_k - 1) 
-  \right]
-\end{equation*}
-y derivando y encontrando el valor de $\lambda$, para luego despejar $\pi_k$, se obtiene:
+A este modelo probabilístico se le conoce como cadena de Márkov de primer orden y la probabilidad conjunta de las observaciones está dada por:
 \begin{equation}
-  \pi_k = \frac{\gamma(z_{1k})}{\sum_{j=1}^K \gamma(z_1j)}
-\label{eqn:3-8}
+\label{eqn:2-4}
+p(x_1, ..., x_N) ~=~ p(x_1) \prod_{n=2}^N p(x_n \,|\, x_{n-1}).
 \end{equation}
-mientras que para maximizar $\mb{A}$, se deriva entonces $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $A_{jk}$, considerando también las restricciones, es decir
-\begin{equation*}
-  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
-  \frac {\partial}{\partial \pi_k} 
-  \left[
-    \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} 
-    + \lambda (\sum_{k=1}^K A_{jk} - 1) 
-  \right]
-\end{equation*}
-y de la misma manera, resolviendo para $A_{jk}$ se obtiene
+mientras que su modelo gráfico corresponde a la \autoref{fig:mod_mm1}
+\begin{figure}[bt]
+        \myfloatalign
+        {\includegraphics[width=0.6\linewidth]{gfx/chap2/mod-mm1}}
+        \caption{Modelo de Márkov de primer orden.}
+        \label{fig:mod_mm1}
+\end{figure}
+
+Aunque el modelo es mucho más general, puede que se necesite representar de forma más fuerte la dependencia con las osbervaciones anteriores, por lo que se pueden usar cadenas de Márkov de órdenes superiores.
+
+Al caso en el que $x_n$ dependa de las dos observaciones previas se le conoce como cadena de Márkov de segundo orden; y siguiendo el mismo proceso, la distribución conjunta de las observaciones se puede escribir como 
 \begin{equation}
-A_{jk} = \sum_{n=2}^N 
-  \frac{\xi(z_{n-1,j}, z_{nk})}
-  {\sum_{l=1}^K \xi(z_{n-1,j}, z_{nl})}
-\label{eqn:3-9}
+\label{eqn:2-5}
+p(x_1, ..., x_N) ~=~ p(x_1) \cdot p(x_2 \,|\, x_1) 
+        \prod_{n=3}^N p(x_n \,|\, x_{n-1}, x_{n-2})
 \end{equation}
+puesto que se tiene que $x_n \perp x_1, ..., x_{n-3} \,|\, x_{n-1}, x_{n-2}$.
 
-Entonces, el algoritmo EM, debe ser inicializado escogiendo algunos valores para $\pi$ y $\mathbf{A}$, considerando las restricciones que implican cada uno, pues representan ciertas probabilidades. Por tanto, se puede inicializar tanto $\pi$ como $\mathbf{A}$ con valores aleatorios, siempre y cuando cumplan con las restricciones propias de una probabilidad. 
+En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en el que se puede observar la dependencia de una $x_n$ en específico únicamente con sus dos observaciones anteriores.
 
-Por último, para estimar el parámetro $\theta$, que en realidad corresponde a estimar los parámetros propios de la distribución de emisión, éstos dependen de la distribución propia de las variables observadas, aunque basta 1 observar que en \eqref{eqn:3-7} únicamente en el último término aparece $\theta$ en forma de una suma ponderada de $ln p(x_n \,|\,  \phi_k)$; y en el caso de que los parámetros $\phi_k$ sean independientes para los diferentes componentes de la mezcla o suma ponderada, entonces maximizar con respecto a esos parámetros se puede realizar de forma sencilla.
+\begin{figure}[bt]
+        \myfloatalign
+        {\includegraphics[width=0.6\linewidth]{gfx/chap2/mod-mm2}}
+        \caption{Modelo de Márkov de segundo orden.}
+        \label{fig:mod_mm2}
+\end{figure}
 
-\section{Algoritmo \abf}
+Se puede generalizar entonces para cualquier $M$ un modelo de Márkov de $M$-ésimo orden, aunque al considerar demasiados estados previos se puede complicar de más el modelo; pues el número de parámetros implicados aumenta de forma exponencial al orden del modelo de Márkov.
 
-Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto $\gamma(z_{nk})$ como $\xi(z_{n-1, j}, z_{nk})$ que se requieren para el \estep~ del algoritmo de EM.
+Para evitar que el modelo se vuelva demasiado complejo, así como para no hacer alguna suposición a priori sobre cuál es el orden es del modelo generativo, se puede introducir una variable oculta, que permita cambiar el planteamiento del modelo. 
 
-Para deducir el algoritmo, primero se deben tener en cuenta varias propiedades de una cadena de Márkov, que nos permitirán simplificar varios cálculos (Ver apéndice). Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente de las probabilidades de emisión $p(x \,|\, z)$, y entonces no importa si las variables observadas son discretas o continuas, pues lo único que se requiere es poder evaluar $p(x_n \,|\, z_n)$ para cada $z_n$, que sabemos que son discretas.
+Se considera entonces una variable latente $z_n$ correspondiente a cada  observación $x_n$, y entonces el conjunto de variables latentes forman una cadena de Márkov, como se muestra en la \autoref{fig:mod_hmm1}.
 
-Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori $p(z_n \,|\, x_1, ..., x_N)$ de $z_n$ dado un conjunto de datos $x_1, ..., x_N$. Entonces, usando el teorema de bayes se tiene que
+Se asumirá entonces 
 \begin{equation}
-  \gamma(z_n) = p(\mb{z}_n \,|\, \mb{X}) = 
-    \frac{p(\mb{X} \,|\, \mb{z}_n) p(\mb{z}_n)}{p(\mb{X})} 
-  \label{eqn:3-10}
+\label{eqn:2-6}
+z_{n+1} \perp z_{n-1} \,|\, z_{n}
 \end{equation}
-y usando la regla del producto, tenemos que
+
+Y entonces, usando la regla de la cadena, la distribución conjunta para este modelo es la siguiente: 
 \begin{equation}
-  \gamma(z_n) = \frac{
-    p(x_1, ..., x_n, z_n) p(x_{n+1}, ..., x_N \,|\, z_n) 
-    }
-    {p(\mb{X})} = \frac{\alpha(z_n) \beta(z_n)}{p(\mb{X})}
-  \label{eqn:3-11}
+\label{eqn:2-7}
+p(x_1, ..., x_N, z_1, ..., z_N) ~=~ 
+        p(z_1) \left [ \prod_{n=2}^N p(z_n \,|\, z_{n-1}) \right ] 
+\prod_{n=1}^N p(x_n \,|\, z_{n}).
 \end{equation}
-donde usamos la siguiente notación:
-\begin{align}
-  \alpha(z_n) &\equiv p(x_1, ..., x_n, z_n) 
-\label{eqn:3-12} \\
-  \beta(z_n) &\equiv p(x_{n+1}, ..., x_N \,|\, z_n) 
-  \label{eqn:3-13}
-\end{align}
-Se puede pensar $\alpha(z_n)$ como la probabilidad conjunta de observar toda una secuencia de datos hasta el momento $n$, además de el valor de la variable $z_n$; mientras que $\beta(z_n)$ es la probabilidad condicional para una secuencia de datos desde un momento $n$ hasta $N$, dado que se conoce $z_n$. 
 
-Primero, desarrollamos \eqref{eqn:3-12} como sigue:
-\begin{align}
-  \alpha(z_n) &= p(x_1, ..., x_n, z_n)  
-  \notag \\ 
-  \alpha(z_n) &= p(x_1, ..., x_n \,|\, z_n)  p(z_n) 
-  \notag \\ 
-  \alpha(z_n) &= p(x_1, ..., x_{n-1} \,|\, z_n) p(x_n \,|\, z_n)  p(z_n) 
-  \notag \\ 
-  \alpha(z_n) &= p(x_1, ..., x_{n-1}, z_n) p(x_n \,|\, z_n)
-  \notag
-\end{align}
-donde se factorizo $p(z_n)$ y luego $p(x_n \,|\, z_n)$ del resto, puesto que $x_n \perp x_1, ... , x_{n-1} \,|\, z_n$; para luego volver a juntar $p(z_n)$
-usando el Teorema de Bayes.
+\begin{figure}[hbt]
+        \myfloatalign
+        {\includegraphics[width=0.8\linewidth]{gfx/chap2/mod-hmm1}}
+        \caption{Modelo oculto de Márkov.}
+        \label{fig:mod_hmm1}
+\end{figure}
 
-Luego, marginalizando sobre $z_{n-1}$, podemos escribir
-\begin{align}  
-  \alpha(z_n) &= p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    p(x_1, ..., x_{n-1}, z_{n-1}, z_n) 
-    \notag \\ 
-  \alpha(z_n) &= p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    p(x_1, ..., x_{n-1}, z_n \,|\, z_{n-1}) p(z_{n-1})
-    \notag \\ 
-  \alpha(z_n) &= p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    p(x_1, ..., x_{n-1} \,|\, z_{n-1}) p(z_n \,|\, z_{n-1}) p(z_{n-1})
-    \notag \\ 
-  \alpha(z_n) &= p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    p(x_1, ..., x_{n-1}, z_{n-1}) p(z_n \,|\, z_{n-1})
-    \label{eqn:3-14}
-\end{align}
-y usando que $z_{n-1} \perp x_1, ... , x_{n-1} \,|\, z_n$, podemos seguir el mismo procedimiento para llegar a \eqref{eqn:3-14}; y por último, podemos usar la definición de \eqref{eqn:3-12} para el primer factor de la suma, llegando a que
+Para éste último modelo gráfico, si las variables latentes son discretas, entonces se le conoce como Modelo oculto de Márkov o HMM (\textit{Hidden Markov Model}), y es justo el modelo que se utilizará para resolver la tarea de \sd.
+
+\section{Cadena oculta de Márkov}
+
+Una cadena oculta de Márkov, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
+
+Usando un HMM entonces podemos modelar un proceso bivariado discreto en el tiempo, con ciertas propiedades interesantes que se mencionarán más adelante.
+
+Nuestro modelo HMM, se puede pensar como una mezcla de distribuciones en la que la densidad tiene un distribución dada por $p(x|z)$, es decir, la mezcla de los componentes está dada por las observaciones previas.
+
+Se puede considerar entonces, que cada variable latente $z_n$ tendrá una distribución multinomial discreta, que indicará cuál componente de la mezcla de distribuciones es la que ha generado la observación $x_n$. Para ésto, se usará la notación \unk, que corresponde a un conjunto de variables indicador $z_{nk} \in \lbrace 0, 1 \rbrace$, donde $k = 1, ..., K$ señalando cuál de las $K$ distribuciones generó a la variable $x_n$, \ie, si el componente generador de $x_n$ fue la $k$-ésima mezcla, entonces $z_{nk} = 1$ y $z_{nj} = 0$ para todo $j \neq k$.
+
+Ahora, se tiene que cada variable $z_n$ depende únicamente de $z_{n-1}$, y puesto que las variables latente son vectores binarios de $K$ dimensiones, entonces se tendría que la probabilidad condicional de $z_n \,|\, z_{n-1}$ se puede representar mediante una tabla o matriz, que se denotará como $\mb{A}$, y será referida como \textit{matriz de probabilidades de transición}. 
+
+Los componentes de la matriz de transición se definen tal que $A_{jk} \equiv p(z_{nk} = 1 \,|\,  z_{n-1, j} = 1)$, y puesto que son probabilidades, se cumple que $0 \leq A_{jk} \leq 1$ además de que $\sum_k A_{jk} = 1$. Considerando estas restricciones, entonces la matriz $\mb{A}$ tiene $K (K-1)$ parámetros independientes.
+
+Se puede escribir entonces la probabilidad condicional de una variable latente $z_n$ dada la anterior variable latente $z_{n-1}$ de la siguiente forma: 
 \begin{equation}
-  \alpha(z_n) = p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    \alpha(z_{n-1}) p(z_n \,|\, z_{n-1})
-    \label{eqn:3-15}
+\label{eqn:2-8}
+p(z_n \,|\, z_{n-1}, \mb{A}) = \prod_{k=1}^K \prod_{j=1}^K A_{jk}^{z_{n-1, j} 
+        \cdot z_{nk}}
 \end{equation}
 
-Con lo que se obtiene una forma recursiva para calcular $\alpha(z_n)$ a partir de $\alpha(z_{n-1})$ para cuaquier $n$, excepto para $n = 1$; pues no se tiene definido un $z_0$. Por esto mismo, podemos definir el caso inicial $\alpha(z_1)$ usando \eqref{eqn:3-12} y entonces resultaría:
+Además, se tiene que considerar la variable latente inicial $z_1$, puesto que ésta no tiene una variable latente anterior, la \autoref{eqn:2-7} no aplica; por lo que entonces la probabilidad marginal de $z_1$ está representada por un vector de probabilidades $\pi$ tal que $\pi_k \equiv p(z_{1k})$, por lo que se puede reescribir como sigue: 
 \begin{equation}
-  \alpha(z_1) = p(x_1, z_1) = p(z_1) p(x_1 \,|\, z_1) 
-  \label{eqn:3-16}
+p(z_1 \,|\, \pi) = \prod_{k=1}^K \pi_k^{z_{1k}}
+\label{eqn:2-9}
 \end{equation}
+y además se cumple que $\sum_k \pi_k = 1$ por definición.
 
-De la misma manera, para el caso de $\beta(z_n)$ desarrollando a partir de  \eqref{eqn:3-13}
-\begin{align}
-  \beta(z_n) &= p(x_{n+1}, ..., x_N \,|\, z_n)
-    \notag \\
-  \beta(z_n) &= \sum_{z_{n+1}} p(x_{n+1}, ..., x_N, z_{n+1} \,|\, z_n)
-    \notag \\
-  \beta(z_n) &= \sum_{z_{n+1}} p(x_{n+1}, ..., x_N \,|\, z_n, z_{n+1}) 
-    p(z_{n+1} \,|\, z_n)
-    \notag \\
-  \beta(z_n) &= \sum_{z_{n+1}} p(x_{n+1}, ..., x_N \,|\, z_{n+1}) 
-    p(z_{n+1} \,|\, z_n)  
-    \notag 
-\end{align}
-donde primero agregamos la variable $z_{n+1}$ y marginalizamos con respecto a ella, para luego factorizar $p(z_{n+1} \,|\, z_n)$. Después, considerando que 
-$x_{n+1}, ..., x_N \perp z_n \,|\, z_{n+1}$, podemos simplificar la expresión.
+La matriz de transición también se puede llegar a representar como un grafo dirigido, si se consideran las entradas de la matriz $\mb{A}$ como los pesos de las aristas, y los nodos son cada uno de los posibles $K$ estados. Por ejemplo, para el caso de una variable latente de $K = 3$ estados, se tendría el grafo de la \autoref{fig:mod_hmm2}.
 
-A partir de ahí, podemos factorizar $p(x_{n+1} \,|\, z_{n+1})$ con lo que llegamos a 
-\begin{equation}  
-  \beta(z_n) = \sum_{z_{n+1}} p(x_{n+2}, ..., x_N \,|\, z_{n+1}) 
-    p(x_{n+1} \,|\, z_{n+1}) p(z_{n+1} \,|\, z_n)    
-    \label{eqn:3-17}
-\end{equation}
-donde usando \eqref{eqn:3-13} obtenemos de nuevo una forma recursiva para $\beta(z_n)$
-\begin{equation}  
-  \beta(z_n) = \sum_{z_{n+1}} \beta(z_{n+1})
-    p(x_{n+1} \,|\, z_{n+1}) p(z_{n+1} \,|\, z_n)    
-    \label{eqn:3-18}
-\end{equation}
-que en este caso dependería del valor de $\beta(z_{n+1})$ y aplicaría para cualquier $n$, excepto cuando $n = N$. 
+\begin{figure}[hbt]
+        \myfloatalign
+        {\includegraphics[width=0.4\linewidth]{gfx/chap2/mod-hmm2}}
+        \caption{Matriz de transición de modelo oculto de Márkov (grafo).}
+        \label{fig:mod_hmm2}
+\end{figure}
 
-Para este caso, igual partiríamos de la definición en \eqref{eqn:3-11}
+De la misma manera, el grafo correspondiente a la matriz de transición, se puede representar como una rejilla a través del tiempo, en la que se mantienen los vértices y aristas del grafo, pero además se introduce la noción del tiempo. Como se observa en la \autoref{fig:mod_hmm3} 
+
+\begin{figure}[hbt]
+        \myfloatalign
+        {\includegraphics[width=0.63\linewidth]{gfx/chap2/mod-hmm3}}
+        \caption{Matriz de transición de modelo oculto de Márkov (rejilla).}
+        \label{fig:mod_hmm3}
+\end{figure}
+
+Por último, para completar el modelo se tiene que considerar además la distribución condicional de las variables observadas, es decir $p(x_n \,|\, z_n, \phi)$ donde $\phi$ es un conjunto de parámetros específicos a la distribución de $x$. Se les conoce como probabilidades de emisión, y puede ser tanto una distribución discreta como una continua. Para el caso en que la probabilidad de emisión esté dada por una distribución discreta, entonces se tendrá una tabla de probabilidades.
+
+Para calcular entonces esta probabilidad de emisión, se tiene tanto $z_n$ como unos parámetros $\phi$ dados, por lo que entonces se tienen un vector de $K$ valores para cada uno de los posibles estados del vector indicador $z_n$.
+
+Se puede escribir entonces la probabilidad de emisión como sigue:
 \begin{equation}
-  p(z_n \,|\, \bf{X}) = \frac{p(\bf{X}, z_N) \beta(z_N)} {p(\bf{X})}
-  \label{eqn:3-19}
+p(x_n \,|\, z_n, \phi) = \prod_{k=1}^K p(x_n \,|\, \phi_k) ^ {z_{nk}}
+\label{eqn:2-10}
 \end{equation}
-de donde se obtiene que 
+y entonces la probabilidad conjunta quedaría definida de la siguiente manera:
 \begin{equation}
-  \beta(z_N) = 1
-  \label{eqn:3-20}
+p(\mb{X}, \mb{Z} \,|\, \theta) 
+= p(z_1 \,|\, \pi) \left[ \prod_{n=2}^N p(z_n \,|\, z_{n-1}, \mb{A}) \right]
+        \prod_{n=1}^N p(x_n \,|\, z_n, \phi)
+\label{eqn:2-11}
 \end{equation}
+donde $\mb{X} = \lbrace x_1, ..., x_N \rbrace$,~ $\mb{Z} = \lbrace z_1, ..., z_N \rbrace$~ y ~ $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ es el conjunto de parámetros requeridos por el modelo.
 
-\subsection{Factor de escala}
-\label{sec:escala}
+La intuición del modelo oculto de Márkov se puede entender más fácilmente si se revisa desde el punto de vista generativo. Primero, se muestrea la variable latente inicial $z_1$, de acuerdo a las probabilidades $\pi_k$, así como su correspondiente $x_1$. Luego, se debe escoger un $z_2$. Para esto, si se supone que $z_1$ es igual a algún estado $j$, entonces usando la matriz de transición se muestrea $z_2$ con probabilidades $A_{jk}$ para $k = 1, ..., K$, y de igual manera, su correspondiente variable observada $x_2$. Éste mismo proceso es el que se sigue para cada iteración en el tiempo, hasta que se forma completamente el modelo oculto de Márkov y se le conoce como \textit{muestreo ancestral} y se suele usar para modelos con grafos dirigidos.
 
-Para la implementación, se tiene que considerar un problema común del algoritmo de backward-forward: como ya se mencionó, en el proceso recursivo para calcular cada $\alpha(z_n)$ se utilizan los previamente calculados $\alpha(z_{n-1})$, además de unas multiplicaciones por un par de probabilidades. Puesto que cada probabilidad es por definición menor o igual a 1, y que esta operación se realiza iterativamente para cada estado $n$, se tiene entonces que los valores de $\alpha(z_n)$ decrecerán rápidamente, y llegará un momento en el que no se puedan representar en una computadora (por los límites tanto de la notación punto flotante como del doble punto flotante).
-
-Comúnmente, cuando se tienen problemas de precisión, se suele tomar el logaritmo, y así se amplia el rango, evitando posibles underflows. Sin embargo, para el caso presentado, no es posible realizar esto, pues tanto para $\alpha(z_n)$ como $\beta(z_n)$ se manejan sumas de números pequeños, y entonces no tiene sentido usar el logaritmo; pues el logaritmo no se aplicaría directamente sobre esos valores que pudieran ser pequeños; sino sobre la suma de ellos.
-
-Se propone entonces manejar las probabilidades de forma reescalada. Originalente, $\alpha(z_n)$ representa la probabilidad conjunta de todas las variables observadas $x_1, ..., x_n$ junto con la variable latente $z_n$. Se usará entonces $\hat \alpha(z_n)$ como la probabilidad condicional de la variable latente $z_n$ dadas todas las observaciones antes mencionadas. Es decir:
-\begin{equation}
-  \hat \alpha(z_n) = p(z_n \,|\, x_1, ..., x_n )
-    = \frac{\alpha(z_n)}{p(x_1, ..., x_n)}
-  \label{eqn:3-21}
-\end{equation}
-El orden entre las cantidades se mantendrá, puesto que se dividirá entre la probabilidad conjunta de las variables observadas $p(x_1, ..., x_n)$.
-
-Como en algún momento nos será útil regresar del espacio escalado al espacio original de las variables, es importante calcular estos factores de escala para cada una de las $\hat \alpha(z_n)$.
-\begin{equation}
-  c_n = p(x_n \,|\, x_1, ..., x_{n-1})
-  \label{eqn:3-22}
-\end{equation}
-y entonces podemos calcular el factor de escalamiento usando la regla del producto
-\begin{equation}
-  p(x_1, ..., x_n) = \prod_i^n c_i 
-  \label{eqn:3-23}
-\end{equation}
-y entonces, para obtener $\alpha(z_n)$ a partir de $\hat \alpha(z_n)$ se procede de la siguiente manera:
-\begin{align}
-  \alpha(z_n) &= p(x_1, ..., x_n, z_n) 
-    = p(x_1, ..., x_n) p(z_n \,|\, x_1, ..., x_n ) \notag \\
-    &= \left( \prod_i^n c_i \right) \hat \alpha(z_n)    
-  \label{eqn:3-24}
-\end{align}
-
-De la misma manera, la forma recursiva que se había obtenido en \eqref{eqn:3-15} se puede reescribir de la siguiente manera:
-\begin{equation}
-  c_n \alpha(z_n) = p(x_n \,|\, z_n) \sum_{z_{n-1}} 
-    \hat \alpha(z_{n-1}) p(z_n \,|\, z_{n-1})
-    \label{eqn:3-25}
-\end{equation}
-por lo que ahora, a cada paso de la recursión al calcular $\hat \alpha(z_{n-1})$, se debe calcular también $c_n$ e ir almacenando los coeficientes que normalizan a $\alpha(z_n)$.
-
-Ahora, para reescalar $\beta(z_n)$ usando los coeficientes $c_n$ se tendría que
-\begin{equation}
-  \beta(z_n) = \left( \prod_i^n c_i \right) \hat \beta(z_n)
-  \label{eqn:3-26}
-\end{equation}
-donde 
-\begin{equation}
-  \hat \beta(z_n) = 
-    \frac{p(x_{n+1}, ..., x_N \,|\, z_n)}
-    {p(x_{n+1}, ..., x_N \,|\, x_1, ..., x_n)}
-  \label{eqn:3-27}
-\end{equation}
-y por lo tanto tampoco presentaría problemas numéricos el cálculo de $\hat \beta{z_n}$, puesto que vuelve a ser un cociente de probabilidades. En este caso, de la condicional de las variables observadas desde $x_{n+1}, ..., x_N$ dada la variable latente $z_n$ sobre la probabilidad condicional de las mismas variables observadas dadas todas las variables anteriores a $x_{n+1}$.
-
-Entonces, para calcular recursivamente los valores de $\hat \beta(z_n)$, se deriva que 
-\begin{equation}
-  c_{n+1} \hat \beta(z_n) = \sum_{z_{n+1}} \hat \beta(z_{n+1})
-    p(x_{n+1} \,|\, z_{n+1}) p(z_{n+1} \,|\, z_n)    
-  \label{eqn:3-28}
-\end{equation}
-donde usamos los coeficientes de reescalaciemtno que ya habíamos calculado (y almacenado) junto con los valores de $\hat \alpha(z_n)$.
-
-Con las nuevas variables reescaladas, ya se pueden realizar todos los cálculos necesarios. 
-
-Por ejemplo, para calcular la verosimilitud del modelo, usando \eqref{eqn:3-23} se tiene que
-\begin{equation}
-  p(\mb{X}) =  \prod_i^N c_i
-\end{equation}
-
-Así como para el algoritmo de backward-forward, se pueden reescribir tanto     \eqref{eqn:1111} como \eqref{eqn:1112} usando las nuevas variables 
-\begin{align}
-  \gamma(z_n) &= \hat \alpha(z_n) \hat \beta(z_n) \\
-  \xi(z_{n-1}, z_n) &= c_n \hat \alpha(z_{n-1}) p(x_n \,|\, z_n) 
-      p(z_n \,|\, z_{n-1}) \hat \beta(z_n) 
-\end{align}
-
-\chapter{Selección de modelo}
-
-\section{Selección de modelo}
-
-Hasta ahora, se tiene la metodología completa para estimar los parámetros del un modelo HMM propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
-
-Para la estimación de los parámetros usando EM, se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se estable un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contíguas. 
-
-Con esto, se obtiene la estimación de parámatros de el modelo así como su verosimilitud, partiendo de una inicialización aleatoria.
-
-Puesto que el problema abarca también el detectar cuántos speakers están involucrados en la grabación, se propondrán modelos para diferentes números de speakers, y a partir de una función de costo se escojerá al que mejor se ajuste.
-
-\subsection{Selección de modelo usando bootsrap con likelihood ratio testing}
-
-Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico para comparar el modelo correspondiente de $d$ estados contra el de $d+1$ estados ocultos.
-
-La prueba que se realiza es comparando la máxima verosimilitud estimada (MLE) $\hat \theta^{(d)}$ y $\hat \theta^{(d+1)}$ de los modelos de $d$ y $d+1$ estados respectivamente. Para la comparación se usa la estadística \textit{log likelihood ratio} que corresponde a la diferencia de las log-verosimilitudes mencionadas
-\begin{equation}
-  LR^{(d)}_{obs} = log \frac{L(\hat \theta^{(d+1)}; y_{1:n})}{L(\hat \theta^{(d)}; y_{1:n})} =
-    log L(\hat \theta^{(d+1)}; y_{1:n}) - 
-    log L(\hat \theta^{(d)}; y_{1:n})
-\end{equation}
-
-Para calcular la MLE de un modelo, se estimó la verosimilitud varias veces con diferentes parámetros iniciales aleatorios. Se iteró el algoritmo EM hasta convergencia, un numero $iter_{hmm}$ fijo de iteraciones, esto para evitar el estancamiento del algoritmo en un máximo local, y obtener así una buena estimación de la máxima verosimilitud del modelo.
-
-Se usó entonces como MLE del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_{obs}$.
-
-Ahora, para hacer la prueba con boostrap, simularemos 
-
-\begin{algorithm}[tp]
-   \caption{Muestreo ancestral para un HMM}
-   \label{alg:ancsamp}
-\begin{algorithmic}
-   \STATE {\bfseries Input:} \\
-   núm. de estados $N$, núm. de muestras en el tiempo $T$ \\
-   núm. de posibles valores en el diccionario $K$, \\
-   $ \pi \in \mathcal{R}^{N}; ~~ \pi_j = p(z_{1j})$ \\
-   $ \mathbf{A} \in \mathcal{R}^{N \times N}; ~~
-   \mathbf{A}_{jk} = p(z_{nk} \,|\, z_{n-1, j})$ \\
-
-   $ \mathbf{E} \in \mathcal{R}^{K \times N}; ~~
-   \mathbf{E}_{jk} = p(x_{nk} \,|\, z_{n, j})$\\  
-   \STATE
-   \STATE $z_1 \sim Multinomial(\pi)$   
-   \STATE $x_1 \sim Multinomial(\mathbf{E}_{[z_1,~:]})$
-
-   \FOR{$i = 1 \to T$} 
-    \STATE $z_t \sim Multinomial(\mathbf{A}_{[z_{t-1},~:]})$ 
-    \STATE $x_t \sim Multinomial(\mathbf{E}_{[z_t,~:]})$
-   \ENDFOR   
-\end{algorithmic}
-\end{algorithm}
-
-\subsection{Selección de modelo usando BIC}
-
-\begin{comment} 
-Una vez que se tienen los parámetros estimados para cada uno de los modelos correspondientes a las propuestas, se necesita ver cuál es el modelo que mejor se ajusta a los datos.
-\end{comment} 
-
-Otra manera de realizar la selección del modelo que mejor se adecua a los datos que se observan, es usar una métrica específica para la selección de modelos.
-
-Entre las más comunes, se encuentran por ejemplo AIC o BIC, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
-
-Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar BIC o Bayesian Information Criterion.
-
-Este criterio se calcula de la siguiente manera: 
-\begin{equation}
-BIC(M) = 2 log-likelihood_{max}(M) - (log n ) dim(M)
-\end{equation}
-para cada propuesta de modelo $M$, donde $dim(M)$ es el número estimado de parámetros libres que le corresponden, y $n$ es el tamaño de nuestra muestra de datos.
-
-Para estimar el número de parámetros libres de nuestro modelo, se consideran todas las probabilidades que rigen al HMM, que en este caso son: la matriz a priori o inicial, la matriz de transiciones entre los interlocutores, así como la matriz de emisión de cada persona para todo el diccionario de palabras.
-
-Esta selección se enfoca en escoger el candidato modelo con la mayor probabilidad dados los datos, pero penalizando la complejidad de cada propuesta. Se preferirán entonces los modelos con una mayor verosimilitud que involucren la menor cantidad de parámetros posibles. 
-
-...
+Si la matriz de transición es predominantemente diagonal, entonces en la secuencia de datos puede que un mismo estado $i$ sea el que genere muchos puntos $x_n$, pues con poca probabilidad cambiará de un estado $i$ a $j$. Este fenómeno es justo el que se espera para el caso de \sd, pues usualmente una persona $p_i$ hablará durante mucho tiempo, y luego cuando otra persona $p_j$ toma la palabra, sucederá lo mismo.
