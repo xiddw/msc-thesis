@@ -34,7 +34,7 @@ En este trabajo de tesis se abordará el problema usando un escenario similar al
 \section{Principales enfoques}
 \label{sec:previo}
 
-De acuerdo al trabajo desarrollado hasta ahora, se puede distinguir que hay dos grandes enfoques que se usan para \sd: \textit{bottom-up} (de abajo a arriba) y \textit{top-down} (de arriba a abajo). De forma general, se consideran \textit{bottom-up} las metodologías en las que se inicia la estimación con pocos clústers (e incluso un sólo segmento), y \textit{top-down} aquellas en las que se inicia la estimación con muchos más clústers de los que se esperan encontrar.
+De acuerdo al trabajo desarrollado hasta ahora, se puede distinguir que hay dos grandes enfoques que se usan para \sd: \bu~ (de abajo a arriba) y \td~ (de arriba a abajo). De forma general, se consideran \bu~ las metodologías en las que se inicia la estimación con pocos clústers (e incluso un sólo segmento), y \td~ aquellas en las que se inicia la estimación con muchos más clústers de los que se esperan encontrar.
 
 Ambos enfoques iteraran hasta converger a un número de clústers óptimo, en que cada grupo debe corresponder a un interlocutor.
 
@@ -44,4 +44,11 @@ Es importante remarcar que con \textit{decir una palabra} no necesariamente se r
 
 \section{Trabajos previos}
 
-En el trabajo de Anguera \cite{, 
+En el trabajo de Anguera~et~al.~\cite{AngueraMiro2012} se hace un profundo análisis sobre el estado del arte hasta hace un año, y se mencionan las principales características de cada uno de estos trabajos, que a continuación se resumen.
+
+Dentro de los trabajos que usan un enfoque \bu~ se encuentran por ejemplo el de Anguera~et~al.~\cite{AngueraMiro2006}, en donde se propone una medida de similitud entre clústers utilizando una variante de BIC (Bayesian Information Criteria por sus siglas) para decidir qué pares de clústers agrupar, así como para establecer un criterio de paro.
+
+En el trabajo de \cite{Wooters2007}, también proponen una métrica basada en BIC para la aglomeración de los grupos, pero se enfocan principalmente en mejorar una etapa de pre-procesamiento de la señal para detectar cuando alguien o no habla en la grabación.
+
+Por otro lado, en el trabajo de \cite{Nguyenn2009}
+

@@ -37,31 +37,38 @@ En esta primer secuencia se tomaron varios poemas del escritor Edgar Allan Poe, 
 Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales, mientras que el banco de filtros fue el mismo que anteriormente se mencionó.
 
 \begin{figure}[bht]
-  \centerline{
+  \centerline{  
     \hspace{1.2cm}
-    \parbox[c]{0.35\textwidth}{\centering Modelo generador}
-    \parbox[c]{0.35\textwidth}{\centering Modelo $n_4$}
-    \parbox[c]{0.35\textwidth}{\centering Modelo $n_5$}
-    \parbox[c]{0.35\textwidth}{\centering Modelo $n_6$}
+    \parbox[c]{0.38\textwidth}{\centering Modelo generador}
+    \parbox[c]{0.38\textwidth}{\centering Modelo $n_4$}
+    \parbox[c]{0.38\textwidth}{\centering Modelo $n_5$}
+    \parbox[c]{0.38\textwidth}{\centering Modelo $n_6$}
   }
   \vspace{0.5cm}
   \foreach \row in {1, ..., 2}{%  
-    \centerline{
+    \centerline{%
       \parbox[c]{1cm}{
         \vspace{-0.5cm}
         \myheader{\row}
       }
+      %\gdef \widthimg {0.35}
       \foreach \col in {1, ..., 4}{%
-        \begin{subfigure}[c]{0.35\textwidth}  
+        \pgfmathparse{\col == 4 && \row == 2? 1:0}
+        \ifthenelse{\pgfmathresult=1}{
+          \gdef \widthimg {0.39}
+        }{
+          \gdef \widthimg {0.35}
+        }
+        \begin{subfigure}[c]{\widthimg \textwidth}          
           \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
-          \IfFileExists{\imgfile.png}{
+          \IfFileExists{\imgfile.eps}{
             \includegraphics[width=1\textwidth]{\imgfile}
-            %\caption{}
             \label{fig:seq1p_\col_\row}
           }{
             \hspace{1\textwidth}
           }
         \end{subfigure}
+        %\hspace{-0.005\textwidth}
       }
     }
   }
@@ -96,7 +103,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
       \foreach \col in {1, ..., 4}{%
         \begin{subfigure}[c]{0.35\textwidth}  
           \def \imgfile {gfx/chap6/cuervo1p_\col_\row}
-          \IfFileExists{\imgfile.png}{
+          \IfFileExists{\imgfile.eps}{
             \includegraphics[width=1\textwidth]{\imgfile}
             %\caption{}
             \label{fig:seq1p_\col_\row}
@@ -117,24 +124,23 @@ Para la selección del modelo y siguiendo la metodología propuesta, primero se 
 
 \begin{figure}[t!]
   \centerline{
-  \begin{subfigure}[b]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{gfx/chap6/cuervobic1} 
-    \caption{}
-    \label{fig:seq1_bic1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.6\textwidth}
-   \includegraphics[width=1\textwidth]{gfx/chap6/cuervobic2}
+  \begin{subfigure}[b]{1.1\textwidth}
+   \includegraphics[width=1\textwidth]{gfx/chap6/cuervo1bic2}
    \caption{}
    \label{fig:seq1_bic2}
   \end{subfigure}  
-  }
+  }  
   \centerline{
-  \begin{subfigure}[b]{0.6\textwidth}
-    \includegraphics[width=\textwidth]{gfx/chap6/cuervobic3} 
+  \begin{subfigure}[b]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{gfx/chap6/cuervo1bic1} 
+    \caption{}
+    \label{fig:seq1_bic1}
+  \end{subfigure}  
+  \begin{subfigure}[b]{0.55\textwidth}
+    \includegraphics[width=\textwidth]{gfx/chap6/cuervo1bic3} 
     \caption{}
     \label{fig:seq1_bic3}
   \end{subfigure}
-  \hspace{0.6\textwidth}
   }
   \caption[Secuencia 1: Pruebas BIC]{En la \autoref{fig:seq1_bic1} se muestra la superficie generada al variar el valor de lambda para evaluar BIC. En la \autoref{fig:seq1_bic2}, se muestra las curvas de nivel de la superficie anterior, así como la dirección del gradiente en la misma. En la \autoref{fig:seq1_bic3} se muestra el valor seleccionado para lambda de acuerdo al analisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}.}
   \label{fig:seq1_bic}
@@ -197,7 +203,19 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
 
 \begin{figure}[bht]
   \centerline
-  {\includegraphics[width=0.8\linewidth]{gfx/chap6/cuervo1_}} \quad
+  {\begin{subfigure}[b]{1.3\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervo1s_3_1}
+      \caption{}
+      \label{fig:seq1_seq1}
+    \end{subfigure}
+  } 
+  \centerline
+  {\begin{subfigure}[b]{1.3\textwidth}
+      \includegraphics[width=1\linewidth]{gfx/chap6/cuervo1s_3_2}
+      \caption{}
+      \label{fig:seq1_seq2}
+    \end{subfigure}
+  }   
   \caption[Secuencia 1: Secuencia recuperada]{La secuencia original en comparación con la secuencia recuperada del modelo ganador. En la segunda figura se muestran en rojo los errores cometidos respecto a la primera secuencia. }
   \label{fig:prb1_seq}
 \end{figure}

@@ -36,7 +36,10 @@
 \usepackage{subcaption}
 \usepackage{rotating}
 \usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{ifthen}
 
+\usepackage{epstopdf}
 % \usepackage{lipsum}
 
 \usepackage{algorithm}
@@ -62,6 +65,9 @@
 \newcommand{\abf}{\textit{backward-forward}}
 \newcommand{\bstep}{\textit{backward-step}}
 \newcommand{\fstep}{\textit{forward-step}}
+
+\newcommand{\bu}{\textit{bottom-up}}
+\newcommand{\td}{\textit{top-down}}
 
 \newcommand\myheader[1]{%
   \ifcase#1\relax invisible
@@ -110,7 +116,7 @@
 %\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \cleardoublepage
-\include{FrontBackmatter/Contents}
+%\include{FrontBackmatter/Contents}
 
 %********************************************************************
 % Mainmatter
@@ -118,6 +124,7 @@
 \pagenumbering{arabic}
 %\cleardoublepage
 
+\iffalse
 \part{Preliminares}
 
 \include{Chapters/Chapter01}
@@ -133,14 +140,16 @@
 \include{Chapters/Chapter03_MLE}
 
 \include{Chapters/Chapter04}
-%\setcounter{chapter}{4}
+
 
 \part{Marco experimental}
 
 \include{Chapters/Chapter05}
+\fi
+\setcounter{chapter}{5}
 \include{Chapters/Chapter06}
 
-\include{Chapters/Chapter07}
+%\include{Chapters/Chapter07}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 
