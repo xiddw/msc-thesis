@@ -2,9 +2,25 @@
 \deactivateaddvspace 
 \select@language {spanish}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {1.1}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (1)}}{3}{figure.caption.3}
-\contentsline {figure}{\numberline {1.2}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (2)}}{4}{figure.caption.4}
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Secuencia 1: Pruebas BIC}}{5}{figure.caption.5}
-\contentsline {figure}{\numberline {1.4}{\ignorespaces Secuencia 1: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{6}{figure.caption.6}
-\contentsline {figure}{\numberline {1.5}{\ignorespaces Secuencia 1: Secuencia recuperada}}{7}{figure.caption.7}
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Se\IeC {\~n}al original de audio.\relax }}{8}{figure.caption.3}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Identificaci\IeC {\'o}n y eliminaci\IeC {\'o}n de silencio en se\IeC {\~n}al.\relax }}{9}{figure.caption.4}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Banco de filtros triangulares en frecuencia Mel.\relax }}{10}{figure.caption.5}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Respuesta al banco de filtros.\relax }}{10}{figure.caption.6}
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Mel Frequency Cepstrum Coefficients.\relax }}{11}{figure.caption.7}
+\contentsline {figure}{\numberline {2.6}{\ignorespaces MFCC agrupados con k-means++.\relax }}{12}{figure.caption.8}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Observaciones independientes e id\IeC {\'e}nticamente distribuidas.\relax }}{14}{figure.caption.9}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Modelo de M\IeC {\'a}rkov de primer orden.\relax }}{15}{figure.caption.10}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Modelo de M\IeC {\'a}rkov de segundo orden.\relax }}{16}{figure.caption.11}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Modelo oculto de M\IeC {\'a}rkov.\relax }}{16}{figure.caption.12}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (grafo).\relax }}{18}{figure.caption.13}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{19}{figure.caption.14}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (1)}}{38}{figure.caption.15}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (2)}}{39}{figure.caption.16}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Secuencia 1: Pruebas BIC}}{40}{figure.caption.17}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Secuencia 1: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{41}{figure.caption.18}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Secuencia 1: Secuencia recuperada}}{42}{figure.caption.19}
