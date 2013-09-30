@@ -6,7 +6,7 @@
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Se\IeC {\~n}al original de audio.\relax }}{8}{figure.caption.3}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Identificaci\IeC {\'o}n y eliminaci\IeC {\'o}n de silencio en se\IeC {\~n}al.\relax }}{9}{figure.caption.4}
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Banco de filtros triangulares en frecuencia Mel.\relax }}{10}{figure.caption.5}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Respuesta al banco de filtros.\relax }}{10}{figure.caption.6}
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Respuesta al banco de filtros.\relax }}{11}{figure.caption.6}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Mel Frequency Cepstrum Coefficients.\relax }}{11}{figure.caption.7}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces MFCC agrupados con k-means++.\relax }}{12}{figure.caption.8}
 \addvspace {10\p@ }

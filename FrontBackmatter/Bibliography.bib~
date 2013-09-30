@@ -1,0 +1,253 @@
+% This file was created with JabRef 2.9.2.
+% Encoding: Cp1252
+
+@ARTICLE{AngueraMiro2012,
+  author = {Anguera~Miró, Xavier and Bozonnet, Simon and Evans, Nicholas W. D.
+	and Fredouille, Corinne and Friedland, Gerald and Vinyals, Oriol},
+  title = {Speaker Diarization: A Review of Recent Research.},
+  journal = {IEEE Transactions on Audio, Speech \& Language Processing},
+  year = {2012},
+  volume = {20},
+  pages = {356-370},
+  keywords = {dblp},
+  owner = {xiddw},
+  url = {http://dblp.uni-trier.de/db/journals/taslp/taslp20.html#MiroBEFFV12}
+}
+
+@INPROCEEDINGS{AngueraMiro2006,
+  author = {Anguera~Miró, Xavier and Wooters, Chuck and Pardo, José M.},
+  title = {Robust Speaker Diarization for Meetings: ICSI RT06S Meetings Evaluation
+	System.},
+  booktitle = {MLMI},
+  year = {2006},
+  editor = {Renals, Steve and Bengio, Samy and Fiscus, Jonathan G.},
+  volume = {4299},
+  pages = {346-358},
+  __markedentry = {[xiddw:1]},
+  date = {2007-11-08},
+  description = {dblp},
+  isbn = {3-540-69267-3},
+  keywords = {dblp},
+  owner = {xiddw}
+}
+
+@BOOK{Bishop2006,
+  title = {{P}attern {R}ecognition and {M}achine {L}earning},
+  publisher = {Springer},
+  year = {2006},
+  author = {Bishop, Christopher M.},
+  series = {Information Science and Statistics},
+  owner = {xiddw},
+  timestamp = {2013.08.29}
+}
+
+@INPROCEEDINGS{Bozonnet2010,
+  author = {Bozonnet, Simon and Evans, Nicholas W. D. and Fredouille, Corinne},
+  title = {{T}he {LIA}-{EURECOM} {RT}'09 {S}peaker {D}iarization {S}ystem :
+	enhancements in speaker modelling and cluster purification},
+  booktitle = {ICASSP},
+  year = {2010},
+  pages = {4958-4961},
+  publisher = {IEEE},
+  __markedentry = {[xiddw:2]},
+  isbn = {978-1-4244-4296-6},
+  keywords = {dblp},
+  owner = {xiddw}
+}
+
+@BOOK{Claeskens2010,
+  title = {{M}odel {S}election and {M}odel {A}veraging},
+  publisher = {Cambridge University Press},
+  year = {2010},
+  author = {Claeskens, Gerda and Hjort, Nils Lid},
+  series = {Cambridge Series in Statistical and Probabilistic Mathematics},
+  owner = {xiddw},
+  timestamp = {2013.08.29}
+}
+
+@ARTICLE{Fox2011,
+  author = {Fox, E.B. and Sudderth, E.B. and Jordan, M.I. and Willsky, A.S.},
+  title = {{A Sticky HDP-HMM with Application to Speaker Diarization}},
+  journal = {Annals of Applied Statistics},
+  year = {2011},
+  volume = {5},
+  pages = {1020--1056},
+  number = {2A},
+  owner = {xiddw}
+}
+
+@INPROCEEDINGS{Fredouille2009,
+  author = {Fredouille, Corinne and Bozonnet, Simon and Evans, Nicholas W. D.},
+  title = {{T}he {LIA}-{EURECOM} {RT}'09 {S}peaker {D}iarization {S}ystem},
+  booktitle = {{RT} 2009, {NIST} {R}ich {T}ranscription {W}orkshop, {M}ay 28-29,
+	2009, {M}elbourne, {USA}},
+  year = {2009},
+  address = {{M}elbourne, {UNITED} {STATES}},
+  month = {05},
+  __markedentry = {[xiddw:2]},
+  owner = {xiddw},
+  url = {http://www.eurecom.fr/publication/2763}
+}
+
+@INPROCEEDINGS{Fredouille2007,
+  author = {Fredouille, Corinne and Evans, Nicholas W. D.},
+  title = {The LIA RT'07 Speaker Diarization System.},
+  booktitle = {CLEAR},
+  year = {2007},
+  editor = {Stiefelhagen, Rainer and Bowers, Rachel and Fiscus, Jonathan G.},
+  volume = {4625},
+  series = {Lecture Notes in Computer Science},
+  pages = {520-532},
+  publisher = {Springer},
+  __markedentry = {[xiddw:2]},
+  isbn = {978-3-540-68584-5},
+  keywords = {dblp},
+  owner = {xiddw}
+}
+
+@INPROCEEDINGS{Istrate2005,
+  author = {Istrate, Dan and Fredouille, Corinne and Meignier, Sylvain and Besacier,
+	Laurent and Bonastre, Jean-François},
+  title = {NIST RT'05S Evaluation: Pre-processing Techniques and Speaker Diarization
+	on Multiple Microphone Meetings.},
+  booktitle = {MLMI},
+  year = {2005},
+  editor = {Renals, Steve and Bengio, Samy},
+  volume = {3869},
+  series = {Lecture Notes in Computer Science},
+  pages = {428-439},
+  publisher = {Springer},
+  date = {2006-02-21},
+  isbn = {3-540-32549-2},
+  keywords = {dblp},
+  owner = {xiddw}
+}
+
+@BOOK{Jelinek1998,
+  title = {Statistical Methods for Speech Recognition},
+  publisher = {MIT Press},
+  year = {1998},
+  author = {Jelinek, Frederick},
+  series = {Language, Speech, and Communication},
+  isbn = {0262100665},
+  owner = {xiddw},
+  timestamp = {2013.08.29}
+}
+
+@INPROCEEDINGS{Meignier2001,
+  author = {Meignier, S. and Bonastre, J.-F. and Igounet, S.},
+  title = {E-HMM approach for learning and adapting sound models for speaker
+	indexing},
+  booktitle = {ISCA, A Speaker Odyssey, The Speaker Recognition Workshop},
+  year = {2001},
+  address = {Chiana (Crete)},
+  month = {18-22 Juin 2001},
+  __markedentry = {[xiddw:2]},
+  aeres = {ACTI - International Conference Proceedings},
+  articletitle = {ISCA, A Speaker Odyssey, The Speaker Recognition Workshop},
+  city = {Chiana},
+  country = {Crete},
+  forme = {Long Paper},
+  owner = {xiddw},
+  url = {http://www-lium.univ-lemans.fr/~meignier/publi/odyssey2001-mei.pdf}
+}
+
+@BOOK{Morgan1991,
+  title = {{N}eural {N}etworks and {S}peech {P}rocessing},
+  publisher = {Kluwer Academic Publishers},
+  year = {1991},
+  author = {Morgan, David P. and Scofield, Christopher L.},
+  series = {The Kluwer International Series in Engineering and Computer Science.},
+  isbn = {0792391446},
+  owner = {xiddw},
+  timestamp = {2013.09.04}
+}
+
+@INPROCEEDINGS{Nguyen2009,
+  author = {Trung Hieu Nguyen and Haizhou Li and Chng Eng Siong},
+  title = {Cluster criterion functions in spectral subspace and their applicationin
+	speaker clustering},
+  booktitle = {ICASSP},
+  year = {2009},
+  pages = {4085-4088},
+  __markedentry = {[xiddw:1]},
+  owner = {xiddw}
+}
+
+@ARTICLE{Rabiner1989,
+  author = {Rabiner, Lawrence R},
+  title = {A tutorial on hidden Markov models and selected applications in speech
+	recognition},
+  journal = {Proceedings of the IEEE},
+  year = {1989},
+  volume = {77},
+  pages = {257--286},
+  note = {errata at http://alumni.media.mit.edu/~rahimi/rabiner/rabiner-errata/rabiner-errata.html},
+  keywords = {hidden.markov.model hmm tutorial},
+  owner = {xiddw},
+  publisher = {IEEE}
+}
+
+@BOOK{Rabiner1993,
+  title = {Fundamentals of speech recognition},
+  publisher = {Prentice-Hall, Inc.},
+  year = {1993},
+  author = {Rabiner, Lawrence R. and Juang, Biing-Hwang},
+  address = {Upper Saddle River, NJ, USA},
+  isbn = {0-13-015157-2},
+  keywords = {imported},
+  owner = {xiddw}
+}
+
+@ARTICLE{Rabiner2007,
+  author = {Rabiner, Lawrence R. and Schafer, R.W.},
+  title = {Introduction to digital speech processing},
+  journal = {Foundations and trends in signal processing},
+  year = {2007},
+  volume = {1},
+  pages = {1--194},
+  keywords = {DSP speech},
+  owner = {xiddw},
+  publisher = {Now Publishers Inc.}
+}
+
+@ARTICLE{Ryden2008,
+  author = {Ryden, Tobias},
+  title = {{EM versus Markov chain Monte Carlo for Estimation of Hidden Markov
+	Models: A Computational Perspective}},
+  journal = {Bayesian Analysis},
+  year = {2008},
+  keywords = {bayesian, hmm, mcmc},
+  owner = {xiddw},
+  url = {http://ba.stat.cmu.edu/journal/2008/vol03/issue04/ryden.pdf}
+}
+
+@ARTICLE{Tranter2006,
+  author = {Tranter, Sue and Reynolds, Douglas},
+  title = {An Overview of Automatic Speaker Diarisation Systems},
+  journal = {IEEE Transactions on Speech, Audio \& Language Processing, Special
+	Issue on Rich Transcription},
+  year = {2006},
+  pages = {1557--1565},
+  owner = {xiddw}
+}
+
+@INPROCEEDINGS{Wooters2007,
+  author = {Wooters, Chuck and Huijbregts, Marijn},
+  title = {The ICSI RT07s Speaker Diarization System.},
+  booktitle = {CLEAR},
+  year = {2007},
+  editor = {Stiefelhagen, Rainer and Bowers, Rachel and Fiscus, Jonathan G.},
+  volume = {4625},
+  series = {Lecture Notes in Computer Science},
+  pages = {509-519},
+  publisher = {Springer},
+  __markedentry = {[xiddw:1]},
+  date = {2008-06-30},
+  description = {dblp},
+  isbn = {978-3-540-68584-5},
+  keywords = {dblp},
+  owner = {xiddw},
+  timestamp = {2008-06-30}
+}
+

@@ -10,9 +10,9 @@ La idea básica cuando se busca abordar este problema es el de poder segmentar l
 
 \section{Aplicaciones de \sd}
 
-Por la misma naturaleza del algoritmo, cuando se realiza \sd, lo que se trata de inferir es cuántas personas hablan, y cuándo habla cada una de ellas; es decir, se identifica a un grupo $n$ de personas, pero no se dice nada acerca de ellos o su identidad. 
+Por la misma naturaleza del problema, cuando se realiza \sd, lo que se trata de inferir es cuántas personas hablan, y en qué momentos habla cada una de ellas; es decir, se identifica a un grupo $n$ de personas, pero no se dice nada acerca de ellos o su identidad. 
 
-Por el mismo planteamiento del problema, las etiquetas asignadas a cada persona identificada en la grabación puede cambiar, pues no hay nada que nos permita asociar de manera no arbitraria una etiqueta a una persona en especifico. Es decir, el orden en que se asignan las etiquetas puede cambiar, aunque la segmentación obtenida sea en esencia la misma.
+Debido a esto, las etiquetas asignadas a cada persona identificada en la grabación puede cambiar, pues no hay nada que nos permita asociar de manera no arbitraria una etiqueta a una persona en especifico. Es decir, el orden en que se asignan las etiquetas puede cambiar, aunque la segmentación obtenida sea en esencia la misma.
 
 La segmentación y agrupación de voz, es una parte importante de la transcripción de voz, así como también del reconocimiento de voz e identificación de personas que hablan. 
 
@@ -21,6 +21,10 @@ Es de gran ayuda para la tarea de reconocimiento de voz, puesto que éste se bas
 En cuanto a la identificación de personas y alguna otra modelación acústica que se quiera realizar; es importante que los modelos que se entrenan usen segmentos de audio homogéneos (en este caso, que se tenga la certeza que corresponden a la misma persona), para que en realidad se esté modelando la voz de la persona, y no algo diferente a ella.
 
 Como último ejemplo, la transcripción automática de voz, es el proceso en el que además de lograr identificar cuándo habla cada persona, se identifica de quién se trata realmente esta persona, y qué es lo que está diciendo. Ésto sirve por ejemplo, cuando se tiene una gran cantidad de grabaciones de audio; y se desea etiquetar de qué se habla en cada una de estas grabaciones. 
+
+\section{Componentes del sistema}
+
+Para discutir el problema de 
 
 \section{Procesamiento de señal}
 
@@ -134,7 +138,24 @@ Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida
 \end{figure}
 Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} y que propone una mejor inicialización para obtener mejores resultados.
 
-(------Agregar algoritmo de kmeans++ ------)
+\begin{algorithm}[tp]
+   \caption{\textit{k-means++}}
+   \label{alg:kmeanspp}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} \\ Conjunto de datos $\lbrace x_n \rbrace_1^N $, número de grupos $k$
+   \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, k)$   
+   
+   \STATE $t = 0$
+   \STATE $l_{1:N}^{(t)} = 0$
+      
+   \REPEAT  
+   \STATE $t=t+1$ 
+   \STATE $l_n^{(t)} = \text{arg min}_k {\left \| x_n - \mu_k \right \|}^2 $
+   \STATE $r_{nk}$ = $\mathbbm{1}_k\left(l_n^{(t)}\right)$
+   \STATE $\mu_k = \left\lbrace {\sum_{n=1}^N r_{nk} x_n} \right\rbrace / \left\lbrace {\sum_{n=1}^N r_{nk}} \right\rbrace $
+   \UNTIL{$l^{(t)}$ == $l^{(t+1)}$}
+\end{algorithmic}
+\end{algorithm}
 
 Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetos que le correspondan.
 

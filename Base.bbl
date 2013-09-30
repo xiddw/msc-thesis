@@ -1,0 +1,31 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{AMBE{\etalchar{+}}12}
+
+\bibitem[AMBE{\etalchar{+}}12]{AngueraMiro2012}
+Xavier Anguera~Miró, Simon Bozonnet, Nicholas W.~D. Evans, Corinne Fredouille,
+  Gerald Friedland, and Oriol Vinyals.
+\newblock Speaker diarization: A review of recent research.
+\newblock {\em IEEE Transactions on Audio, Speech \& Language Processing},
+  20:356--370, 2012.
+
+\bibitem[AMWP06]{AngueraMiro2006}
+Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
+\newblock Robust speaker diarization for meetings: Icsi rt06s meetings
+  evaluation system.
+\newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
+  MLMI}, volume 4299, pages 346--358, 2006.
+
+\bibitem[NLS09]{Nguyen2009}
+Trung~Hieu Nguyen, Haizhou Li, and Chng~Eng Siong.
+\newblock Cluster criterion functions in spectral subspace and their
+  applicationin speaker clustering.
+\newblock In {\em ICASSP}, pages 4085--4088, 2009.
+
+\bibitem[WH07]{Wooters2007}
+Chuck Wooters and Marijn Huijbregts.
+\newblock The icsi rt07s speaker diarization system.
+\newblock In Rainer Stiefelhagen, Rachel Bowers, and Jonathan~G. Fiscus,
+  editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
+  pages 509--519. Springer, 2007.
+
+\end{thebibliography}
