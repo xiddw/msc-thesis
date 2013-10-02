@@ -15,6 +15,18 @@ Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
 \newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
   MLMI}, volume 4299, pages 346--358, 2006.
 
+\bibitem[Jel98]{Jelinek1998}
+Frederick Jelinek.
+\newblock {\em Statistical Methods for Speech Recognition}.
+\newblock Language, Speech, and Communication. MIT Press, 1998.
+
+\bibitem[MBI01]{Meignier2001}
+S.~Meignier, J.-F. Bonastre, and S.~Igounet.
+\newblock E-hmm approach for learning and adapting sound models for speaker
+  indexing.
+\newblock In {\em ISCA, A Speaker Odyssey, The Speaker Recognition Workshop},
+  Chiana (Crete), 18-22 Juin 2001 2001.
+
 \bibitem[NLS09]{Nguyen2009}
 Trung~Hieu Nguyen, Haizhou Li, and Chng~Eng Siong.
 \newblock Cluster criterion functions in spectral subspace and their
