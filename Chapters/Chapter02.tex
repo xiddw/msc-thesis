@@ -26,7 +26,7 @@ Como último ejemplo, la transcripción automática de voz, es el proceso en el 
 
 Para diseñar un sistema que sea capaz de resolver el problema de \sd, se debe de primero plantear la formulación matemática que se abordará. 
 
-En general, todos los sistemas que involucran procesamiento de voz, tienen varias etapas escenciales, como se menciona en Jelinek \cite{Jelinek1998}. 
+En general, todos los sistemas que involucran procesamiento de voz, tienen varias etapas esenciales, como se menciona en Jelinek \cite{Jelinek1998}. 
 
 \begin{enumerate}
 \item Procesamiento acústico
@@ -105,9 +105,9 @@ Una vez que se tiene la señal ya sin silencios, se trata de buscar característ
 
 Tanto la extracción como selección de la mejor representación paramétrica de la señal de audio es una importante tarea en el diseño de cualquier sistema relacionado al reconocimiento o procesamiento de señales de audio. 
 
-Para la tarea de \sd, se usarán los Coeficientes Cepstrales de Frecuencia Mel  (\MFCC), que son ampliamente utilizados por ejemplo en \textit{speech recognition} entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimr la señal de audio eliminando la información que no es útil para análisis fonético.
+Para la tarea de \sd, se usarán los Coeficientes Cepstrales de Frecuencia Mel  (\MFCC), que son ampliamente utilizados por ejemplo en \textit{speech recognition} entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimir la señal de audio eliminando la información que no es útil para análisis fonético.
 
-Cabe mencionar, que originalmente los \MFCC~ fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra  fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
+Cabe mencionar, que originalmente los \MFCC~ fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
 
 Ésto va en contra del proceso requerido en \sd, puesto que se desea identificar a las diferentes personas que hablan, sin dar tanta importancia a qué es lo que están diciendo; por lo que la tarea de segmentación de señales de audio se vuelve un poco más complicada.
 
@@ -132,11 +132,11 @@ Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la resp
   \label{fig:sign_melres}
 \end{figure}
 
-La dimensionalidad de la respuesta al banco de filtros dependerá de la misma contrucción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
+La dimensión de la respuesta al banco de filtros dependerá de la misma construcción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
 
 Para esto, la respuesta obtenida del banco de filtros se le aplicará la DCT (Transformada Discreta del Coseno), para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
 
-Después de este proceso, nuestros datos se podrían representar de la siguiente maneta (\autoref{fig:sign_mfcc}) que son los MFCC que antes habíamos mencionado.
+Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los MFCC que antes habíamos mencionado.
 \begin{figure}[bth]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mfcc}} \quad
@@ -175,7 +175,7 @@ Cabe aclarar que usamos una variante del algoritmo original de k-means, que se l
 \end{algorithmic}
 \end{algorithm}
 
-Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetos que le correspondan.
+Ahora sí, con nuestro vector de etiquetas correspondiente a la señal de audio, se podrá aplicar un modelo y tratar de inferir los parámetros que le correspondan.
 
 
 % section section_name (end)

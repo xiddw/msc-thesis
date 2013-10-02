@@ -17,9 +17,9 @@ Para las pruebas que se han realizado hasta ahora, se han usado grabaciones crea
 
 Para las primeras pruebas, se utilizó una grabación correspondiente a varios poemas de la autoría de Manuel Acuña, recitados por varios interlocutores.
 
-Mediante bootstrap se busca genera un modelo representativo para cada una de las propuestas, y  se hace la elección del número correcto de speakers identificados mediande BIC.
+Mediante bootstrap se busca genera un modelo representativo para cada una de las propuestas, y  se hace la elección del número correcto de speakers identificados mediante BIC.
 
-Para las pruebas, se analizaron modelos desde 2 hasta 7 personas participantes, mientras que los resultados que se prensentan son las segmentaciones obtenidas usando desde 2 hasta 4 speakers; además de comparar el ground truth.
+Para las pruebas, se analizaron modelos desde 2 hasta 7 personas participantes, mientras que los resultados que se presentan son las segmentaciones obtenidas usando desde 2 hasta 4 speakers; además de comparar el ground truth.
 
 \begin{comment}
 \begin{figure}[bth]
@@ -30,15 +30,15 @@ Para las pruebas, se analizaron modelos desde 2 hasta 7 personas participantes, 
 \end{figure}
 \end{comment}
 
-En la \autoref{fig:cald-1} se muestran los parámetros estimadosa a forma de matrices en falso color: la matriz inicial o a priori, la matriz de transiciones entre speakers, la matriz de emisión de cada speaker para todo el diccionario de palabras, así como la secuencia recuperada.
+En la \autoref{fig:cald-1} se muestran los parámetros estimados a forma de matrices en falso color: la matriz inicial o a priori, la matriz de transiciones entre hablantes, la matriz de emisión de cada persona para todo el diccionario de palabras, así como la secuencia recuperada.
 
 Como ya se había mencionado, hay un problema de identificación con los interlocutores, por lo que en muchos casos las matrices no corresponderán tal cual, sino que puede que haya intercambio entre las personas que se identificaron.
 
-A partir de esto, y dependiendo de que la segmentación sea confiable, se puede usar algún algoritmo para deducir y emparejar a cada uno de los speakers detectados con su correspondiente en el ground truth.
+A partir de esto, y dependiendo de que la segmentación sea confiable, se puede usar algún algoritmo para deducir y emparejar a cada uno de los participantes detectados con su correspondiente en el ground truth.
 
 Se muestra esta comparación, en tanto en \autoref{fig:cald-21} como en \autoref{fig:cald-22}. Las secuencias recuperadas se representan como series de tiempo en donde además se marcan en rojo los errores al asignar a una persona equivocada.
 
-Se puede observar como para el caso en que el modelo se ajusta para 3 personas, la secuencia recuperada en escencia es la misma, exceptuando algunos saltos que se presentan a veces; pero en general logra detectar de forma correcta cada que hay un cambio de interlocutor en la grabación original.
+Se puede observar como para el caso en que el modelo se ajusta para 3 personas, la secuencia recuperada en esencia es la misma, exceptuando algunos saltos que se presentan a veces; pero en general logra detectar de forma correcta cada que hay un cambio de interlocutor en la grabación original.
 
 \begin{comment}
 
@@ -69,9 +69,9 @@ Ahora, al usar BIC para la selección del modelo, obtenemos la siguiente gráfic
 \end{figure}
 \end{comment}
 
-Para la segunda prueba, se utilizon varias composiciones del escritor Edgar Allan Poe, que fueron generadas de la misma manera sintéticamente, pero ahora utilizando un motor de voz en inglés.
+Para la segunda prueba, se utilizaron varias composiciones del escritor Edgar Allan Poe, que fueron generadas de la misma manera sintéticamente, pero ahora utilizando un motor de voz en inglés.
 
 Se muestran a continuación los resultados obtenidos de la misma manera.
 
-En estas gráficas se observa de igual manera cómo se logró estimar de forma correcta el número de interlocutores. Cuando se aplica el modelo para un número menor que el real, se detectan las inconsistencias y aumenta la tasa de error; así como cuando se ajusta el modelo para un número mayor de personas, se sobreajusta el modelo y se marcan como errores.
+En estas gráficas se observa de igual manera cómo se logró estimar de forma correcta el número de interlocutores. Cuando se aplica el modelo para un número menor que el real, se detectan las inconsistencias y aumenta la tasa de error; así como cuando se ajusta el modelo para un número mayor de personas, se sobre ajusta el modelo y se marcan como errores.
 

@@ -8,11 +8,11 @@
 
 Hasta ahora, se tiene la metodología completa para estimar los parámetros del un modelo HMM propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
 
-Para la estimación de los parámetros usando EM, se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se estable un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contíguas. 
+Para la estimación de los parámetros usando EM, se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se estable un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contiguas. 
 
-Con esto, se obtiene la estimación de parámatros de el modelo así como su verosimilitud, partiendo de una inicialización aleatoria.
+Con esto, se obtiene la estimación de parámetros de el modelo así como su verosimilitud, partiendo de una inicialización aleatoria.
 
-Puesto que el problema abarca también el detectar cuántos personas están involucrados en la grabación, se propondrán modelos para diferentes números de interlocutores, y a partir de una función de costo se escojerá al que mejor tenga una mejor evaluación.
+Puesto que el problema abarca también el detectar cuántos personas están involucrados en la grabación, se propondrán modelos para diferentes números de interlocutores, y a partir de una función de costo se escogerá al que mejor tenga una mejor evaluación.
 
 Para esto, se necesitan tener presentes varios conceptos: 
 

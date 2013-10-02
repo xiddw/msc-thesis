@@ -102,7 +102,7 @@ Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto 
 
 Para deducir el algoritmo, primero se deben tener en cuenta varias propiedades de una cadena de Márkov, que nos permitirán simplificar varios cálculos (Ver apéndice). Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente de las probabilidades de emisión $p(x \,|\, z)$, y entonces no importa si las variables observadas son discretas o continuas, pues lo único que se requiere es poder evaluar $p(x_n \,|\, z_n)$ para cada $z_n$, que sabemos que son discretas.
 
-Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori $p(z_n \,|\, x_1, ..., x_N)$ de $z_n$ dado un conjunto de datos $x_1, ..., x_N$. Entonces, usando el teorema de bayes se tiene que
+Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori $p(z_n \,|\, x_1, ..., x_N)$ de $z_n$ dado un conjunto de datos $x_1, ..., x_N$. Entonces, usando el teorema de Bayes se tiene que
 \begin{equation}
   \gamma(z_n) = p(\mb{z}_n \,|\, \mb{X}) = 
     \frac{p(\mb{X} \,|\, \mb{z}_n) p(\mb{z}_n)}{p(\mb{X})} 
@@ -216,7 +216,7 @@ Para la implementación, se tiene que considerar un problema común del algoritm
 
 Comúnmente, cuando se tienen problemas de precisión, se suele tomar el logaritmo, y así se amplia el rango, evitando posibles underflows. Sin embargo, para el caso presentado, no es posible realizar esto, pues tanto para $\alpha(z_n)$ como $\beta(z_n)$ se manejan sumas de números pequeños, y entonces no tiene sentido usar el logaritmo; pues el logaritmo no se aplicaría directamente sobre esos valores que pudieran ser pequeños; sino sobre la suma de ellos.
 
-Se propone entonces manejar las probabilidades de forma reescalada. Originalente, $\alpha(z_n)$ representa la probabilidad conjunta de todas las variables observadas $x_1, ..., x_n$ junto con la variable latente $z_n$. Se usará entonces $\hat \alpha(z_n)$ como la probabilidad condicional de la variable latente $z_n$ dadas todas las observaciones antes mencionadas. Es decir:
+Se propone entonces manejar las probabilidades de forma reescalada. Originalmente, $\alpha(z_n)$ representa la probabilidad conjunta de todas las variables observadas $x_1, ..., x_n$ junto con la variable latente $z_n$. Se usará entonces $\hat \alpha(z_n)$ como la probabilidad condicional de la variable latente $z_n$ dadas todas las observaciones antes mencionadas. Es decir:
 \begin{equation}
   \hat \alpha(z_n) = p(z_n \,|\, x_1, ..., x_n )
     = \frac{\alpha(z_n)}{p(x_1, ..., x_n)}

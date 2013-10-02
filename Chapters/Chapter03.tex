@@ -27,7 +27,7 @@ Comúnmente se suelen considerar únicamente las observaciones más recientes, p
 
 Para trabajar con este tipo de datos, se puede usar entonces un modelo de Márkov que es un proceso aleatorio muy trabajado en la teoría de probabilidad, que incorpora una cantidad mínima de memoria, sin necesariamente llegar a ser un proceso sin memoria.
 
-Se puede pensar como una red bayesiana en la que se asume la independecia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas (i.e. el futuro es independiente del pasado, dado el presente).
+Se puede pensar como una red bayesiana en la que se asume la independencia de las variables aleatorias que corresponden a las predicciones futuras con todas las observaciones excepto las últimas (i.e. el futuro es independiente del pasado, dado el presente).
 
 \section{Cadena de Markov}
 
@@ -50,7 +50,7 @@ Si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..., x_n \rb
 p(x_1, ..., x_N) ~=~ \prod_{n=1}^N p(x_n)
 \end{equation}
 
-En cambio, para expresar la dependencia entre un grupo de observaciones secuenciales, se puede utilizar un modelo probabilístico llamado \textit{modelo o cadena de Markov}. Si por ejemplo, se considera que cada variable depende de todas las observaciones anteriores, entonces usando el teorema de bayes
+En cambio, para expresar la dependencia entre un grupo de observaciones secuenciales, se puede utilizar un modelo probabilístico llamado \textit{modelo o cadena de Márkov}. Si por ejemplo, se considera que cada variable depende de todas las observaciones anteriores, entonces usando el teorema de Bayes
 \graffito{Del teorema de Bayes se tiene la siguiente expresión
 $${P(A \,|\, B) = \frac{P(B \,|\,A) P(A)}{P(B)}}$$ } 
 se puede escribir la distribución conjunta de las observaciones de la siguiente manera:
@@ -78,7 +78,7 @@ mientras que su modelo gráfico corresponde a la \autoref{fig:mod_mm1}
         \label{fig:mod_mm1}
 \end{figure}
 
-Aunque el modelo es mucho más general, puede que se necesite representar de forma más fuerte la dependencia con las osbervaciones anteriores, por lo que se pueden usar cadenas de Márkov de órdenes superiores.
+Aunque el modelo es mucho más general, puede que se necesite representar de forma más fuerte la dependencia con las observaciones anteriores, por lo que se pueden usar cadenas de Márkov de órdenes superiores.
 
 Al caso en el que $x_n$ dependa de las dos observaciones previas se le conoce como cadena de Márkov de segundo orden; y siguiendo el mismo proceso, la distribución conjunta de las observaciones se puede escribir como 
 \begin{equation}
