@@ -15,6 +15,19 @@ Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
 \newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
   MLMI}, volume 4299, pages 346--358, 2006.
 
+\bibitem[FBE09]{Fredouille2009}
+Corinne Fredouille, Simon Bozonnet, and Nicholas W.~D. Evans.
+\newblock {T}he {LIA}-{EURECOM} {RT}'09 {S}peaker {D}iarization {S}ystem.
+\newblock In {\em {RT} 2009, {NIST} {R}ich {T}ranscription {W}orkshop, {M}ay
+  28-29, 2009, {M}elbourne, {USA}}, {M}elbourne, {UNITED} {STATES}, 05 2009.
+
+\bibitem[FE07]{Fredouille2007}
+Corinne Fredouille and Nicholas W.~D. Evans.
+\newblock The lia rt'07 speaker diarization system.
+\newblock In Rainer Stiefelhagen, Rachel Bowers, and Jonathan~G. Fiscus,
+  editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
+  pages 520--532. Springer, 2007.
+
 \bibitem[Jel98]{Jelinek1998}
 Frederick Jelinek.
 \newblock {\em Statistical Methods for Speech Recognition}.
