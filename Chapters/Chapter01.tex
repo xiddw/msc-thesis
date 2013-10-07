@@ -38,7 +38,7 @@ De acuerdo al trabajo desarrollado hasta ahora, se puede distinguir que hay dos 
 
 Ambos enfoques iteraran hasta converger a un número de clústers óptimo, en que cada grupo debe corresponder a un interlocutor.
 
-Para ambas estrategias se suelen usar Modelos Ocultos de Markov (HMM por sus siglas en inglés) donde cada estado se representa muchas veces como Modelos de Mezclas de Gaussianas (GMM también por sus siglas en inglés) y corresponde a cada interlocutor. Las matrices de transición entre estados representan el cambio entre la persona que está hablando; mientras que las matrices de una emisión corresponden a la probabilidad de los interlocutores de \textit{decir} cada una de las \textit{palabras} que se definan.
+Para ambas estrategias se suelen usar \acp{HMM} donde cada estado se representa muchas veces como Modelos de Mezclas de \ac{GMM} y corresponde a cada interlocutor. Las matrices de transición entre estados representan el cambio entre la persona que está hablando; mientras que las matrices de una emisión corresponden a la probabilidad de los interlocutores de \textit{decir} cada una de las \textit{palabras} que se definan.
 
 Es importante remarcar que con \textit{decir una palabra} no necesariamente se refiere a la acción de que una persona pronuncie una palabra; sino que se definirá un \textit{diccionario de palabras} que en realidad es conjunto de vectores de características que representen la señal de audio de forma discreta; y cada interlocutor tendrá una probabilidad de emisión asociada para cada uno de estos vectores.
 
@@ -46,20 +46,20 @@ Es importante remarcar que con \textit{decir una palabra} no necesariamente se r
 
 En el trabajo de Anguera~et~al.~\cite{AngueraMiro2012} se hace un profundo análisis sobre el estado del arte hasta hace un año, y se mencionan las principales características de cada uno de estos trabajos, que a continuación se resumen.
 
-Dentro de los trabajos que usan un enfoque \bu~ se encuentran por ejemplo el de Anguera~et~al.~\cite{AngueraMiro2006}, en donde se propone una medida de similitud entre clústers utilizando una variante de BIC (Bayesian Information Criteria por sus siglas) para decidir qué pares de clústers agrupar, así como para establecer un criterio de paro.
+Dentro de los trabajos que usan un enfoque \bu~ se encuentran por ejemplo el de Anguera~et~al.~\cite{AngueraMiro2006}, en donde se propone una medida de similitud entre clústers utilizando una variante de \ac{BIC} para decidir qué pares de clústers agrupar, así como para establecer un criterio de paro.
 
-En el trabajo de Wooters \cite{Wooters2007}, también proponen una métrica basada en BIC para la aglomeración de los grupos, pero se enfocan principalmente en mejorar una etapa de pre-procesamiento de la señal para detectar cuando alguien habla o no habla en la grabación. Esto es esencial cuando por ejemplo, se puede tener segmentos musicales o momentos en los que el ruido.
+En el trabajo de Wooters~et~al.~\cite{Wooters2007}, también proponen una métrica basada en \ac{BIC} para la aglomeración de los grupos, pero se enfocan principalmente en mejorar una etapa de pre-procesamiento de la señal para detectar cuando alguien habla o no habla en la grabación. Esto es esencial cuando por ejemplo, se puede tener segmentos musicales o momentos en los que el ruido.
 
-Por otro lado, en el trabajo de Nguyen \cite{Nguyen2009} se presentan dos funciones objetivo que buscan maximizar la distancia intra-clase y la distancia inter-clase y que automáticamente deducen el número óptimo de grupos para esto. Después realizan un proceso de aglomeración jerárquico, pero en un subespacio espectral en que sean separables más fácilmente los interlocutores.
+Por otro lado, en el trabajo de Nguyen~et~al.~\cite{Nguyen2009} se presentan dos funciones objetivo que buscan maximizar la distancia intra-clase y la distancia inter-clase y que automáticamente deducen el número óptimo de grupos para esto. Después realizan un proceso de aglomeración jerárquico, pero en un subespacio espectral en que sean separables más fácilmente los interlocutores.
 
-Mencionando algunos de los trabajos que son del tipo \td, se tiene por ejemplo a Meignier \cite{Meignier2001} quien propone un sistema conformado por un HMM evolutivo (E-HMM), en el que mediante un proceso iterativo se van detectando y agregando interlocutores al modelo propuesto. El método propuesto busca reducir las falsas detecciones al incorporar información al sistema tan pronto 
+Mencionando algunos de los trabajos que son del tipo \td, se tiene por ejemplo a Meignier~et~al.~\cite{Meignier2001} quien propone un sistema conformado por un \ac{EHMM}, en el que mediante un proceso iterativo se van detectando y agregando interlocutores al modelo propuesto. El método propuesto busca reducir las falsas detecciones al incorporar información al sistema tan pronto 
 como sea detectada. 
 
-En el trabajo de Fredoulle \cite{Fredouille2007} también proponen un sistema en el que se usa un E-HMM para la estimación de parámetros, pero además realizan una etapa de pre-procesamiento más extensa: primero usan un HMM de dos estados para diferenciar los silencios de la actividad de los interlocutores y luego mediante una ventana movible evalúan cuándo es más probable que haya cambio entre los hablantes, de acuerdo al Generalized Likelihood Ratio. A partir de esa información es como delimitan más el problema, y sólo tienen que buscar cada segmento encontrado a qué interlocutor corresponde.
+En el trabajo de Fredoulle~et~al.~\cite{Fredouille2007} también proponen un sistema en el que se usa un \ac{EHMM} para la estimación de parámetros, pero además realizan una etapa de pre-procesamiento más extensa: primero usan un \ac{HMM} de dos estados para diferenciar los silencios de la actividad de los interlocutores y luego mediante una ventana movible evalúan cuándo es más probable que haya cambio entre los hablantes, de acuerdo al Generalized Likelihood Ratio. A partir de esa información es como delimitan más el problema, y sólo tienen que buscar cada segmento encontrado a qué interlocutor corresponde.
 
-Además, en otro trabajo de Fredoulle et al. \cite{Fredouille2009} presentan el sistema \td~ anteriormente usado pero ahora se enfocan en el uso de múltiples micrófonos a diferentes distancias para obtener más información y mejorar la etapa de segmentación de interlocutores, lo que se refleja en una mejor detección de actividad asi como la mejora en comportamiento del sistema general.
+Además, en otro trabajo de Fredoulle~et~al.~\cite{Fredouille2009} presentan el sistema \td~ anteriormente usado pero ahora se enfocan en el uso de múltiples micrófonos a diferentes distancias para obtener más información y mejorar la etapa de segmentación. También, en este sistema descartan la etapa de pre-segmentación que anteriormente se había propuesto para encontrar los posibles cambios entre interlocutores. 
 
-Por último, en la misma línea de trabajo, Bozonnet et al. \cite{Bozonnet2010} muestran más 
+Por último, en la misma línea de trabajo, Bozonnet~et~al.~\cite{Bozonnet2010} muestran más 
 
 \section{Contribuciones}
 
