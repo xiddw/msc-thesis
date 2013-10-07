@@ -55,11 +55,15 @@
    % \pdfbookmark[1]{\lstlistlistingname}{lol}
    % \lstlistoflistings 
 
-   \vspace*{8ex}
-      
+   %\vspace*{8ex}
+   \endgroup
+   \clearpage
+   \begingroup 
+
    %*******************************************************
    % Acronyms
    %*******************************************************
+   \let\clearpage\relax
    \phantomsection 
     \refstepcounter{dummy}
     \pdfbookmark[1]{Acrónimos}{acronyms}
@@ -78,6 +82,22 @@
                   
         \acro{BIC}{Criterio de Información Bayesiano
                   \acroextra{(Bayesian Information Criterion)}}
+
+        \acro{MFCC}{Coeficientes Cepstrales en la Frecuencia Mel
+                  \acroextra{(Mel Frequency Cepstral Coefficients)}}
+                  
+        \acro{FT}{Transformada de Fourier
+                  \acroextra{(Fourier Transform)}}
+                  
+        \acro{FFT}{Transformada Rápida de Fourier
+                  \acroextra{(Fast Fourier Transform)}}
+                  
+        \acro{DCT}{Transformada de Coseno Discreta 
+                  \acroextra{(Discrete Cosine Transform)}}
+                  
+        \acro{EM}{Expectation-Maximization
+                  \acroextra{(Esperanza-Maximización)}}                  
+        
     \end{acronym}                     
 \endgroup
 

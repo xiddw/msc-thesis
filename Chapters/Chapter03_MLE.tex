@@ -1,26 +1,25 @@
 %!TEX root = ../Base.tex
 
 %************************************************
-%\chapter{Estimación de Máxima Verosimilitud del HMM} \label{ch:chap3}
 \section{Estimación de Máxima Verosimilitud del HMM} \label{ch:chap3}
 %************************************************
 
-La tarea de aprendizaje de parámetros del HMM es encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
+La tarea de aprendizaje de parámetros del \ac{HMM} es encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
 
 Hasta el momento no se conoce algún algoritmo para resolver esta problema de forma exacta, pero sí hay métodos para estimar la máxima verosimilitud del modelo de forma local usando el algoritmo de Baum–Welch, que se explicará con más detalle a continuación.
 
 %\section{Estimación de parámetros del HMM}
 \subsection{Estimación de parámetros del HMM}
 
-Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, se pueden determinar los parámetros del HMM usando máxima verosimilitud. La función de verosimilitud se obtiene de la distribución conjunta \eqref{eqn:2-11} al marginalizar las variables latentes.
+Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, se pueden determinar los parámetros del \ac{HMM} usando máxima verosimilitud. La función de verosimilitud se obtiene de la distribución conjunta \eqref{eqn:2-11} al marginalizar las variables latentes.
 \begin{equation}
   p(\mb{X}, \theta) = \sum_Z p(\mb{X}, \mb{Z} \,|\, \theta)
 \label{eqn:3-1}
 \end{equation}
 
-Sin embargo, la función obtenida presenta algunas dificultades, pues no se puede tratar $z_n$ como si fuearn variables independientes y separarlas, puesto que cada variable latente $z_n$ depende del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo de forma directa por máxima verosimilitud.
+Sin embargo, la función obtenida presenta algunas dificultades, pues no se puede tratar $z_n$ como si fueran variables independientes y separarlas, puesto que cada variable latente $z_n$ depende del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo de forma directa por máxima verosimilitud.
 
-Por esto, se usará el algoritmo de \aem para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
+Por esto, se usará el algoritmo de \ac{EM} para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
 
 La función de verosimilitud completa se define entonces como sigue:
 \begin{equation}
@@ -91,14 +90,14 @@ A_{jk} = \sum_{n=2}^N
 \label{eqn:3-9}
 \end{equation}
 
-Entonces, el algoritmo EM, debe ser inicializado escogiendo algunos valores para $\pi$ y $\mathbf{A}$, considerando las restricciones que implican cada uno, pues representan ciertas probabilidades. Por tanto, se puede inicializar tanto $\pi$ como $\mathbf{A}$ con valores aleatorios, siempre y cuando cumplan con las restricciones propias de una probabilidad. 
+Entonces, el algoritmo \ac{EM}, debe ser inicializado escogiendo algunos valores para $\pi$ y $\mathbf{A}$, considerando las restricciones que implican cada uno, pues representan ciertas probabilidades. Por tanto, se puede inicializar tanto $\pi$ como $\mathbf{A}$ con valores aleatorios, siempre y cuando cumplan con las restricciones propias de una probabilidad. 
 
 Por último, para estimar el parámetro $\theta$, que en realidad corresponde a estimar los parámetros propios de la distribución de emisión, éstos dependen de la distribución propia de las variables observadas, aunque basta 1 observar que en \eqref{eqn:3-7} únicamente en el último término aparece $\theta$ en forma de una suma ponderada de $ln p(x_n \,|\,  \phi_k)$; y en el caso de que los parámetros $\phi_k$ sean independientes para los diferentes componentes de la mezcla o suma ponderada, entonces maximizar con respecto a esos parámetros se puede realizar de forma sencilla.
 
 % \section{Algoritmo \abf}
 \subsection{Algoritmo \abf}
 
-Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto $\gamma(z_{nk})$ como $\xi(z_{n-1, j}, z_{nk})$ que se requieren para el \estep~ del algoritmo de EM.
+Se presenta ahora un algoritmo que nos permite estimar de forma eficiente tanto $\gamma(z_{nk})$ como $\xi(z_{n-1, j}, z_{nk})$ que se requieren para el \estep~ del algoritmo de \ac{EM}.
 
 Para deducir el algoritmo, primero se deben tener en cuenta varias propiedades de una cadena de Márkov, que nos permitirán simplificar varios cálculos (Ver apéndice). Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente de las probabilidades de emisión $p(x \,|\, z)$, y entonces no importa si las variables observadas son discretas o continuas, pues lo único que se requiere es poder evaluar $p(x_n \,|\, z_n)$ para cada $z_n$, que sabemos que son discretas.
 
@@ -161,7 +160,7 @@ y usando que $z_{n-1} \perp x_1, ... , x_{n-1} \,|\, z_n$, podemos seguir el mis
     \label{eqn:3-15}
 \end{equation}
 
-Con lo que se obtiene una forma recursiva para calcular $\alpha(z_n)$ a partir de $\alpha(z_{n-1})$ para cuaquier $n$, excepto para $n = 1$; pues no se tiene definido un $z_0$. Por esto mismo, podemos definir el caso inicial $\alpha(z_1)$ usando \eqref{eqn:3-12} y entonces resultaría:
+Con lo que se obtiene una forma recursiva para calcular $\alpha(z_n)$ a partir de $\alpha(z_{n-1})$ para cualquier $n$, excepto para $n = 1$; pues no se tiene definido un $z_0$. Por esto mismo, podemos definir el caso inicial $\alpha(z_1)$ usando \eqref{eqn:3-12} y entonces resultaría:
 \begin{equation}
   \alpha(z_1) = p(x_1, z_1) = p(z_1) p(x_1 \,|\, z_1) 
   \label{eqn:3-16}
@@ -214,9 +213,9 @@ de donde se obtiene que
 
 Para la implementación, se tiene que considerar un problema común del algoritmo de backward-forward: como ya se mencionó, en el proceso recursivo para calcular cada $\alpha(z_n)$ se utilizan los previamente calculados $\alpha(z_{n-1})$, además de unas multiplicaciones por un par de probabilidades. Puesto que cada probabilidad es por definición menor o igual a 1, y que esta operación se realiza iterativamente para cada estado $n$, se tiene entonces que los valores de $\alpha(z_n)$ decrecerán rápidamente, y llegará un momento en el que no se puedan representar en una computadora (por los límites tanto de la notación punto flotante como del doble punto flotante).
 
-Comúnmente, cuando se tienen problemas de precisión, se suele tomar el logaritmo, y así se amplia el rango, evitando posibles underflows. Sin embargo, para el caso presentado, no es posible realizar esto, pues tanto para $\alpha(z_n)$ como $\beta(z_n)$ se manejan sumas de números pequeños, y entonces no tiene sentido usar el logaritmo; pues el logaritmo no se aplicaría directamente sobre esos valores que pudieran ser pequeños; sino sobre la suma de ellos.
+Comúnmente, cuando se tienen problemas de precisión, se suele tomar el logaritmo, y así se amplia el rango, evitando posibles desbordamientos. Sin embargo, para el caso presentado, no es posible realizar esto, pues tanto para $\alpha(z_n)$ como $\beta(z_n)$ se manejan sumas de números pequeños, y entonces no tiene sentido usar el logaritmo; pues el logaritmo no se aplicaría directamente sobre esos valores que pudieran ser pequeños; sino sobre la suma de ellos.
 
-Se propone entonces manejar las probabilidades de forma reescalada. Originalmente, $\alpha(z_n)$ representa la probabilidad conjunta de todas las variables observadas $x_1, ..., x_n$ junto con la variable latente $z_n$. Se usará entonces $\hat \alpha(z_n)$ como la probabilidad condicional de la variable latente $z_n$ dadas todas las observaciones antes mencionadas. Es decir:
+Se propone entonces manejar las probabilidades de forma re-escalada. Originalmente, $\alpha(z_n)$ representa la probabilidad conjunta de todas las variables observadas $x_1, ..., x_n$ junto con la variable latente $z_n$. Se usará entonces $\hat \alpha(z_n)$ como la probabilidad condicional de la variable latente $z_n$ dadas todas las observaciones antes mencionadas. Es decir:
 \begin{equation}
   \hat \alpha(z_n) = p(z_n \,|\, x_1, ..., x_n )
     = \frac{\alpha(z_n)}{p(x_1, ..., x_n)}
@@ -250,7 +249,7 @@ De la misma manera, la forma recursiva que se había obtenido en \eqref{eqn:3-15
 \end{equation}
 por lo que ahora, a cada paso de la recursión al calcular $\hat \alpha(z_{n-1})$, se debe calcular también $c_n$ e ir almacenando los coeficientes que normalizan a $\alpha(z_n)$.
 
-Ahora, para reescalar $\beta(z_n)$ usando los coeficientes $c_n$ se tendría que
+Ahora, para re-escalar $\beta(z_n)$ usando los coeficientes $c_n$ se tendría que
 \begin{equation}
   \beta(z_n) = \left( \prod_i^n c_i \right) \hat \beta(z_n)
   \label{eqn:3-26}
@@ -270,16 +269,16 @@ Entonces, para calcular recursivamente los valores de $\hat \beta(z_n)$, se deri
     p(x_{n+1} \,|\, z_{n+1}) p(z_{n+1} \,|\, z_n)    
   \label{eqn:3-28}
 \end{equation}
-donde usamos los coeficientes de reescalaciemtno que ya habíamos calculado (y almacenado) junto con los valores de $\hat \alpha(z_n)$.
+donde usamos los coeficientes de re-escalamiento que ya habíamos calculado (y almacenado) junto con los valores de $\hat \alpha(z_n)$.
 
-Con las nuevas variables reescaladas, ya se pueden realizar todos los cálculos necesarios. 
+Con las nuevas variables normalizadas, ya se pueden realizar todos los cálculos necesarios. 
 
 Por ejemplo, para calcular la verosimilitud del modelo, usando \eqref{eqn:3-23} se tiene que
 \begin{equation}
   p(\mb{X}) =  \prod_i^N c_i
 \end{equation}
 
-Así como para el algoritmo de backward-forward, se pueden reescribir tanto     \eqref{eqn:1111} como \eqref{eqn:1112} usando las nuevas variables 
+Así como para el algoritmo de backward-forward, se pueden reescribir tanto \eqref{eqn:1111} como \eqref{eqn:1112} usando las nuevas variables 
 \begin{align}
   \gamma(z_n) &= \hat \alpha(z_n) \hat \beta(z_n) \\
   \xi(z_{n-1}, z_n) &= c_n \hat \alpha(z_{n-1}) p(x_n \,|\, z_n) 

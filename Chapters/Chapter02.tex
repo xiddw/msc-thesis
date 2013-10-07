@@ -105,13 +105,13 @@ Una vez que se tiene la señal ya sin silencios, se trata de buscar característ
 
 Tanto la extracción como selección de la mejor representación paramétrica de la señal de audio es una importante tarea en el diseño de cualquier sistema relacionado al reconocimiento o procesamiento de señales de audio. 
 
-Para la tarea de \sd, se usarán los Coeficientes Cepstrales de Frecuencia Mel  (\MFCC), que son ampliamente utilizados por ejemplo en \textit{speech recognition} entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimir la señal de audio eliminando la información que no es útil para análisis fonético.
+Para la tarea de \sd, se usarán los \ac{MFCC}, que son ampliamente utilizados por ejemplo en \sd~ entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimir la señal de audio eliminando la información que no es útil para análisis fonético.
 
-Cabe mencionar, que originalmente los \MFCC~ fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
+Cabe mencionar, que originalmente los \ac{MFCC} fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
 
 Ésto va en contra del proceso requerido en \sd, puesto que se desea identificar a las diferentes personas que hablan, sin dar tanta importancia a qué es lo que están diciendo; por lo que la tarea de segmentación de señales de audio se vuelve un poco más complicada.
 
-Para calcular los \MFCC, se usa la Escala de Frecuencia Mel, que está espaciada de forma lineal en frecuencias bajas, mientras que aumenta su separación de forma logarítmica para frecuencias más altas. Este cambio de separación se realiza comúnmente a partir de los $1000Hz$. 
+Para calcular los \ac{MFCC}, se usa la Escala de Frecuencia Mel, que está espaciada de forma lineal en frecuencias bajas, mientras que aumenta su separación de forma logarítmica para frecuencias más altas. Este cambio de separación se realiza comúnmente a partir de los $1000Hz$. 
 
 A partir de esta escala, se diseña un banco de filtros triangulares que después se usará (Ver \autoref{fig:sign_melfb}); y esto corresponde de forma similar a la que el oído (la cóclea) captura las características importantes del habla. 
 
@@ -122,9 +122,9 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
   \label{fig:sign_melfb}
 \end{figure}
 
-Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le aplica la transformada de Fourier, y entonces a ésta es a quien se le aplica el banco de filtros.
+Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le calcula la \ac{FT} y entonces a ésta es a quien se le aplica el banco de filtros.
 
-Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la FFT y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
+Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 \begin{figure}[bth]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mel}} \quad
@@ -134,9 +134,9 @@ Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la resp
 
 La dimensión de la respuesta al banco de filtros dependerá de la misma construcción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
 
-Para esto, la respuesta obtenida del banco de filtros se le aplicará la DCT (Transformada Discreta del Coseno), para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
+Para esto, la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT}, para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
 
-Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los MFCC que antes habíamos mencionado.
+Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
 \begin{figure}[bth]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mfcc}} \quad

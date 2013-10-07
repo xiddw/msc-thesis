@@ -59,7 +59,6 @@
 
 \newcommand{\sd}{\textit{speaker diarisation}}
 \newcommand{\SD}{\textit{Speaker Diarisation}}
-\newcommand{\MFCC}{\textit{MFCC}}
 \newcommand{\unk}{1-de-\textit{K}}
 \newcommand{\aem}{\textit{expectation-maximization}}
 
@@ -138,10 +137,11 @@
 
 \include{Chapters/Chapter02}
 
-\include{Chapters/Chapter03}
-%\addtocontents{toc}{\protect\clearpage} % <--- just debug stuff, ignore
-
-\include{Chapters/Chapter03_MLE}
+\begingroup
+  \let\clearpage\relax
+  \include{Chapters/Chapter03}
+  \include{Chapters/Chapter03_MLE}
+\endgroup
 
 \include{Chapters/Chapter04}
 

@@ -124,15 +124,15 @@ p(x_1, ..., x_N, z_1, ..., z_N) ~=~
         \label{fig:mod_hmm1}
 \end{figure}
 
-Para éste último modelo gráfico, si las variables latentes son discretas, entonces se le conoce como Modelo oculto de Márkov o HMM (\textit{Hidden Markov Model}), y es justo el modelo que se utilizará para resolver la tarea de \sd.
+Para éste último modelo gráfico, si las variables latentes son discretas, entonces se le conoce como \acf{HMM}, y es justo el modelo que se utilizará para resolver la tarea de \sd.
 
 \section{Cadena oculta de Márkov}
 
-Una cadena oculta de Márkov, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
+Un \acl{HMM}, sigue siendo entonces un modelo para datos secuenciales, en los que además se introduce el concepto de una variable oculta de la cual dependen las observaciones que se tienen; y de forma más especifica, esta variable oculta es discreta. 
 
-Usando un HMM entonces podemos modelar un proceso bivariado discreto en el tiempo, con ciertas propiedades interesantes que se mencionarán más adelante.
+Usando un \ac{HMM} entonces podemos modelar un proceso bivariado discreto en el tiempo, con ciertas propiedades interesantes que se mencionarán más adelante.
 
-Nuestro modelo HMM, se puede pensar como una mezcla de distribuciones en la que la densidad tiene un distribución dada por $p(x|z)$, es decir, la mezcla de los componentes está dada por las observaciones previas.
+Nuestro modelo \ac{HMM}, se puede pensar como una mezcla de distribuciones en la que la densidad tiene un distribución dada por $p(x|z)$, es decir, la mezcla de los componentes está dada por las observaciones previas.
 
 Se puede considerar entonces, que cada variable latente $z_n$ tendrá una distribución multinomial discreta, que indicará cuál componente de la mezcla de distribuciones es la que ha generado la observación $x_n$. Para ésto, se usará la notación \unk, que corresponde a un conjunto de variables indicador $z_{nk} \in \lbrace 0, 1 \rbrace$, donde $k = 1, ..., K$ señalando cuál de las $K$ distribuciones generó a la variable $x_n$, \ie, si el componente generador de $x_n$ fue la $k$-ésima mezcla, entonces $z_{nk} = 1$ y $z_{nj} = 0$ para todo $j \neq k$.
 
