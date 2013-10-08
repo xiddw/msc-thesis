@@ -15,6 +15,12 @@ Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
 \newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
   MLMI}, volume 4299, pages 346--358, 2006.
 
+\bibitem[BEF10]{Bozonnet2010}
+Simon Bozonnet, Nicholas W.~D. Evans, and Corinne Fredouille.
+\newblock {T}he {LIA}-{EURECOM} {RT}'09 {S}peaker {D}iarization {S}ystem :
+  enhancements in speaker modelling and cluster purification.
+\newblock In {\em ICASSP}, pages 4958--4961. IEEE, 2010.
+
 \bibitem[FBE09]{Fredouille2009}
 Corinne Fredouille, Simon Bozonnet, and Nicholas W.~D. Evans.
 \newblock {T}he {LIA}-{EURECOM} {RT}'09 {S}peaker {D}iarization {S}ystem.
