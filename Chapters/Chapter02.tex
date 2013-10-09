@@ -1,6 +1,6 @@
-%!TEX root = ../Base.tex
+%!TEX root = ../Thesis.tex
 
-\chapter{Speaker diarisation}\label{ch:chap4}
+\chapter{Speaker diarisation} \label{ch:chap2}
 
 Se conoce como \SD~ al problema de segmentación automática de audio a partir de la identificación de las diferentes personas que participan en una grabación. Esto se realiza generalmente identificando los segmentos que son más \textit{homogéneos} y a partir de estos, identificar el número de personas que hablan en la grabación.
 
@@ -55,15 +55,19 @@ Una vez que se tienen estos vectores, se les aplica un algoritmo de aglomeració
 El proceso en detalle se especifica a continuación: 
 \subsection{Esquema general del sistema}
 
---Insertar dibujo y explicarlo--.
+\begin{figure}[bth]
+  \centerline
+  {\includegraphics[width=1.4\linewidth]{gfx/chap2/ASR_flow}} \quad
+  \caption{Esquema general del sistema.}
+  \label{fig:esquema}
+\end{figure}
 
 \subsection{Pre-procesamiento de señal de audio}
 
 Se considera que se tiene una señal digital de voz, y que a partir de ésta se identificarán a las diferentes personas que hablan durante la grabación.
 
 \begin{figure}[bth]
-  \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-orig}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-orig}} \quad
   \caption{Señal original de audio.}
   \label{fig:sign_orig}
 \end{figure}
@@ -80,13 +84,13 @@ A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto 
 
 \begin{figure}[bth]
   \begin{subfigure}[b]{\textwidth}
-    \includegraphics[width=0.9\linewidth]{gfx/chap5/signal-silence}
+    \includegraphics[width=0.9\linewidth]{gfx/chap2/signal-silence}
     \caption{Señal original con silencio identificado.}
     \label{fig:sign_silence}  
   \end{subfigure}
 
   \begin{subfigure}[b]{\textwidth}
-    \includegraphics[width=0.9\linewidth]{gfx/chap5/signal-trunc}
+    \includegraphics[width=0.9\linewidth]{gfx/chap2/signal-trunc}
     \caption{Señal procesada y recortada.}
     \label{fig:sign_trunc}  
   \end{subfigure}
@@ -117,7 +121,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 \begin{figure}[bth]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/melfb}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/melfb}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
   \label{fig:sign_melfb}
 \end{figure}
@@ -127,7 +131,7 @@ Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 \begin{figure}[bth]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mel}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mel}} \quad
   \caption{Respuesta al banco de filtros.}
   \label{fig:sign_melres}
 \end{figure}
@@ -139,7 +143,7 @@ Para esto, la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT
 Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
 \begin{figure}[bth]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-mfcc}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mfcc}} \quad
   \caption{Mel Frequency Cepstrum Coefficients.}
   \label{fig:sign_mfcc}
 \end{figure}
@@ -150,7 +154,7 @@ Para esto, podemos utilizar diferentes métodos tanto de reducción de dimension
 
 Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida:
 \begin{figure}[bth]
-  {\includegraphics[width=0.9\linewidth]{gfx/chap5/signal-clusters}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-clusters}} \quad
   \caption{MFCC agrupados con k-means++.}
   \label{fig:sign_clusters}
 \end{figure}
