@@ -6,13 +6,7 @@
 \epigraph{``Data! Data! Data!'' he cried impatiently. 
 ``I can't make bricks without clay.''}{Sherlock Holmes}}
 
-Hasta ahora, se tiene la metodología completa para estimar los parámetros del un modelo \ac{HMM} propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello, se estimarán los parámetros correspondientes del modelo, además de obtener la segmentación más probable para los datos.
-
-Para la estimación de los parámetros usando \ac{EM}, se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se estable un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contiguas. 
-
-Con esto, se obtiene la estimación de parámetros de el modelo así como su verosimilitud, partiendo de una inicialización aleatoria.
-
-Puesto que el problema abarca también el detectar cuántos personas están involucrados en la grabación, se propondrán modelos para diferentes números de interlocutores, y a partir de una función de costo se escogerá al que mejor tenga una mejor evaluación.
+Puesto que el problema abarca también el detectar cuántos personas están involucrados en la grabación, y hasta ahora se ha considerado que se dispone de esta información, es necesario inferir de alguna manera cuántos interlocutores participan.
 
 Para esto, se necesitan tener presentes varios conceptos: 
 
@@ -20,8 +14,12 @@ Para esto, se necesitan tener presentes varios conceptos:
 
 \section{Funciones de penalización}
 
+Una estrategia sencilla para la selección de modelo es elegir el candidato con la más grande probabilidad dados los datos. 
+
 \subsection{BIC}
+
 \subsection{Otras}
+
 
 
 \section{Selección de modelo usando bootsrap con likelihood ratio testing}
@@ -67,13 +65,15 @@ Ahora, para hacer la prueba con boostrap, simularemos
 
 \section{Selección de modelo usando BIC}
 
-\begin{comment} 
-Una vez que se tienen los parámetros estimados para cada uno de los modelos correspondientes a las propuestas, se necesita ver cuál es el modelo que mejor se ajusta a los datos.
-\end{comment} 
-
 Otra manera de realizar la selección del modelo que mejor se adecua a los datos que se observan, es usar una métrica específica para la selección de modelos.
 
-Entre las más comunes, se encuentran por ejemplo \ac{AIC} o \ac{BIC}, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
+Comparar directamente los valores máximos alcanzados de log-verosimilitud para diferentes modelos no siempre es un criterio lo suficientemente bueno para la comparación de modelos. Al incluirse más parámetros en un modelo, la máxima log-verosimilitud también aumentará, pero esto no implica que esta sea siempre la mejor elección. 
+
+Escoger el modelo con la mayor log-verosimilitud equivaldría a siempre elegir el modelo con más parámetros; lo que puede significar que tiene un buen poder predictivo para los datos que se usaron de entrenamiento, pero que probablemente en pruebas con otros datos diferentes no  
+
+Entre las más comunes, se encuentran por ejemplo el \acf{AIC} o el \acf{BIC}, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
+
+
 
 Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar \ac{BIC}.
 

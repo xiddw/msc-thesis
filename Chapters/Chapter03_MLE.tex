@@ -284,3 +284,13 @@ Así como para el algoritmo de backward-forward, se pueden reescribir tanto \eqr
   \xi(z_{n-1}, z_n) &= c_n \hat \alpha(z_{n-1}) p(x_n \,|\, z_n) 
       p(z_n \,|\, z_{n-1}) \hat \beta(z_n) 
 \end{align}
+
+\subsection{Implementación}
+
+Hasta ahora, se tiene la metodología completa para estimar los parámetros de un modelo propuesto; es decir, se considera que se sabe a priori el número de interlocutores que participan en la grabación. A partir de ello se estimarán los parámetros correspondientes del modelo.
+
+Para la estimación de los parámetros se usa el algoritmo \ac{EM}, donde primero se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se establece un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contiguas. 
+
+Una vez que se considera que el algoritmo \ac{EM} convergió, se revisan las probabilidades marginales de las variables latentes $\gamma(z_n)$ \eqref{eqn:3-8} y se escogen maximizándolas de forma individual. De esta manera es como se obtiene la segmentación estimada resultante. 
+
+Si bien, se puede usar por ejemplo el algoritmo de Viterbi para obtener la secuencia de estados más probable; el método que se usará es más o menos equivalente, pues se buscan el conjunto de estados que individualmente son más probables y como el \ac{HMM} que se propone es irreducible entonces la secuencia resultante sí será posible.
