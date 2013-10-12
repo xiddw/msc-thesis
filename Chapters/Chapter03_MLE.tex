@@ -4,9 +4,11 @@
 \section{Estimación de Máxima Verosimilitud del HMM}
 %************************************************
 
-La tarea de aprendizaje de parámetros del \ac{HMM} es encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
+La tarea de aprendizaje de parámetros del \ac{HMM} se refiere a encontrar, dada una secuencia de datos observados, el mejor conjunto de probabilidades de transición y emisión.
 
-Hasta el momento no se conoce algún algoritmo para resolver esta problema de forma exacta, pero sí hay métodos para estimar la máxima verosimilitud del modelo de forma local usando el algoritmo de Baum–Welch, que se explicará con más detalle a continuación.
+Este problema es difícil de resolver, pues no se tiene una forma analítica de resolverlo \cite{Rabiner1989}. De hecho, dada una secuencia finita de observaciones como conjunto de entrenamiento, no hay forma óptima de estimar los parámetros verdaderos del modelo, y lo más que se puede hacer, es escoger $\theta = \left( \textbf{A}, \textbf{B}, \pi \right)$ tal que $P(\textbf{X} \,|\, \theta)$ corresponda a un máximo local usando algún algoritmo tipo \ac{EM} o técnicas de descenso de gradiente. 
+
+A continuación, se presentará el algoritmo de Baum–Welch que es básicamente \ac{EM} aplicado a una cadena de Márkov, y que nos permitirá tanto inferir los parámetros $\theta$ del \ac{HMM} así como luego recuperar la secuencia de estados.
 
 %\section{Estimación de parámetros del HMM}
 \subsection{Estimación de parámetros del HMM}
@@ -276,6 +278,7 @@ Con las nuevas variables normalizadas, ya se pueden realizar todos los cálculos
 Por ejemplo, para calcular la verosimilitud del modelo, usando \eqref{eqn:3-23} se tiene que
 \begin{equation}
   p(\mb{X}) =  \prod_i^N c_i
+  \label{eqn:3-29}
 \end{equation}
 
 Así como para el algoritmo de backward-forward, se pueden reescribir tanto \eqref{eqn:1111} como \eqref{eqn:1112} usando las nuevas variables 
@@ -283,6 +286,7 @@ Así como para el algoritmo de backward-forward, se pueden reescribir tanto \eqr
   \gamma(z_n) &= \hat \alpha(z_n) \hat \beta(z_n) \\
   \xi(z_{n-1}, z_n) &= c_n \hat \alpha(z_{n-1}) p(x_n \,|\, z_n) 
       p(z_n \,|\, z_{n-1}) \hat \beta(z_n) 
+  \label{eqn:3-30}      
 \end{align}
 
 \subsection{Implementación}
@@ -291,6 +295,12 @@ Hasta ahora, se tiene la metodología completa para estimar los parámetros de u
 
 Para la estimación de los parámetros se usa el algoritmo \ac{EM}, donde primero se proponen de forma aleatoria las probabilidades iniciales así como las matrices de transición y emisión correspondientes. Como condiciones de paro del método se establece un número fijo de iteraciones que depende del número de la longitud de la secuencia observada, además de usar una tolerancia mínima para la diferencia entre la log-verosimilitud de dos iteraciones contiguas. 
 
-Una vez que se considera que el algoritmo \ac{EM} convergió, se revisan las probabilidades marginales de las variables latentes $\gamma(z_n)$ \eqref{eqn:3-8} y se escogen maximizándolas de forma individual. De esta manera es como se obtiene la segmentación estimada resultante. 
+Después de tener los parámetros refinados por el algoritmo \abf, se debe proponer una técnica para escoger la segmentación resultante, lo que equivale a encontrar la secuencia de estados \textit{óptima} correspondiente a la secuencia observada.
 
-Si bien, se puede usar por ejemplo el algoritmo de Viterbi para obtener la secuencia de estados más probable; el método que se usará es más o menos equivalente, pues se buscan el conjunto de estados que individualmente son más probables y como el \ac{HMM} que se propone es irreducible entonces la secuencia resultante sí será posible.
+Como menciona Rabiner \cite{Rabiner1989}, hay muchas formas en las que se puede definir la secuencia óptima, de acuerdo a los intereses que se necesitan cumplir. Un criterio puede ser por ejemplo, escoger las probabilidades marginales de las variables latentes $\gamma(z_n)$ \eqref{eqn:3-8} más probables de forma individual, es decir: 
+\begin{equation}
+q_k = \underset{1 <= k <= K}{arg~max}~ \gamma(z_{nk}), \quad \quad 1 <= n <= N
+\label{eqn:3-31}
+\end{equation}
+Otra opción, puede ser usar el algoritmo de Viterbi que nos permite obtener la secuencia de estados más probable dada una secuencia observada. Por diseño, se escogió el primer método, y se buscará el conjunto de estados que individualmente son más probables.
+
