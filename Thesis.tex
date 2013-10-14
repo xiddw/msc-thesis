@@ -1,18 +1,14 @@
 % **************************************************************************************************************
-% Note:
-%    * You must not use "u etc. in strings/commands that will be spaced out (use \"u or real umlauts instead)
-%    * New enumeration (small caps): \begin{aenumerate} \end{aenumerate}
-%    * For margin notes: \marginpar or \graffito{}
-%    * Do not use bold fonts in this style, it is designed around them
-%    * Use tables as in the examples
-%    * See classicthesis-preamble.sty for useful commands
-% **************************************************************************************************************
 % To Do:
-%		 * [high] Check this out: http://www.golatex.de/koma-script-warnung-in-verbindung-mit-listings-package-t2058.html
-%    * [medium] mathbb in section-titles/chapter-titles => disappears somehow in headlines!!!
+%		 * [hgh] => Model selection chapter
+%		 * [hgh] => Metodology chapter
+%    * [med] => Redaction for experiments
+%    * [med] => Results table
+%    * [low] => Cites / bibliography
+%    * [low] => Quotes at beginning
 % **************************************************************************************************************
 \documentclass[titlepage, numbers=noenddot, headinclude,
-                %1headlines,% letterpaper a4paper %%%openright,%%%
+                %headlines,% letterpaper a4paper %%%openright,%%%
                 footinclude=true,cleardoublepage=empty,abstractoff, % <--- obsolete, remove (todo)
                 BCOR=5mm, letterpaper,fontsize=11.5pt,%11pt,a4paper,%
                 %ngerman,american%
@@ -134,7 +130,6 @@
 
 \include{Chapters/Chapter01}
 
-%\cleardoublepage
 \part{Marco teórico}
 
 \include{Chapters/Chapter02}
@@ -147,7 +142,6 @@
 
 \include{Chapters/Chapter04}
 
-
 \part{Marco experimental}
 
 \include{Chapters/Chapter05}
@@ -155,7 +149,7 @@
 \setcounter{chapter}{5}
 \include{Chapters/Chapter06}
 
-%\include{Chapters/Chapter07}
+\include{Chapters/Chapter07}
 
 %\include{multiToC} % <--- just debug stuff, ignore for your documents
 

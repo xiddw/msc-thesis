@@ -3,24 +3,41 @@
 \chapter{Selección de modelo}
 
 \epigraphhead[70]{
-\epigraph{``Data! Data! Data!'' he cried impatiently. 
-``I can't make bricks without clay.''}{Sherlock Holmes}}
+\epigraph{Choose well. Your choice is brief, and yet endless.}
+{Johann Wolfgang von Goethe}}
 
 Puesto que el problema abarca también el detectar cuántos personas están involucrados en la grabación, y hasta ahora se ha considerado que se dispone de esta información, es necesario inferir de alguna manera cuántos interlocutores participan.
 
-Para esto, se necesitan tener presentes varios conceptos: 
+La contribución principal de este trabajo de tesis está en la selección de modelo propuesta, utilizando varias técnicas tanto bayesianas como frecuentistas para respaldar la elección realizada.
 
-\section{Bootstrap paramétrico}
+Como mencionan Claeskens y Hjort \cite{Claeskens2010}, hay varios aspectos importantes que considerar antes de abordar el problema de selección de modelos: 
+
+\begin{enumerate}
+\item Los modelos son aproximaciones: Cuando se usan modelos, se tiene que considerar que la realidad observada suele ser mucho más compleja que los modelos propuestos. No necesariamente existirá un modelo correcto 
+
+\item Sesgo-Varianza: Se refiere a balancear tanto la simplicidad del modelo (pocos parámetros a estimar, lo que implicaría una menor variabilidad, aunque con cierto sesgo) contra la complejidad (introducir más parámetros al modelo, )
+\end{enumerate}
+
+Para esto, se necesitan tener presentes varios conceptos: 
 
 \section{Funciones de penalización}
 
 Una estrategia sencilla para la selección de modelo es elegir el candidato con la más grande probabilidad dados los datos. 
 
+Comparar directamente los valores máximos alcanzados de log-verosimilitud para diferentes modelos no siempre es un criterio lo suficientemente bueno para la comparación de modelos. Al incluirse más parámetros en un modelo, la máxima log-verosimilitud también aumentará, pues el modelo se sobre-ajustará; por lo que no siempre será la mejor elección. 
+
+Escoger el modelo con la mayor log-verosimilitud equivaldría a siempre elegir el modelo con más parámetros; lo que puede significar que tiene un buen poder predictivo para los datos que se usaron de entrenamiento, pero que probablemente en pruebas con otros datos diferentes no tendrá un buen desempeño.
+
+Para evitar esto, se han diseñado funciones de penalización que permiten 
+
+Entre las más comunes, se encuentran por ejemplo el \acf{AIC} o el \acf{BIC}, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
+
+
 \subsection{BIC}
 
 \subsection{Otras}
 
-
+\section{Bootstrap paramétrico}
 
 \section{Selección de modelo usando bootsrap con likelihood ratio testing}
 
@@ -67,13 +84,7 @@ Ahora, para hacer la prueba con boostrap, simularemos
 
 Otra manera de realizar la selección del modelo que mejor se adecua a los datos que se observan, es usar una métrica específica para la selección de modelos.
 
-Comparar directamente los valores máximos alcanzados de log-verosimilitud para diferentes modelos no siempre es un criterio lo suficientemente bueno para la comparación de modelos. Al incluirse más parámetros en un modelo, la máxima log-verosimilitud también aumentará, pero esto no implica que esta sea siempre la mejor elección. 
-
-Escoger el modelo con la mayor log-verosimilitud equivaldría a siempre elegir el modelo con más parámetros; lo que puede significar que tiene un buen poder predictivo para los datos que se usaron de entrenamiento, pero que probablemente en pruebas con otros datos diferentes no  
-
-Entre las más comunes, se encuentran por ejemplo el \acf{AIC} o el \acf{BIC}, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
-
-
+%%%%%%%%%%%%
 
 Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar \ac{BIC}.
 
