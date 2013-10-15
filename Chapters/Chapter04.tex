@@ -12,13 +12,18 @@ La contribución principal de este trabajo de tesis está en la selección de mo
 
 Como mencionan Claeskens y Hjort \cite{Claeskens2010}, hay varios aspectos importantes que considerar antes de abordar el problema de selección de modelos: 
 
-\begin{enumerate}
-\item Los modelos son aproximaciones: Cuando se usan modelos, se tiene que considerar que la realidad observada suele ser mucho más compleja que los modelos propuestos. No necesariamente existirá un modelo correcto 
+\begin{description}
+\item[Los modelos son aproximaciones:] Cuando se usan modelos, se tiene que considerar que la realidad observada suele ser mucho más compleja que los modelos propuestos. No necesariamente existirá un modelo correcto 
 
-\item Sesgo-Varianza: Se refiere a balancear tanto la simplicidad del modelo (pocos parámetros a estimar, lo que implicaría una menor variabilidad, aunque con cierto sesgo) contra la complejidad (introducir más parámetros al modelo, )
-\end{enumerate}
+\item[Sesgo-Varianza:] Se refiere a balancear tanto la simplicidad del modelo (pocos parámetros a estimar, lo que implicaría una menor variabilidad, aunque con cierto sesgo) contra la complejidad (introducir más parámetros al modelo reduciría el sesgo al modelar, pero aumentaría el grado de variabilidad). La selección estadística de modelos debe buscar un balance entre el sobre-ajuste (un modelo con muchos parámetros, más de los necesarios) o sub-ajuste (un modelo con muy pocos parámetros, no capture).
 
-Para esto, se necesitan tener presentes varios conceptos: 
+\item[Parsimonia:] 'El principio de parsimonia' o navaja de Ockham dice que 'en igualdad de condiciones, la explicación más sencilla suele ser la correcta'. Se puede pensar como incluir en el modelo sólo los parámetros que realmente importen y capturen la esencia del fenómeno. 
+
+\item[Contexto:] Todo modelado tiene cierto propósito. Se pueden tener diferentes intereses para un mismo experimento, por lo que entonces el contexto no tiene que ser siempre el mismo para un conjunto de datos. En algunos contextos puede ser más interesante encontrar los parámetros subyacentes del modelo e interpretarlos, mientras que en otros puede bastar con obtener respuesta a las problema planteado.
+
+\end{description}
+
+Con estas consideraciones, se presentarán varios conceptos importantes que se utilizarán al momento de seleccionar el modelo adecuado:
 
 \section{Funciones de penalización}
 
