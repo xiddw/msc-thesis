@@ -25,7 +25,7 @@ Por esto, se usará el algoritmo de \ac{EM} para maximizar la verosimilitud. Ini
 
 La función de verosimilitud completa se define entonces como sigue:
 \begin{equation}
-\mathcal{Q}(\theta, \theta^{old}) = 
+\mc{Q}(\theta, \theta^{old}) = 
   \sum_{\mb{Z}} p(\mb{Z} \,|\, \mb{X}, \theta^{old})
   ln p(\mb{X}, \mb{Z} \,|\, \theta).
 \label{eqn:3-2}
@@ -50,7 +50,7 @@ Si se sustituye $p(\mb{X}, \mb{Z} \,|\, \theta)$ de \eqref{eqn:2-11} en \eqref{e
 
 \begin{equation}
 \begin{split}
-\mathcal{Q}(\theta, \theta^{old}) = 
+\mc{Q}(\theta, \theta^{old}) = 
   \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + 
   \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} + \\
   \sum_{n=1}^N \sum_{k=1}^K \gamma(z_{nk}) ln p(x_n \,|\, \phi_k)
@@ -60,11 +60,11 @@ Si se sustituye $p(\mb{X}, \mb{Z} \,|\, \theta)$ de \eqref{eqn:2-11} en \eqref{e
 
 Por lo que entonces en el \estep~ se debe evaluar tanto $\gamma(z_{nk})$ como $\xi(z_{n-1,j}, z_{nk})$ de forma eficiente para luego continuar con la segunda etapa del algoritmo.
 
-El segundo paso, también conocido como \mstep, consiste en maximizar la unción $\mathcal{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
+El segundo paso, también conocido como \mstep, consiste en maximizar la unción $\mc{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
 
-Para maximizar entonces $\pi$, se deriva $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$, usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
+Para maximizar entonces $\pi$, se deriva $\mc{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$, usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
 \begin{equation*}
-  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
+  \frac {\partial \mc{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
   \frac {\partial}{\partial \pi_k} 
   \left[
     \sum_{k=1}^K \gamma(z_{1k}) ln \pi_k + \lambda (\sum_{k=1}^K \pi_k - 1) 
@@ -75,9 +75,9 @@ y derivando y encontrando el valor de $\lambda$, para luego despejar $\pi_k$, se
   \pi_k = \frac{\gamma(z_{1k})}{\sum_{j=1}^K \gamma(z_1j)}
 \label{eqn:3-8}
 \end{equation}
-mientras que para maximizar $\mb{A}$, se deriva entonces $\mathcal{Q}(\theta, \theta^{old})$ con respecto a $A_{jk}$, considerando también las restricciones, es decir
+mientras que para maximizar $\mb{A}$, se deriva entonces $\mc{Q}(\theta, \theta^{old})$ con respecto a $A_{jk}$, considerando también las restricciones, es decir
 \begin{equation*}
-  \frac {\partial \mathcal{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
+  \frac {\partial \mc{Q}(\theta, \theta^{old})}{\partial \pi_k} = 
   \frac {\partial}{\partial \pi_k} 
   \left[
     \sum_{n=2}^N \sum_{j=1}^K \sum_{k=1}^K \xi(z_{n-1,j}, z_{nk}) ln A_{jk} 

@@ -37,8 +37,47 @@ Para evitar esto, se han diseñado funciones de penalización que permiten
 
 Entre las más comunes, se encuentran por ejemplo el \acf{AIC} o el \acf{BIC}, que se encargan de selección de modelo a partir de la estimación de máxima verosimilitud de los datos, así como también penalizan el número de parámetros libres que necesita el modelo.
 
-
 \subsection{BIC}
+
+Cuando hay varios modelos candidatos, una estategia bayesiana se encargaría de seleccionar el modelo que a posteriori sea más probable. Este modelo puede ser identificado calculando la probabilidad posterior de cada uno de los modelos y luego seleccionando aquél modelo cuya probabilidad sea la mayor.
+
+Sean $\mathcal{M}_1, ..., \mathcal{M}_k$ los modelos propuestos, y sea $\mb{X} = \lbrace x_1, ..., x_n \rbrace $ el vector de datos observados. La probabilidad a posteriori para cada modelo se puede calcular como sigue: 
+\begin{equation}
+P(\mc{M}_j \,|\, \mb{X}) \equiv \frac{P(\mc{M}_j)}{f(\mb{X})} 
+  \int_{\Theta_j} f(\mb{X} \,|\, \mc{M}_j, \theta_j) \pi(\theta_j \,|\, \mc{M}_j) d\theta_j
+\label{eqn:4-1}
+\end{equation}
+donde $\Theta_j$ es el espacio de parámetros al que pertenece $\theta_j$. Además, $f(\mb{X} \,|\, \mc{M}_j, \theta_j)$ es la verosimilitud $\mc{L}_{j}(\theta_j)$ de los datos, dado al modelo $j$ y sus parámetros; mientras que $ \pi(\theta_j \,|\, \mc{M}_j) d\theta_j$ representa la densidad a priori de $\theta_j$ dado el modelo $\mc{M}_j$; 
+$P(\mc{M}_j)$ es la probabilidad a priori para el modelo $j$-ésimo y $f(\mb{X})$ es la verosimilitud de los datos.
+
+La verosimilitud incondicional de los datos se puede calcular como sigue: 
+\begin{equation}
+f(\mb{X}) = \sum_{j=1}^k P(\mc{M}_j) \lambda_{n, j}(y)
+\label{eqn:4-2}
+\end{equation}
+donde 
+\begin{equation}
+\lambda_{n, j} = \int_{\Theta_j} \mc{L}_{n, j}(\theta_j) \pi(\theta_j \,|\, \mc{M}_j) d\theta_j.
+\label{eqn:4-3}
+\end{equation}
+
+La ecuación \eqref{eqn:4-3} representa la verosimilitud marginal de los datos para el modelo $\mc{M}_j$ integrada con respecto a $\theta_j$ sobre es espacio de parámetros $\Theta_j$ correspondiente.
+
+Al comparar las probabilidades posteriores $P(\mc{M}_j \,|\, \mb{X})$ de los distintos modelos, $f(\mb{X})$ se mantiene constante para todos los modelos, por lo que se puede descartar en la comparación.
+
+Ahora, si se define 
+\begin{equation}
+BIC_{n, j}^{exact} \equiv 2 log(\lambda_{n, j}(\mb{X}))
+\label{eqn:4-3}
+\end{equation}
+por lo que \eqref{eqn:4-1} se podría reescribir como sigue: 
+\begin{equation}
+P(\mc{M}_j \,|\, \mb{X}) = \frac{ P(\mc{M}_j) exp(\frac{1}{2} BIC_{n, j}^{exact}) }
+{ \sum_{i=1}^k  P(\mc{M}_i) exp(\frac{1}{2} BIC_{n, i}^{exact}) }
+\label{eqn:4-4}
+\end{equation}
+
+Sin embargo, el cálculo de los diferentes $BIC_{n, j}^{exact}$ es difícil de estimar numéricamente, por lo que se buscará una expresión similar que sea práctica y eficiente.
 
 \subsection{Otras}
 
