@@ -68,16 +68,38 @@ Al comparar las probabilidades posteriores $P(\mc{M}_j \,|\, \mb{X})$ de los dis
 Ahora, si se define 
 \begin{equation}
 BIC_{n, j}^{exact} \equiv 2 log(\lambda_{n, j}(\mb{X}))
-\label{eqn:4-3}
+\label{eqn:4-4}
 \end{equation}
 por lo que \eqref{eqn:4-1} se podría reescribir como sigue: 
 \begin{equation}
-P(\mc{M}_j \,|\, \mb{X}) = \frac{ P(\mc{M}_j) exp(\frac{1}{2} BIC_{n, j}^{exact}) }
+P(\mc{M}_j \,|\, \mb{X}) = \frac{ P(\mc{M}_j)  exp(\frac{1}{2} BIC_{n, j}^{exact}) }
 { \sum_{i=1}^k  P(\mc{M}_i) exp(\frac{1}{2} BIC_{n, i}^{exact}) }
-\label{eqn:4-4}
+\label{eqn:4-5}
 \end{equation}
 
-Sin embargo, el cálculo de los diferentes $BIC_{n, j}^{exact}$ es difícil de estimar numéricamente, por lo que se buscará una expresión similar que sea práctica y eficiente.
+Sin embargo, el cálculo de los diferentes $BIC_{n, j}^{exact}$ es difícil de estimar numéricamente, además de que la expresión necesita las probabilidades a priori para todos los modelos y todos los parámetros; por lo que se buscará una expresión similar que sea práctica y mucho más eficiente.
+
+Para esto, primero hay que considerar el método de Laplace, que es usado para aproximar integrales de la forma $\int_a^b e^{M f(x)} dx$, por lo que \eqref{eqn:4-3} debe escribirse de esa manera: 
+\begin{equation}
+\lambda_{n, j}(\mb{X}) = \int_{Theta} exp\left\lbrace n h_{n, j}(\theta) \cdot \pi(\theta \,|\, \mc{M}_j) \right\rbrace ~d\theta 
+\end{equation}
+donde $h_{n, j}(\theta) = n^{-1} \ell_{n, j}(\theta)$ y $p = \#\theta$ es la cardinalidad del $\theta$; por lo que ahora usando la aproximación básica de Laplace, se tiene: 
+\begin{equation}
+\begin{split}
+ &\int_{\Theta} exp \left\lbrace n h_{n, j}(\theta) \cdot \pi(\theta \,|\, \mc{M}_j) \right\rbrace ~d\theta = \\
+ & \quad\quad \left( \frac{2 \pi}{n} \right)^{\frac{p}{2}} \cdot exp \left\lbrace n h(\theta_0) \right\rbrace \cdot
+ \left\lbrace g(\theta_0) \cdot \left| J(\theta_0) \right| ^{-\frac{1}{2}} + O(n^{-1}) \right\rbrace
+\end{split}
+\end{equation}
+donde $\theta_0$ es el valor que maximiza la función $h(\cdot)$ y $J(\theta_0)$ es la matriz Hessiana 
+\begin{equation}
+J(\theta) \equiv -\frac{\partial^2 h(\theta)}{\partial \theta \cdot \partial \theta^T}
+\end{equation}
+evaluada en $\theta_0$.
+
+Hay que notar que esta aproximación es equivalente a \eqref{eqn:4-4} sólo cuando $h$ es una forma cuadrática negativa (como lo es una log-verosimilitud gaussiana) y cuando $g(\cdot)$ es constante. 
+
+En este caso, tenemos que $h(\theta) = n^{-1} \ell_{n, j}(\theta)$ y que se maximiza con el \ac{MLE} $\hat \theta_j$ para el modelo $\mc{M}_j$. Entonces, 
 
 \subsection{Otras}
 
