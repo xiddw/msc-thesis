@@ -58,7 +58,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
     \parbox[c]{0.35\textwidth}{\centering Modelo $n_6$}
   }
   \vspace{0.5cm}
-  \foreach \row in {3, ..., 9}{%  
+  \foreach \row in {3, ..., 8}{%  
     \centerline{
       \parbox[c]{1cm}{
         \vspace{-0.3cm}
@@ -79,10 +79,10 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
     }
   }
 \caption[Secuencia 6: Parámetros estimados (2)]{Por columnas, se muestran las probabilidades de emisión para cada uno de los interlocutores de acuerdo al modelo. Cada fila representa las probabilidad de emisión de las palabras en el diccionario. La fila \textup{(c)} para la primer persona, la fila \textup{(d)} para la segunda persona y así de forma consecutiva, de acuerdo al número de personas que contempla cada modelo propuesto.}
-\label{fig:seq4q}
+\label{fig:seq6q}
 \end{figure}
 
-En la \autoref{fig:se6q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación. Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
+En la \autoref{fig:seq6q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación. Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
 
 Para la selección del modelo y siguiendo la metodología propuesta, primero se efectúa una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables.
 
@@ -181,7 +181,7 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
     \end{subfigure}
   }
   \caption[Secuencia 6: Secuencia recuperada]{En \autoref{fig:seq6_seq1} se muestra la secuencia original de la \autoref{ssub:cats}. En comparación, en \autoref{fig:seq6_seq2} se muestra la secuencia recuperada del modelo ganador y se marcan en rojo los errores cometidos respecto a la primera secuencia. }
-  \label{fig:prb4_seq}
+  \label{fig:prb6_seq}
 \end{figure}
 
 Más a detalle, en la \autoref{fig:prb6_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.

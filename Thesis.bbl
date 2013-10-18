@@ -21,11 +21,6 @@ Simon Bozonnet, Nicholas W.~D. Evans, and Corinne Fredouille.
   speaker modelling and cluster purification}.
 \newblock In {\em ICASSP}, pages 4958--4961. IEEE, 2010.
 
-\bibitem[Bis06]{Bishop2006}
-Christopher~M. Bishop.
-\newblock {\em {Pattern Recognition and Machine Learning}}.
-\newblock Information Science and Statistics. Springer, 2006.
-
 \bibitem[CH10]{Claeskens2010}
 Gerda Claeskens and Nils~Lid Hjort.
 \newblock {\em {Model Selection and Model Averaging}}.
@@ -45,19 +40,6 @@ Corinne Fredouille and Nicholas W.~D. Evans.
   editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
   pages 520--532. Springer, 2007.
 
-\bibitem[FSJW11]{Fox2011}
-E.B. Fox, E.B. Sudderth, M.I. Jordan, and A.S. Willsky.
-\newblock {A Sticky HDP-HMM with Application to Speaker Diarization}.
-\newblock {\em Annals of Applied Statistics}, 5(2A):1020--1056, 2011.
-
-\bibitem[IFM{\etalchar{+}}05]{Istrate2005}
-Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and
-  Jean-François Bonastre.
-\newblock {NIST RT'05S Evaluation: Pre-processing Techniques and Speaker
-  Diarization on Multiple Microphone Meetings}.
-\newblock In Steve Renals and Samy Bengio, editors, {\em MLMI}, volume 3869 of
-  {\em Lecture Notes in Computer Science}, pages 428--439. Springer, 2005.
-
 \bibitem[Jel98]{Jelinek1998}
 Frederick Jelinek.
 \newblock {\em {Statistical Methods for Speech Recognition}}.
@@ -69,12 +51,6 @@ S.~Meignier, J.-F. Bonastre, and S.~Igounet.
   indexing}.
 \newblock In {\em ISCA, A Speaker Odyssey, The Speaker Recognition Workshop},
   Chiana (Crete), 18-22 Juin 2001 2001.
-
-\bibitem[MS91]{Morgan1991}
-David~P. Morgan and Christopher~L. Scofield.
-\newblock {\em {Neural Networks and Speech Processing}}.
-\newblock The Kluwer International Series in Engineering and Computer Science.
-  Kluwer Academic Publishers, 1991.
 
 \bibitem[NLS09]{Nguyen2009}
 Trung~Hieu Nguyen, Haizhou Li, and Chng~Eng Siong.
@@ -89,28 +65,6 @@ Lawrence~R Rabiner.
 \newblock {\em Proceedings of the IEEE}, 77:257--286, 1989.
 \newblock errata at
   http://alumni.media.mit.edu/~rahimi/rabiner/rabiner-errata/rabiner-errata.html.
-
-\bibitem[RJ93]{Rabiner1993}
-Lawrence~R. Rabiner and Biing-Hwang Juang.
-\newblock {\em {Fundamentals of speech recognition}}.
-\newblock Prentice-Hall, Inc., Upper Saddle River, NJ, USA, 1993.
-
-\bibitem[RS07]{Rabiner2007}
-Lawrence~R. Rabiner and R.W. Schafer.
-\newblock {Introduction to digital speech processing}.
-\newblock {\em Foundations and trends in signal processing}, 1:1--194, 2007.
-
-\bibitem[Ryd08]{Ryden2008}
-Tobias Ryden.
-\newblock {EM versus Markov chain Monte Carlo for Estimation of Hidden Markov
-  Models: A Computational Perspective}.
-\newblock {\em Bayesian Analysis}, 2008.
-
-\bibitem[TR06]{Tranter2006}
-Sue Tranter and Douglas Reynolds.
-\newblock {An Overview of Automatic Speaker Diarisation Systems}.
-\newblock {\em IEEE Transactions on Speech, Audio \& Language Processing,
-  Special Issue on Rich Transcription}, pages 1557--1565, 2006.
 
 \bibitem[WH07]{Wooters2007}
 Chuck Wooters and Marijn Huijbregts.

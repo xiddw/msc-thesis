@@ -40,7 +40,7 @@ Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 ce
   }
 \caption[Secuencia 3: Parámetros estimados (1)]{Por columnas, se muestran los parámetros obtenidos para varios modelos propuestos. La primer columna corresponde a los parámetros verdaderos.
 En la primer fila \textup{(a)} se muestran las probabilidades a priori de que cada uno de los interlocutores empiecen la conversación. En la segunda fila \textup{(b)} se muestra en falso color la matriz de transición entre interlocutores para cada uno de los modelos mostrados.}
-\label{fig:seq5p}
+\label{fig:seq3p}
 \end{figure}
 
 En las \autoref{fig:seq3p} y \autoref{fig:seq3q} se muestran los parámetros estimados para los diferentes modelos que se propusieron. La primer columna corresponde a los parámetros verdaderos, mientras que las demás columnas son los parámetros obtenidos para diferentes modelos estimados. 
@@ -58,7 +58,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
     \parbox[c]{0.35\textwidth}{\centering Modelo $n_7$}
   }
   \vspace{0.5cm}
-  \foreach \row in {3, ..., 9}{%  
+  \foreach \row in {3, ..., 7}{%  
     \centerline{
       \parbox[c]{1cm}{
         \vspace{-0.3cm}
@@ -82,7 +82,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
 \label{fig:seq3q}
 \end{figure}
 
-En la \autoref{fig:se3q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación. Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
+En la \autoref{fig:seq3q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación. Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
 
 Para la selección del modelo y siguiendo la metodología propuesta, primero se efectúa una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables.
 
