@@ -15,6 +15,13 @@ Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
 \newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
   MLMI}, volume 4299, pages 346--358, 2006.
 
+\bibitem[AV07]{Arthur2007}
+David Arthur and Sergei Vassilvitskii.
+\newblock {k-means++: The advantages of careful seeding}.
+\newblock In {\em Proceedings of the eighteenth annual ACM-SIAM symposium on
+  Discrete algorithms}, SODA '07, pages 1027--1035, Philadelphia, PA, USA,
+  2007. Society for Industrial and Applied Mathematics.
+
 \bibitem[BEF10]{Bozonnet2010}
 Simon Bozonnet, Nicholas W.~D. Evans, and Corinne Fredouille.
 \newblock {The LIA-EURECOM RT'09 Speaker Diarization System : enhancements in
@@ -26,6 +33,11 @@ Gerda Claeskens and Nils~Lid Hjort.
 \newblock {\em {Model Selection and Model Averaging}}.
 \newblock Cambridge Series in Statistical and Probabilistic Mathematics.
   Cambridge University Press, 2010.
+
+\bibitem[DE83]{Diaconis1983}
+Persi Diaconis and Bradley Efron.
+\newblock {Computer-Intensive Methods in Statistics}.
+\newblock Technical Report~5, May 1983.
 
 \bibitem[FBE09]{Fredouille2009}
 Corinne Fredouille, Simon Bozonnet, and Nicholas W.~D. Evans.
