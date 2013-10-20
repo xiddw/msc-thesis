@@ -103,7 +103,25 @@ En este caso, tenemos que $h(\theta) = n^{-1} \ell_{n, j}(\theta)$ y que se maxi
 
 \subsection{Otras}
 
-\section{Bootstrap paramétrico}
+\section{Bootstrap}
+
+Bootstrap es una técnica estadística que nos permite tener noción sobre qué tan preciso es alguna medida muestral estimada. Este método permite aproximar la distribución de muestreo de casi cualquier estadístico, usando métodos simples aunque computacionalmente intensivos. 
+
+Como menciona Persi~et.al~\cite{Diaconis1983}, esta técnica fue desarrollada en 1978 por Efron~\cite{Efron1979}, quien generalizó el método de \textit{Jacknife}, siendo ambos métodos estadísticos altamente demandantes en cuanto a procesamiento computacional; y que empezaron a tener más auge a finales de la década de 1970 debido al crecimiento del poder de cómputo disponible.
+
+La técnica bootstrap se describe a continuación en un ejemplo: supongamos que se tiene que ajustar un modelo a un conjunto de datos. Sea este conjunto de entrenamiento $\mb{Z} = (z_1, z_2, ..., z_N)$ donde $z_i = (x_i, y_i)$. La idea básica es seleccionar del conjunto de entrenamiento de forma aleatoria y con reemplazo, un conjunto de datos del mismo tamaño que el conjunto original. A este conjunto se le denotara $\mb{Z}^{*1}$.
+
+Este proceso de selección se realiza $B$ veces, produciendo $B$ conjuntos bootstrap 
+$\mb{Z}^{*} = \lbrace \mb{Z}^{*1}, \mb{Z}^{*2}, ..., \mb{Z}^{*B} \rbrace$. Luego, para cada uno de estos conjuntos, se volvera a ajustar el modelo, y se examinará el comportamiento de los ajustes para las respuestas obtenidas.
+
+En la \autoref{fig:temp}, $S(\mb{Z})$ representa cualquier estadístico calculado del conjunto de datos $\mb{Z}$. A partir de los conjuntos muestreados se puede estimar cualquier aspecto de una distribución de $S(\mb{Z})$, como por ejemplo, su varianza: 
+\begin{equation}
+\widehat{Var} \left[ S(\mb{Z}) \right] = \frac{1}{B-1} \sum_{b=1}^B \left( S(\mb{Z}^{*b}) - \bar{S}^{*} \right)^2
+\end{equation}
+donde $\bar{S}^{*} = \frac{1}{B} \sum_{b=1}^B S(\mb{Z}^{*b})$. Se puede pensar en $\widehat{Var} \left[ S(\mb{Z}) \right]$ como estimador tipo Monte-Carlo para la varianza de $S(\mb{Z})$ a partir del muestro de la función de distribución empírica $\widehat{F}$ de los datos $(z_1, z_2, ..., z_n)$.
+
+
+\subsection{Bootstrap paramétrico}
 
 \section{Selección de modelo usando bootsrap con likelihood ratio testing}
 
