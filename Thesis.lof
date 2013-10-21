@@ -16,7 +16,7 @@
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Modelo de M\IeC {\'a}rkov de segundo orden.\relax }}{19}{figure.caption.23}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Modelo oculto de M\IeC {\'a}rkov.\relax }}{19}{figure.caption.24}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (grafo).\relax }}{21}{figure.caption.25}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{22}{figure.caption.26}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{21}{figure.caption.26}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del proceso bootstrap. A partir del conjunto de datos original $\textbf {Z}$ se generan $B$ conjutos m\IeC {\'a}s, cada uno muestreando con reemplazo $N$ elementos del conjunto original. A cada uno de estos $b$ elementos se le denomina $\textbf {Z}^{*}_b$, y es a partir de este que se calcula el estad\IeC {\'\i }stico de inter\IeC {\'e}s, y se le denomina r\IeC {\'e}plica bootrstrap.\relax }}{37}{figure.caption.30}
 \addvspace {10\p@ }
@@ -30,8 +30,8 @@
 \contentsline {figure}{\numberline {6.6}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (1)}}{49}{figure.caption.39}
 \contentsline {figure}{\numberline {6.7}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (2)}}{50}{figure.caption.40}
 \contentsline {figure}{\numberline {6.8}{\ignorespaces Secuencia 2: Pruebas BIC}}{51}{figure.caption.41}
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Secuencia 2: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{53}{figure.caption.42}
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Secuencia 2: Secuencia recuperada}}{54}{figure.caption.43}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Secuencia 2: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{52}{figure.caption.42}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Secuencia 2: Secuencia recuperada}}{53}{figure.caption.43}
 \contentsline {figure}{\numberline {6.11}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (1)}}{55}{figure.caption.44}
 \contentsline {figure}{\numberline {6.12}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (2)}}{56}{figure.caption.45}
 \contentsline {figure}{\numberline {6.13}{\ignorespaces Secuencia 3: Pruebas BIC}}{57}{figure.caption.46}
@@ -46,8 +46,8 @@
 \contentsline {figure}{\numberline {6.22}{\ignorespaces Secuencia 5: Par\IeC {\'a}metros estimados (2)}}{66}{figure.caption.55}
 \contentsline {figure}{\numberline {6.23}{\ignorespaces Secuencia 5: Pruebas BIC}}{67}{figure.caption.56}
 \contentsline {figure}{\numberline {6.24}{\ignorespaces Secuencia 5: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{68}{figure.caption.57}
-\contentsline {figure}{\numberline {6.25}{\ignorespaces Secuencia 5: Secuencia recuperada}}{70}{figure.caption.58}
-\contentsline {figure}{\numberline {6.26}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (1)}}{71}{figure.caption.59}
+\contentsline {figure}{\numberline {6.25}{\ignorespaces Secuencia 5: Secuencia recuperada}}{69}{figure.caption.58}
+\contentsline {figure}{\numberline {6.26}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (1)}}{70}{figure.caption.59}
 \contentsline {figure}{\numberline {6.27}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (2)}}{72}{figure.caption.60}
 \contentsline {figure}{\numberline {6.28}{\ignorespaces Secuencia 6: Pruebas BIC}}{73}{figure.caption.61}
 \contentsline {figure}{\numberline {6.29}{\ignorespaces Secuencia 6: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{74}{figure.caption.62}

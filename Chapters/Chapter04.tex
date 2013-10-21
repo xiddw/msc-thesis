@@ -101,8 +101,6 @@ Hay que notar que esta aproximación es equivalente a \eqref{eqn:4-4} sólo cuan
 
 En este caso, tenemos que $h(\theta) = n^{-1} \ell_{n, j}(\theta)$ y que se maximiza con el \ac{MLE} $\hat \theta_j$ para el modelo $\mc{M}_j$. Entonces, con 
 
-\subsection{Otras}
-
 \section{Bootstrap}
 
 Bootstrap es una técnica estadística que nos permite tener noción sobre qué tan precisa es alguna medida muestral estimada. Este método permite aproximar la distribución de muestreo de casi cualquier estadístico, usando métodos simples aunque computacionalmente intensivos. 
@@ -122,9 +120,9 @@ donde $\bar{S}^{*} = \frac{1}{B} \sum_{b=1}^B S(\mb{Z}^{*b})$. Se puede pensar e
 
 De esta misma manera, se puede calcular la desviación estándar de otros estimadores de interés, tales como el coeficiente de correlación, algún cuantil, etc.
 
-En \autoref{fig:bootesq} se muestra el proceso general que se sigue para obtener las réplicas bootstrap.
+En la \autoref{fig:bootesq} se muestra el proceso general que se sigue para obtener las réplicas bootstrap.
 
-\begin{figure}[hbt]
+\begin{figure}[tp]
   \centerline
   {\includegraphics[width=1.1\linewidth]{gfx/chap4/untitled}}        
   \caption{Esquema del proceso bootstrap. A partir del conjunto de datos original $\mb{Z}$ se generan $B$ conjutos más, cada uno muestreando con reemplazo $N$ elementos del conjunto original. A cada uno de estos $b$ elementos se le denomina $\mb{Z}^{*}_b$, y es a partir de este que se calcula el estadístico de interés, y se le denomina réplica bootrstrap.}

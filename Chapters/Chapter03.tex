@@ -35,7 +35,7 @@ Se puede pensar como una red bayesiana en la que se asume la independencia de la
 
 El modelo generativo más sencillo que se podría pensar, es considerar que todas las observaciones son variables aleatorias independientes e idénticas distribuidas (v.a. i.i.d) cuyo modelo gráfico se muestra en la \autoref{fig:mod_iid}.
 
-\begin{figure}[bt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.6\linewidth]{gfx/chap3/mod-iid}}        
         \caption{Observaciones independientes e idénticamente distribuidas.}
@@ -71,7 +71,7 @@ A este modelo probabilístico se le conoce como cadena de Márkov de primer orde
 p(x_1, ..., x_N) ~=~ p(x_1) \prod_{n=2}^N p(x_n \,|\, x_{n-1}).
 \end{equation}
 mientras que su modelo gráfico corresponde a la \autoref{fig:mod_mm1}
-\begin{figure}[bt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.6\linewidth]{gfx/chap3/mod-mm1}}
         \caption{Modelo de Márkov de primer orden.}
@@ -90,7 +90,7 @@ puesto que se tiene que $x_n \perp x_1, ..., x_{n-3} \,|\, x_{n-1}, x_{n-2}$.
 
 En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en el que se puede observar la dependencia de una $x_n$ en específico únicamente con sus dos observaciones anteriores.
 
-\begin{figure}[bt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.6\linewidth]{gfx/chap3/mod-mm2}}
         \caption{Modelo de Márkov de segundo orden.}
@@ -117,7 +117,7 @@ p(x_1, ..., x_N, z_1, ..., z_N) ~=~
 \prod_{n=1}^N p(x_n \,|\, z_{n}).
 \end{equation}
 
-\begin{figure}[hbt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.8\linewidth]{gfx/chap3/mod-hmm1}}
         \caption{Modelo oculto de Márkov.}
@@ -156,7 +156,7 @@ y además se cumple que $\sum_k \pi_k = 1$ por definición.
 
 La matriz de transición también se puede llegar a representar como un grafo dirigido, si se consideran las entradas de la matriz $\mb{A}$ como los pesos de las aristas, y los nodos son cada uno de los posibles $K$ estados. Por ejemplo, para el caso de una variable latente de $K = 3$ estados, se tendría el grafo de la \autoref{fig:mod_hmm2}.
 
-\begin{figure}[hbt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.4\linewidth]{gfx/chap3/mod-hmm2}}
         \caption{Matriz de transición de modelo oculto de Márkov (grafo).}
@@ -165,7 +165,7 @@ La matriz de transición también se puede llegar a representar como un grafo di
 
 De la misma manera, el grafo correspondiente a la matriz de transición, se puede representar como una rejilla a través del tiempo, en la que se mantienen los vértices y aristas del grafo, pero además se introduce la noción del tiempo. Como se observa en la \autoref{fig:mod_hmm3} 
 
-\begin{figure}[hbt]
+\begin{figure}[tp]
         \myfloatalign
         {\includegraphics[width=0.63\linewidth]{gfx/chap3/mod-hmm3}}
         \caption{Matriz de transición de modelo oculto de Márkov (rejilla).}

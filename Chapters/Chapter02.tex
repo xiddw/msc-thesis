@@ -1,4 +1,4 @@
-%!TEX root = ../Thesis.tex
+%htEX root = ../Thesis.tex
 
 \chapter{Speaker diarisation} \label{ch:chap2}
 
@@ -59,7 +59,7 @@ Una vez que se tienen estos vectores, se les aplica un algoritmo de aglomeració
 El proceso en detalle se especifica a continuación: 
 \subsection{Esquema general del sistema}
 
-\begin{figure}[bth]
+\begin{figure}[ht]
   \centerline
   {\includegraphics[width=1.4\linewidth]{gfx/chap2/ASR_flow}} \quad
   \caption{Esquema general del sistema.}
@@ -70,7 +70,7 @@ El proceso en detalle se especifica a continuación:
 
 Se considera que se tiene una señal digital de voz, y que a partir de ésta se identificarán a las diferentes personas que hablan durante la grabación.
 
-\begin{figure}[bth]
+\begin{figure}[ht]
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-orig}} \quad
   \caption{Señal original de audio.}
   \label{fig:sign_orig}
@@ -86,7 +86,7 @@ Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo se�
 
 A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto al silencio, como a la señal que realmente se desea modelar.
 
-\begin{figure}[bth]
+\begin{figure}[ht]
   \begin{subfigure}[b]{\textwidth}
     \includegraphics[width=0.9\linewidth]{gfx/chap2/signal-silence}
     \caption{Señal original con silencio identificado.}
@@ -123,7 +123,7 @@ Para calcular los \ac{MFCC}, se usa la Escala de Frecuencia Mel, que está espac
 
 A partir de esta escala, se diseña un banco de filtros triangulares que después se usará (Ver \autoref{fig:sign_melfb}); y esto corresponde de forma similar a la que el oído (la cóclea) captura las características importantes del habla. 
 
-\begin{figure}[bth]
+\begin{figure}[t]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/melfb}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
@@ -133,7 +133,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le calcula la \ac{FT} y entonces a ésta es a quien se le aplica el banco de filtros.
 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
-\begin{figure}[bth]
+\begin{figure}[t]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mel}} \quad
   \caption{Respuesta al banco de filtros.}
@@ -145,7 +145,7 @@ La dimensión de la respuesta al banco de filtros dependerá de la misma constru
 Para esto, la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT}, para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
 
 Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
-\begin{figure}[bth]
+\begin{figure}[t]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mfcc}} \quad
   \caption{Mel Frequency Cepstrum Coefficients.}
@@ -157,14 +157,14 @@ Por útlimo, para los modelos que usaremos, se necesitan que las característica
 Para esto, podemos utilizar diferentes métodos tanto de reducción de dimensionalidad como de agrupación/clasificación. Como primer idea, utilizaremos el método de \textit{k-means} para agrupar los vectores de acuerdo a su cercanía en el espacio euclidiano.
 
 Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida:
-\begin{figure}[bth]
+\begin{figure}[t]
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-clusters}} \quad
   \caption{MFCC agrupados con k-means++.}
   \label{fig:sign_clusters}
 \end{figure}
 Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} \cite{Arthur2007} y que propone una mejor inicialización para que el algoritmo converja más rápido. En \autoref{alg:kmeanspp} se describe mejor esta etapa inicial.
 
-\begin{algorithm}[tp]
+\begin{algorithm}[bth]
    \caption{\textit{k-means++}}
    \label{alg:kmeanspp}
 \begin{algorithmic}
