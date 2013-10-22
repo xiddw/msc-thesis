@@ -1,6 +1,6 @@
 %!TEX root = ../Thesis.tex
 
-\chapter{Selección de modelo}
+\chapter{Selección de modelo} \label{ch:chap4}
 
 \epigraphhead[70]{
 \epigraph{Choose well. Your choice is brief, and yet endless.}
@@ -82,6 +82,7 @@ Sin embargo, el cálculo de los diferentes $BIC_{n, j}^{exact}$ es difícil de e
 Para esto, primero hay que considerar el método de Laplace, que es usado para aproximar integrales de la forma $\int_a^b e^{M f(x)} dx$, por lo que \eqref{eqn:4-3} debe escribirse de esa manera: 
 \begin{equation}
 \lambda_{n, j}(\mb{X}) = \int_{Theta} exp\left\lbrace n h_{n, j}(\theta) \cdot \pi(\theta \,|\, \mc{M}_j) \right\rbrace ~d\theta 
+\label{eqn:4-6}
 \end{equation}
 donde $h_{n, j}(\theta) = n^{-1} \ell_{n, j}(\theta)$ y $p = \#\theta$ es la cardinalidad del $\theta$; por lo que ahora usando la aproximación básica de Laplace, se tiene: 
 \begin{equation}
@@ -90,10 +91,12 @@ donde $h_{n, j}(\theta) = n^{-1} \ell_{n, j}(\theta)$ y $p = \#\theta$ es la car
  & \quad\quad \left( \frac{2 \pi}{n} \right)^{\frac{p}{2}} \cdot exp \left\lbrace n h(\theta_0) \right\rbrace \cdot
  \left\lbrace g(\theta_0) \cdot \left| J(\theta_0) \right| ^{-\frac{1}{2}} + O(n^{-1}) \right\rbrace
 \end{split}
+\label{eqn:4-7}
 \end{equation}
 donde $\theta_0$ es el valor que maximiza la función $h(\cdot)$ y $J(\theta_0)$ es la matriz Hessiana 
 \begin{equation}
 J(\theta) \equiv -\frac{\partial^2 h(\theta)}{\partial \theta \cdot \partial \theta^T}
+\label{eqn:4-8}
 \end{equation}
 evaluada en $\theta_0$.
 
@@ -107,39 +110,67 @@ Bootstrap es una técnica estadística que nos permite tener noción sobre qué 
 
 Como menciona Persi~et.al~\cite{Diaconis1983}, esta técnica fue desarrollada en 1978 por Efron~\cite{Efron1978}, quien generalizó el método de \textit{Jacknife}; siendo ambos métodos estadísticos altamente demandantes en cuanto a procesamiento computacional; y que empezaron a tener más auge a finales de la década de 1970 debido al crecimiento del poder de cómputo disponible.
 
-La técnica bootstrap se describe a continuación en un ejemplo: supongamos que se tiene que ajustar un modelo a un conjunto de datos. Sea este conjunto de entrenamiento $\mb{Z} = (z_1, z_2, ..., z_N)$ donde $z_i = (x_i, y_i)$. La idea básica es seleccionar del conjunto de entrenamiento de forma aleatoria y con reemplazo, un conjunto de datos del mismo tamaño que el conjunto original. A este conjunto se le denotara $\mb{Z}^{*}_1$.
+La técnica bootstrap se describe a continuación en un ejemplo: supongamos que se tiene que ajustar un modelo a un conjunto de datos. Sea este conjunto de entrenamiento $\mb{Z} = (z_1, z_2, ..., z_N)$ donde $z_i = (x_i, y_i)$ y son independientes con distribución $F$. Como $\mb{Z}$ es una muestra finita no se conoce tal cual la distribución $F$, pero se puede estimar una función empírica $\hat F$ donde a cada observación $z_i$ se le asigna un peso $\frac{1}{N}$ en la densidad.
 
-Este proceso de selección se realiza $B$ veces, produciendo $B$ conjuntos bootstrap 
-$\mb{Z}^{*}_{\cdot} = \lbrace \mb{Z}^{*}_1, \mb{Z}^{*}_2, ..., \mb{Z}^{*}_B \rbrace$. Luego, para cada uno de estos conjuntos, se volvera a ajustar el modelo, y se examinará el comportamiento de los ajustes para las respuestas obtenidas.
+Con esto, seleccionaremos de forma aleatoria y con reemplazo de $\hat{F}$ un conjunto de datos del mismo tamaño que el conjunto original. A este conjunto se le denotara $\mb{Z}^{*}_1$. Este proceso de selección se realiza $B$ veces, produciendo $B$ conjuntos bootstrap $\mb{Z}^{*}_{\cdot} = \lbrace \mb{Z}^{*}_1, \mb{Z}^{*}_2, ..., \mb{Z}^{*}_B \rbrace$. 
 
-En la \autoref{fig:temp}, $S(\mb{Z})$ representa cualquier estadístico calculado del conjunto de datos $\mb{Z}$. A partir de los conjuntos muestreados se puede estimar cualquier aspecto de una distribución de $S(\mb{Z})$, como por ejemplo, su varianza: 
+Luego, para cada uno de estos conjuntos, se volvera a ajustar el modelo, y se examinará el comportamiento de los ajustes para las respuestas obtenidas, obteniendo lo que se conoce como réplica bootstrap.
+
+En \eqref{eqn:4-15}, $S(\mb{Z})$ representa cualquier estadístico calculado del conjunto de datos $\mb{Z}$. A partir de los conjuntos muestreados se puede estimar cualquier aspecto de una distribución de $S(\mb{Z})$, como por ejemplo, su varianza: 
 \begin{equation}
 \widehat{Var} \left[ S(\mb{Z}) \right] = \frac{1}{B-1} \sum_{b=1}^B \left( S(\mb{Z}^{*b}) - \bar{S}^{*} \right)^2
+\label{eqn:4-15}
 \end{equation}
-donde $\bar{S}^{*} = \frac{1}{B} \sum_{b=1}^B S(\mb{Z}^{*b})$. Se puede pensar en $\widehat{Var} \left[ S(\mb{Z}) \right]$ como un estimador tipo Monte-Carlo para la varianza de $S(\mb{Z})$ a partir del muestro de la función de distribución empírica $\widehat{F}$ de los datos $(z_1, z_2, ..., z_n)$. 
-
-De esta misma manera, se puede calcular la desviación estándar de otros estimadores de interés, tales como el coeficiente de correlación, algún cuantil, etc.
+donde $\bar{S}^{*} = \frac{1}{B} \sum_{b=1}^B S(\mb{Z}^{*b})$. Se puede pensar en $\widehat{Var} \left[ S(\mb{Z}) \right]$ como un estimador tipo Monte-Carlo para la varianza de $S(\mb{Z})$ a partir del muestro de la función de distribución empírica $\widehat{F}$ de los datos $(z_1, z_2, ..., z_n)$. De esta misma manera, se puede calcular la desviación estándar de otros estimadores de interés, tales como el coeficiente de correlación, algún cuantil, etc.
 
 En la \autoref{fig:bootesq} se muestra el proceso general que se sigue para obtener las réplicas bootstrap.
 
 \begin{figure}[tp]
   \centerline
   {\includegraphics[width=1.1\linewidth]{gfx/chap4/untitled}}        
-  \caption{Esquema del proceso bootstrap. A partir del conjunto de datos original $\mb{Z}$ se generan $B$ conjutos más, cada uno muestreando con reemplazo $N$ elementos del conjunto original. A cada uno de estos $b$ elementos se le denomina $\mb{Z}^{*}_b$, y es a partir de este que se calcula el estadístico de interés, y se le denomina réplica bootrstrap.}
+  \caption{Esquema del proceso bootstrap. Se desea estimar la precisión del estadístico $S(\mb{Z})$. Para esto, se generan $B$ conjutos, cada uno muestreando con reemplazo $N$ elementos del conjunto original. A cada uno de estos $b = 1, 2, ..., B$ elementos se le denomina $\mb{Z}^{*}_b$, y es a partir de estos que se calcula el estadístico de interés. Usando estas réplicas bootstrap es como se estima la varianza del $S(\mb{Z})$ previamente calculado.}
   \label{fig:bootesq}
 \end{figure}
 
-%\input{gfx/chap4/bootdia}
+Hay que observar que lo que hace bootstrap es realmente estimar la varianza muestral a partir de la distribución empírica $\hat F$ y conforme $B \rightarrow \infty$, $\widehat{Var}(\hat F)$ tiende a la varianza poblacional $\widehat{Var}(\hat F) = {Var}(\hat F)$ de la misma $\hat F$. Para que realmente $\widehat{Var}(\hat F)$ converja a  ${Var}(F)$ se necesita además que $N \rightarrow \infty$, es decir, que se tengan muestras infinitas de la distribución original.
 
 \subsection{Bootstrap paramétrico}
 
-\section{Selección de modelo usando bootsrap con likelihood ratio testing}
+Como ya se mencionó, el bootstrap clásico es no paramétrico, y se vale únicamente del conjunto observado para a partir de ahí estimar la función de distribución empírica. En el caso que nos interesa, se cuenta con un modelo paramétrico que ha sido ajustado a los datos, usualmente por \ac{MLE}. 
 
-Para realizar esto, primero se usará la técnica conocida como bootstrap paramétrico para comparar el modelo correspondiente de $d$ estados contra el de $d+1$ estados ocultos.
+Entonces, a partir de este modelo ajustado es que se muestrea. Al igual que en con la técnica no paramétrica, se suelen generan muestras de datos del mismo tamaño que el conjunto original. Luego, para cada nueva conjunto bootstrap $\mb{Z}^{*}_b$ muestreado se calcula el estadístico de nuestro interés. Éste proceso de muestreo se repite igualmente una gran cantidad de veces. 
+
+La diferencia principal con el método clásico de bootstrap, es que al usar un modelo paramétrico al momento de muestrar permite utilizar técnicas diferentes de las que comúnmente se usan para el bootstrap tradicional.
+
+\section{Selección de modelo usando BIC}
+
+Como ya se mencionó al principio de este capítulo, hay muchas formas de aboradar el problema de selección de modelo. En este trabajo se usará una combinación de los dos tipos presentados.
+
+Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar \ac{BIC}.
+
+Esta función de penalización se calcula de la siguiente manera: 
+\begin{equation}
+BIC(\mc{M}) = 2 \mc{L}_{max}(\mc{M}) - (log N ) dim(M)
+\end{equation}
+para cada propuesta de modelo $\mc{M}$, donde $dim(M)$ es el número estimado de parámetros libres que le corresponden, y $N$ es el tamaño de nuestra muestra de datos. Por otra parte, $\mc{L}_{max}(\mc{M})$ es la máxima log-verosimilitud obtenida para el modelo $\mc{M}$ después de realizar un número $K$ se simulaciones, para evitar que en algún caso el algoritmo de estimación se quede atorado en un máximo local.
+
+Para estimar el número de parámetros libres de nuestro modelo, se consideran todas las probabilidades que rigen al \ac{HMM}, que en este caso son: la matriz a priori o inicial, la matriz de transiciones entre los interlocutores, así como la matriz de emisión de cada persona para todo el diccionario de palabras.
+
+Este tipo de función de penalización nos permite seleccionar de entre un conjunto de modelos propuestos (que pueden ser muchos) al modelo o los modelos con mayor probabilidad de ser los correctos. 
+
+Se enfoca en escoger el modelo candidato con la mayor probabilidad dados los datos, pero penalizando la complejidad de cada propuesta. Se preferirán entonces los modelos con una mayor verosimilitud que involucren la menor cantidad de parámetros posibles. 
+
+En caso de que dos o más modelos tengan una puntaje similar en \ac{BIC}, se buscará hacer un análisis más extenuante para revisar cuál modelo es más conveniente.
+
+\section{Selección de modelo usando bootstrap con likelihood ratio testing}
+
+Para esta otro propuesta, se utilizará la técnica bootstrap paramétrico, pues mediante el algoritmo \ac{EM} es fácil obtener el modelo parametrizado. El estadístico a evaluar será el \ac{LLR}, que nos permitirá comparar entre dos modelos propuestos. 
+
+Usualmente se compararán dos modelos adyacentes, es decir, el modelo $\mc{M}_d$ de $d$ estados contra el modelo $\mc{M}_{d+1}$ de $d+1$ estados ocultos.
 
 La prueba que se realiza es comparando el \ac{MLE} $\hat \theta^{(d)}$ y $\hat \theta^{(d+1)}$ de los modelos de $d$ y $d+1$ estados respectivamente. Para la comparación se usa la estadística \ac{LLR} que corresponde a la diferencia de las log-verosimilitudes mencionadas
 \begin{equation}
-  LR^{(d)}_{obs} = log \frac{L(\hat \theta^{(d+1)}; y_{1:n})}{L(\hat \theta^{(d)}; y_{1:n})} =
+  LLR^{(d)}_{obs} = log \frac{L(\hat \theta^{(d+1)}; y_{1:n})}{L(\hat \theta^{(d)}; y_{1:n})} =
     log L(\hat \theta^{(d+1)}; y_{1:n}) - 
     log L(\hat \theta^{(d)}; y_{1:n})
 \end{equation}
@@ -148,7 +179,7 @@ Para calcular el \ac{MLE} de un modelo, se estimó la verosimilitud varias veces
 
 Se usó entonces como \ac{MLE} del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_{obs}$.
 
-Ahora, para hacer la prueba con boostrap, simularemos 
+Ahora, para hacer la prueba con boostrap se simularán datos de los \ac{HMM} propuestos, utilizando el algoritmo \ref{alg:ancsamp} para el muestreo, tanto para el modelo $\mc{M}_d$ como para el modelo $\mc{M}_{d+1}$. Para ambos modelos se estimará su log-verosimilitud y se procederá con el cálculo del \ac{LLR}, que es la réplica bootstrap que nos interesa. 
 
 \begin{algorithm}[tp]
    \caption{Muestreo ancestral para un HMM}
@@ -174,22 +205,8 @@ Ahora, para hacer la prueba con boostrap, simularemos
 \end{algorithmic}
 \end{algorithm}
 
-\section{Selección de modelo usando BIC}
+Para cada par de modelos $\mc{M}_d, \mc{M}_{d+1}$ se realizará este procedimiento $B$ veces: muestreando ambos modelos, estimando su verosimilitud y calculando el estadístico $\ac{LLR}$. Para cada simulación bootstrap se generará un $LLR_{boot}^b$ referente a la muestra generada. 
 
-Otra manera de realizar la selección del modelo que mejor se adecua a los datos que se observan, es usar una métrica específica para la selección de modelos.
+Cuando se termine el proceso bootstrap, se tendrán $\lbrace LLR_{boot}^b \rbrace_{b=1}^B$ estadisticos, y se podrá generar una densidad sobre los valores de $LLR_{boot}^b$. 
 
-%%%%%%%%%%%%
-
-Puesto que consideramos que dentro de nuestro espacio de modelos propuestos se encuentra el modelo solución (esto es, hay un modelo que corresponde con el número de interlocutores que participan en la grabación), resulta más natural usar \ac{BIC}.
-
-Este criterio se calcula de la siguiente manera: 
-\begin{equation}
-BIC(M) = 2 log-likelihood_{max}(M) - (log n ) dim(M)
-\end{equation}
-para cada propuesta de modelo $M$, donde $dim(M)$ es el número estimado de parámetros libres que le corresponden, y $n$ es el tamaño de nuestra muestra de datos.
-
-Para estimar el número de parámetros libres de nuestro modelo, se consideran todas las probabilidades que rigen al \ac{HMM}, que en este caso son: la matriz a priori o inicial, la matriz de transiciones entre los interlocutores, así como la matriz de emisión de cada persona para todo el diccionario de palabras.
-
-Esta selección se enfoca en escoger el candidato modelo con la mayor probabilidad dados los datos, pero penalizando la complejidad de cada propuesta. Se preferirán entonces los modelos con una mayor verosimilitud que involucren la menor cantidad de parámetros posibles. 
-
-...
+La última etapa será realizar una prueba de hipótesis para ver si el valor $LLR_{obs}$ tiene la misma distribución que los $\lbrace LLR_{boot}^b \rbrace_{b=1}^B$. La hipótesis nula será que el modelo $\mc{M}_d$ es el modelo correcto, y entonces el valor $LLR_{obs}$ estará en el rango mismo de los $LLR_{boot}$. Sin embargo, si se rechaza la hipótesis nula (de acuerdo a un nivel de significancia establecido) significará que el modelo $\mc{M}_{d+1}$ es mejor que el $\mc{M}_{d}$.
