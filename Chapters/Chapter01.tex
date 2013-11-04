@@ -11,6 +11,27 @@
 \section{Definición del problema} 
 \label{sec:definicion}
         
+En este trabajo de tesis se abordará el problema de \SD, que consiste en identificar el número de interlocutores que participan en una grabación de audio, y además encontrar en qué segmentos de la grabación habla cada persona.
+
+Para esta tarea, se considera que se tiene una señal de audio con información de nuestro interés, y se requiere segmentar de acuerdo a las personas que participan en la grabación. Este proceso involucra, por una parte, encontrar el número total de personas que hablan en la conversación; y por otro lado, para cada persona propuesta se debe identificar los momentos en los que habla.
+
+Estos dos sub-procesos se pueden realizar en diferente orden, dependiendo de la metodología utilizada. Se puede por ejemplo, tratar de inferir primero cuántas personas hablan en la secuencia de audio, y luego segmentar la grabación de acuerdo a este número de personas; o también ir segmentando la grabación y a partir de ahí cuántos son los estados posibles para la grabación de audio.
+
+El problema en general de \sd es muy amplio, y puede presentarse muchos entornos que dificulten la tarea:
+\begin{enumerate}
+\item Dos personas pueden hablar al mismo tiempo, por lo que hay que considerar cierta incertidumbre adicional en el modelo.
+\item En el lugar donde se realizó la grabación puede haber mucho ruido ambiental o música de fondo, por lo que es necesario realizar una etapa de pre-procesamiento para eliminar los segmentos innecesarios.
+\item Para algunos tipos grabaciones, habrá momentos que serán difíciles de asignar a un interlocutor en específico: cuando tose, se ríe o estornuda alguien, por ejemplo.
+\item Puede haber múltiples micrófonos presentes en la grabación, por lo que si se quiere utilizar toda la información disponible se deben considerar los posibles retrasos entre las diferentes fuentes.
+\item La conversación entre los interlocutores no necesariamente está planeada, por lo que puede ser irregular el porcentaje de participación de cada persona. 
+\item Se pueden presentar algunas secuencias en que el cambio entre interlocutores sea muy rápido. 
+\end{enumerate}
+
+Por ello, el trabajo se acotó en varios de estos aspectos. Para tener un mayor control tanto en el contenido como en el medio de la grabación de audio, se utilizó un sintetizador de voz para simular de forma artificial conversaciones entre varias personas tanto hombres como mujeres, en dos idiomas: inglés y español. Esto permitió además que se pudiera obtener la secuencia original de forma mucho más sencilla.
+
+\section{Motivación}
+\label{sec:lemotiv}
+
 En los últimos años la tarea de \SD~ se ha vuelto una parte importante de diferentes procesos que se realizan con las grabaciones de audio, tales como la identificación y navegación por segmentos en específico, además de la búsqueda y recuperación de información en grandes volúmenes de secuencias de audio.
 
 La investigación desarrollada referente a \sd~ se ha guiado principalmente de acuerdo a la financiación existente para proyectos específicos. Hasta principios de la década de 1990, el trabajo de investigación se concentraba en trabajar con grabaciones telefónicas. Principalmente se usaba para segmentar la conversación, así como etapa de pre-procesamiento para luego realizar reconocimiento y/o transcripción del habla.
@@ -25,11 +46,21 @@ Una gran diferencia entre ambos tipos de entornos, es que mientras en un noticie
 
 Otra característica diferente, es que mientras en un noticiero cada participante suele tener un micrófono de solapa o hay micrófonos ambientales, éstos suelen ser de calidad, por lo que no el audio de la grabación es mucho mejor y no hay mucho ruido presente en la señal. 
 
-Por otro lado, para el caso de las reuniones, el ambiente no suele ser tan controlado, y puede haber un mayor ruido ambiental; además de que tanto al disposición de los micrófonos así como su calidad no siempre son la mejor, agregando interferencia o redundancia innecesaria a la señal.
+Por otro lado, para el caso de las reuniones el ambiente no suele ser tan controlado, y puede haber un mayor ruido ambiental; además de que tanto al disposición de los micrófonos así como su calidad no siempre son la mejor, agregando interferencia o redundancia innecesaria a la señal.
 
 Por eso, se considera el caso de reuniones como el escenario completo para las tareas involucradas con reconocimiento del habla; por la complejidad y los diferentes problemas que se pueden presentar.
 
-En este trabajo de tesis se abordará el problema usando un escenario similar al del noticiero, en donde no hay ruido ambiental y los diálogos son más o menos continuos, además de que los participantes no se interrumpen al hablar.
+\section{Contribuciones}
+
+Las principales contribuciones de este trabajo se enumeran a continuación:
+
+\begin{enumerate}
+\item Se implementó el algoritmo Baum-Welcher en Matlab, con funciones críticas desarrolladas en C.
+\item Se propuso un método de selección de modelo en dos etapas: primero usando una versión de \acf{BIC} regularizada, para escoger un subconjunto de soluciones más probables a partir del conjunto de modelos propuestos; luego, como segunda etapa una prueba de hipótesis usando el estadístico \acf{LLR}, para seleccionar dentro de los modelos más probables a la solución ganadora.
+\item Se implementó un algoritmo para generación, ajuste automático de modelos y selección de mejor solución de acuerdo a las métricas establecidas en el \autoref{ch:chap5}.
+\end{enumerate}
+
+Esencialmente, el trabajo realizado se centra en la selección adecuada del número de estados ocultos o participantes de la cadena de Márkov modelada, donde a través la metodología propuesta, y utilizando varias técnicas como: \ac{BIC} regularizado, bootstrap paramétrico y prueba de hipótesis se encuentra el modelo solución correspondiente.
 
 \section{Principales enfoques}
 \label{sec:previo}
@@ -61,10 +92,3 @@ Además, en otro trabajo de Fredoulle~et~al.~\cite{Fredouille2009} presentan el 
 
 Por último, en la misma línea de trabajo, Bozonnet~et~al.~\cite{Bozonnet2010} muestran más 
 
-\section{Contribuciones}
-
-Como contribuciones principales de este trabajo se encuentran la proposición de un modelo sencillo para la detección y segmentación de interlocutores en una grabación de audio.
-
-Esencialmente, el trabajo realizado se centra en la selección adecuada del número de estados ocultos o participantes de la cadena de Márkov modelada, donde a través de un análisis de sensibilidad se encuentra un valor de $\lambda$ que penaliza de forma adecuada la log-verosimilitud en la función de costo propuesta. 
-
-Además, mediante pruebas de hipótesis, y realizando bootstrap paramétrico se comprueba la certeza del modelo seleccionado :).

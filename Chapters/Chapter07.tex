@@ -1,3 +1,23 @@
 %!TEX root = ../Base.tex
 
-\chapter{Conclusiones y discusión}\label{ch:chap7}
+\chapter{Discusión y Conclusiones}\label{ch:chap7}
+
+De acuerdo a los resultados descritos en el \autoref{ch:chap6}, se observa que el método presentado muestra un buen desempeño en las pruebas realizadas. Es importante recalcar la naturaleza de estas pruebas, pues tienen ciertas características propias que facilitaron la realización de los experimentos.
+
+Como se mencionó en el \autoref{ch:chap1}, las pruebas se realizaron con secuencias de audio generadas artificialmente, utilizando un sintetizador de voz con motores en diferentes idiomas. Aunque esto nos permitió generar las secuencias de prueba de forma más fácil, esto implica que las voces puedan presentar algún patrón intrínseco por la misma naturaleza de los motores empleados. Además de esto, los valores que se utilizaron para construir el banco de filtros en la etapa de obtención de los \ac{MFCC} puede que no funcionen de forma adecuada para voces humanas.
+
+Otro de los problemas que se podría presentar en caso de utilizar otras secuencias de audio, seria que por la forma en que están generadas nuestras secuencias de audio, no se presentan empalmes entre los diferentes interlocutores; por lo que quizá sea mucho más fácil el poder obtener la secuencia correcta. Una forma de tratar de evitar esto, sería proponer en dado caso otra técnica para la selección de la secuencia óptima, en la que se puedan considerar estas anomalías.
+
+Sin embargo, la aportación fuerte de este trabajo de tesis reside en la metodología propuesta para la selección de modelo correcto. Como ya se mencionó, se basa en técnicas sencillas, y que dado el poder de cómputo actual son fáciles de implementar.
+
+Se presenta un método de selección de modelo en dos etapas: 
+\begin{description}
+\item[Exploración:] Mediante una versión de \ac{BIC} regularizada; se escoge un subconjunto de soluciones más probables a partir del conjunto de modelos propuestos. Para esto, se usa una heurística establecida en un análisis de sensibilidad. 
+
+\item[Refinación:] A partir del subconjunto de soluciones obtenido en la primer etapa, se realiza un análisis estadístico mediante pruebas de hipótesis utilizando como estadístico a evaluar el \ac{LLR}; lo que nos permite discriminar uno a uno los modelos finalistas.
+\end{description}
+
+A diferencia de otras técnicas, el método propuesto permite explorar diferentes posibles soluciones al mismo tiempo, y escoger de acuerdo a su verosimilitud cuál es la que representa una mejor solución. Además, se realiza un análisis estadístico sobre la pertenencia de los datos a modelo 
+
+
+
