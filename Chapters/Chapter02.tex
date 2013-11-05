@@ -26,6 +26,48 @@ En cuanto a la identificación de personas y alguna otra modelación acústica q
 
 Como último ejemplo, la transcripción automática de voz, es el proceso en el que además de lograr identificar cuándo habla cada persona, se identifica de quién se trata realmente esta persona, y qué es lo que está diciendo. Ésto sirve por ejemplo, cuando se tiene una gran cantidad de grabaciones de audio; y se desea etiquetar de qué se habla en cada una de estas grabaciones. 
 
+\section{Formulación matemática}
+
+De forma general, se esbozará cuál es el problema que trata de resolver con \sd. El enfoque que se usará es estadístico, entonces en la formulación es necesario el cálculo de probabilidades. 
+
+Denótese por $\mathcal{A}$ la evidencia acústica o los datos a partir del cuál el modelo deberá encontrar la segmentación correcta para un fragmento de señal. Sin entrar mucho a detalle, y puesto que de alguna manera se debe digitalizar y caracterizar la señal analógica de audio; podemos pensar en $\mathcal{A}$ como la secuencia de símbolos correspondiente a un segmento de señal, y que está conformada por elementos de un alfabeto mucho más grande $\mathbb{A}$. 
+\begin{equation}
+\mathcal{A} = a_1, a_2, ..., a_K \quad a_i \in \mathbb{A}
+\label{eqn:2a-1}
+\end{equation}
+en donde los sub-índices de los elementos $a_i$ hacen referencia aun intervalo de tiempo $i$ en la secuencia de audio original, y pueden repetirse de acuerdo a la grabación.
+
+De la misma manera, definamos 
+\begin{equation}
+\mathcal{S} = s_1, s_2, ..., s_N \quad s_i \in \mathbb{S}
+\label{eqn:2a-2}
+\end{equation}
+donde $\mathcal{S}$ es la secuencia que corresponde a la segmentación correcta para un intervalo del audio original. En este caso $\mathbb{S}$ es el conjunto de todos los interlocutores que participan en la grabación de audio y que por el momento se considerará como información conocida.
+
+Si $P(s_i \,|\, \mathcal{A})$ denota la probabilidad de que el interlocutor $s_i$ esté hablando dada la evidencia acústica en $\mathcal{A}$, entonces una forma de escoger cuál es el interlocutor que habla en ese intervalo es por ejemplo:
+\begin{equation}
+\hat{s} = \underset{s_i \in \mathcal{S}}{arg~max}~ P(s_i \,|\, \mathcal{A})
+\label{eqn:2a-3}
+\end{equation}
+Esto es, se seleccionaría al interlocutor más probable para una secuencia de datos dada.
+
+Por el teorema de Bayes, podemos reescribir la parte derecha de \eqref{eqn:2as-3} como sigue:
+\begin{equation}
+P(s_i \,|\, \mathcal{A}) ~=~ \frac{P(s_i) \cdot P(\mathcal{A} \,|\, s_i)}{P(\mathcal{A})}
+\label{eqn:2a-4}
+\end{equation}
+donde $P(s_i)$ es la probabilidad de que el interlocutor $s_i$ hable; $P(\mathcal{A} \,|\, s_i)$ la probabilidad de que sea observada la evidencia acústica $\mathcal{A}$ cuando el interlocutor $s_i$ está hablando, y $P(\mathcal{A})$ la probabilidad marginal de que los datos $\mathcal{A}$ sean observados. Por probabilidad total, esto último se puede escribir como: 
+\begin{equation}
+P(\mathcal{A}) = \sum_s P(s) \cdot P(s  \,|\, \mathcal{A})
+\label{eqn:2a-5}
+\end{equation}
+
+Como en \eqref{eqn:2a-3} se está maximizando con respecto a $s_i$, es decir la variable $\mathcal{A}$ permanece fija -pues es la única evidencia acústica observada-, se sigue de \eqref{eqn:2a-3} y de \eqref{eqn:2a-4} que es equivalente maximizar únicamente el producto $P(s_i) \cdot P(\mathcal{A} \,|\, s_i)$:
+\begin{equation}
+\hat{s} = \underset{s_i \in \mathcal{S}}{arg~max}~ P(s_i) \cdot P(\mathcal{A} \,|\, s_i)
+\label{eqn:2a-6}
+\end{equation}
+
 \section{Componentes del sistema}
 
 Para diseñar un sistema que sea capaz de resolver el problema de \sd, se debe de primero plantear la formulación matemática que se abordará. 
@@ -41,7 +83,7 @@ Después de este proceso se tendrá una representación discreta en el tiempo de
 Por último, después de obtener alguna representación paramétrica de la señal, se deberá realizar una discretización de estos vectores. A este procedimiento se le conoce como construcción del \textit{diccionario de palabras}, pues a cada valor o clase posible en la discretización se le conocerá como \textit{palabra}.
 
 \item[Modelado acústico:] 
-En esta segunda etapa, se considera que se tiene ya construido el diccionario de palabras $\mathcal{A}$, por lo que ahora se necesita 
+En esta segunda etapa, se considera que se tiene ya construido el diccionario de palabras $\mathbf{A}$, por lo que ahora se necesita, por lo que ahora se necesita estimar cuál persona sea 
 
  
 \item[Modelado del lenguaje:]
@@ -155,7 +197,7 @@ Después de este proceso, nuestros datos se podrían representar de la siguiente
   \label{fig:sign_mfcc}
 \end{figure}
 
-Por útlimo, para los modelos que usaremos, se necesitan que las características estén de cierta forma \textit{discretizadas}, es decir, no nos es útil el tener para cada observación en el tiempo un vector de características; sino que necesitamos una etiqueta o clase para cada observación. 
+Por último, para los modelos que usaremos, se necesitan que las características estén de cierta forma \textit{discretizadas}, es decir, no nos es útil el tener para cada observación en el tiempo un vector de características; sino que necesitamos una etiqueta o clase para cada observación. 
 
 Para esto, podemos utilizar diferentes métodos tanto de reducción de dimensionalidad como de agrupación/clasificación. Como primer idea, utilizaremos el método de \textit{k-means} para agrupar los vectores de acuerdo a su cercanía en el espacio euclidiano.
 
