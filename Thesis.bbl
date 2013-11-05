@@ -1,15 +1,8 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{AMBE{\etalchar{+}}12}
-
-\bibitem[AMBE{\etalchar{+}}12]{AngueraMiro2012}
-Xavier Anguera~Miró, Simon Bozonnet, Nicholas W.~D. Evans, Corinne Fredouille,
-  Gerald Friedland, and Oriol Vinyals.
-\newblock {Speaker Diarization: A Review of Recent Research}.
-\newblock {\em IEEE Transactions on Audio, Speech \& Language Processing},
-  20:356--370, 2012.
+\begin{thebibliography}{AMWP06}
 
 \bibitem[AMWP06]{AngueraMiro2006}
-Xavier Anguera~Miró, Chuck Wooters, and José~M. Pardo.
+Xavier Anguera~Mir\'o, Chuck Wooters, and Jos\'e~M. Pardo.
 \newblock {Robust Speaker Diarization for Meetings: ICSI RT06S Meetings
   Evaluation System}.
 \newblock In Steve Renals, Samy Bengio, and Jonathan~G. Fiscus, editors, {\em
@@ -48,6 +41,13 @@ Persi Diaconis and Bradley Efron.
 \newblock {Computer-Intensive Methods in Statistics}.
 \newblock Technical Report~5, May 1983.
 
+\bibitem[DM80]{Davis1980}
+Steven~B. Davis and Paul Mermelstein.
+\newblock {Comparison of Parametric Representations for Monosyllabic Word
+  Recognition in Continuously Spoken Sentences}.
+\newblock {\em IEEE Transactions on Acoustics, Speech, and Signal Processing},
+  28(4), 1980.
+
 \bibitem[Efr78]{Efron1978}
 B.~Efron.
 \newblock {Bootstrap Methods: Another Look at the Jackknife}.
@@ -78,8 +78,8 @@ Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
   USA, 2001.
 
 \bibitem[IFM{\etalchar{+}}05]{Istrate2005}
-Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and
-  Jean-François Bonastre.
+Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and J.-F.
+  Bonastre.
 \newblock {NIST RT'05S Evaluation: Pre-processing Techniques and Speaker
   Diarization on Multiple Microphone Meetings}.
 \newblock In Steve Renals and Samy Bengio, editors, {\em MLMI}, volume 3869 of
@@ -89,6 +89,12 @@ Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and
 Frederick Jelinek.
 \newblock {\em {Statistical Methods for Speech Recognition}}.
 \newblock Language, Speech, and Communication. MIT Press, 1998.
+
+\bibitem[LG09]{Lei2009}
+Howard Lei and Eduardo~Lopez Gonzalo.
+\newblock {Mel, linear, and antimel frequency cepstral coefficients in broad
+  phonetic regions for telephone speaker recognition.}
+\newblock In {\em INTERSPEECH}, pages 2323--2326. ISCA, 2009.
 
 \bibitem[Mac07]{MacKinnon2007}
 James~G. MacKinnon.

@@ -34,10 +34,15 @@ En general, todos los sistemas que involucran procesamiento de voz, tienen varia
 
 \begin{description}
 \item[Procesamiento acústico:]
-Primero, se necesita decidir de qué forma se manejarán los datos. Se debe escoger una forma de discretizar 
+Primero, se necesita decidir de qué forma procesará la información. Usualmente se contará con un micrófono o un arreglo de micrófonos que captarán las voces y las transformarán en impulsos eléctricos. Luego, se deberá de muestrear esta señal analógica para poder almacenarla digitalmente para su posterior procesamiento. 
+\\~\\
+Después de este proceso se tendrá una representación discreta en el tiempo de la señal, que se analizará en pequeñas ventanas de tiempo. Dependiendo de la aplicación de interés, suele variar el intervalo de análisis. De la misma manera, hay diferentes formas de caracterizar estas ventanas de tiempo, estimando diferentes vectores característicos. Entre los más comunes para tareas relativas a procesamiento de voz se encuentran los \acs{MFCC}, \acs{LFCC} \cite{Davis1980} y \acs{aMFCC} \cite{Lei2009}. 
+\\~\\
+Por último, después de obtener alguna representación paramétrica de la señal, se deberá realizar una discretización de estos vectores. A este procedimiento se le conoce como construcción del \textit{diccionario de palabras}, pues a cada valor o clase posible en la discretización se le conocerá como \textit{palabra}.
 
-\item[Modelado acústico:]
- Aliquam consequat fringilla commodo. Donec fermentum massa sed eros rhoncus ultricies. Curabitur ac scelerisque mauris. Nulla tellus leo, fermentum ac pulvinar vel, fermentum id neque. Integer tincidunt consequat mauris at auctor. Aenean placerat risus quis massa ullamcorper lobortis. 
+\item[Modelado acústico:] 
+En esta segunda etapa, se considera que se tiene ya construido el diccionario de palabras $\mathcal{A}$, por lo que ahora se necesita 
+
  
 \item[Modelado del lenguaje:]
 Proin eu erat id augue congue rhoncus ac tempus velit. Mauris posuere, nibh ac euismod accumsan, metus sem tristique dolor, eget facilisis justo risus id justo. Duis nisi erat, viverra ac consectetur fermentum, commodo mollis libero. Cras a enim ac dolor sagittis euismod. Mauris in consequat nulla. 
@@ -83,7 +88,7 @@ Para realizar entonces la detección de los silencios, en esta primer etapa y co
 Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo señal, y que irá calculando el total de energía de la señal dentro de la ventana. Se considerará entonces silencio aquellas partes de la señal cuyo total de energía esté debajo de un umbral específico.
 
 A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto al silencio, como a la señal que realmente se desea modelar.
-
+  
 \begin{figure}[ht]
   \begin{subfigure}[b]{\textwidth}
     \includegraphics[width=0.9\linewidth]{gfx/chap2/signal-silence}
