@@ -20,36 +20,36 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del proceso bootstrap. Se desea estimar la precisi\IeC {\'o}n del estad\IeC {\'\i }stico $S(\textbf {Z})$. Para esto, se generan $B$ conjutos, cada uno muestreando con reemplazo $N$ elementos del conjunto original. A cada uno de estos $b = 1, 2, ..., B$ elementos se le denomina $\textbf {Z}^{*}_b$, y es a partir de estos que se calcula el estad\IeC {\'\i }stico de inter\IeC {\'e}s. Usando estas r\IeC {\'e}plicas bootstrap es como se estima la varianza del $S(\textbf {Z})$ previamente calculado.\relax }}{42}{figure.caption.34}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Esquema general.\relax }}{49}{figure.caption.35}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Esquema general.\relax }}{51}{figure.caption.35}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (1)}}{52}{figure.caption.37}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (2)}}{53}{figure.caption.38}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Secuencia 1: Pruebas BIC}}{54}{figure.caption.39}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Secuencia 1: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{55}{figure.caption.40}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Secuencia 1: Secuencia recuperada}}{56}{figure.caption.41}
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (1)}}{57}{figure.caption.42}
-\contentsline {figure}{\numberline {6.7}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (2)}}{58}{figure.caption.43}
-\contentsline {figure}{\numberline {6.8}{\ignorespaces Secuencia 2: Pruebas BIC}}{59}{figure.caption.44}
-\contentsline {figure}{\numberline {6.9}{\ignorespaces Secuencia 2: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{60}{figure.caption.45}
-\contentsline {figure}{\numberline {6.10}{\ignorespaces Secuencia 2: Secuencia recuperada}}{61}{figure.caption.46}
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (1)}}{63}{figure.caption.47}
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (2)}}{64}{figure.caption.48}
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Secuencia 3: Pruebas BIC}}{65}{figure.caption.49}
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Secuencia 3: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{66}{figure.caption.50}
-\contentsline {figure}{\numberline {6.15}{\ignorespaces Secuencia 3: Secuencia recuperada}}{67}{figure.caption.51}
-\contentsline {figure}{\numberline {6.16}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (1)}}{68}{figure.caption.52}
-\contentsline {figure}{\numberline {6.17}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (2)}}{69}{figure.caption.53}
-\contentsline {figure}{\numberline {6.18}{\ignorespaces Secuencia 4: Pruebas BIC}}{70}{figure.caption.54}
-\contentsline {figure}{\numberline {6.19}{\ignorespaces Secuencia 4: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{71}{figure.caption.55}
-\contentsline {figure}{\numberline {6.20}{\ignorespaces Secuencia 4: Secuencia recuperada}}{72}{figure.caption.56}
-\contentsline {figure}{\numberline {6.21}{\ignorespaces Secuencia 5: Par\IeC {\'a}metros estimados (1)}}{73}{figure.caption.57}
-\contentsline {figure}{\numberline {6.22}{\ignorespaces Secuencia 5: Par\IeC {\'a}metros estimados (2)}}{74}{figure.caption.58}
-\contentsline {figure}{\numberline {6.23}{\ignorespaces Secuencia 5: Pruebas BIC}}{75}{figure.caption.59}
-\contentsline {figure}{\numberline {6.24}{\ignorespaces Secuencia 5: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{76}{figure.caption.60}
-\contentsline {figure}{\numberline {6.25}{\ignorespaces Secuencia 5: Secuencia recuperada}}{77}{figure.caption.61}
-\contentsline {figure}{\numberline {6.26}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (1)}}{78}{figure.caption.62}
-\contentsline {figure}{\numberline {6.27}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (2)}}{80}{figure.caption.63}
-\contentsline {figure}{\numberline {6.28}{\ignorespaces Secuencia 6: Pruebas BIC}}{81}{figure.caption.64}
-\contentsline {figure}{\numberline {6.29}{\ignorespaces Secuencia 6: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{82}{figure.caption.65}
-\contentsline {figure}{\numberline {6.30}{\ignorespaces Secuencia 6: Secuencia recuperada}}{83}{figure.caption.66}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (1)}}{54}{figure.caption.37}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Secuencia 1: Par\IeC {\'a}metros estimados (2)}}{55}{figure.caption.38}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Secuencia 1: Pruebas BIC}}{56}{figure.caption.39}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Secuencia 1: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{57}{figure.caption.40}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Secuencia 1: Secuencia recuperada}}{58}{figure.caption.41}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (1)}}{59}{figure.caption.42}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Secuencia 2: Par\IeC {\'a}metros estimados (2)}}{60}{figure.caption.43}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Secuencia 2: Pruebas BIC}}{61}{figure.caption.44}
+\contentsline {figure}{\numberline {6.9}{\ignorespaces Secuencia 2: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{62}{figure.caption.45}
+\contentsline {figure}{\numberline {6.10}{\ignorespaces Secuencia 2: Secuencia recuperada}}{63}{figure.caption.46}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (1)}}{65}{figure.caption.47}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (2)}}{66}{figure.caption.48}
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Secuencia 3: Pruebas BIC}}{67}{figure.caption.49}
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Secuencia 3: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{68}{figure.caption.50}
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Secuencia 3: Secuencia recuperada}}{69}{figure.caption.51}
+\contentsline {figure}{\numberline {6.16}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (1)}}{70}{figure.caption.52}
+\contentsline {figure}{\numberline {6.17}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (2)}}{71}{figure.caption.53}
+\contentsline {figure}{\numberline {6.18}{\ignorespaces Secuencia 4: Pruebas BIC}}{72}{figure.caption.54}
+\contentsline {figure}{\numberline {6.19}{\ignorespaces Secuencia 4: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{73}{figure.caption.55}
+\contentsline {figure}{\numberline {6.20}{\ignorespaces Secuencia 4: Secuencia recuperada}}{74}{figure.caption.56}
+\contentsline {figure}{\numberline {6.21}{\ignorespaces Secuencia 5: Par\IeC {\'a}metros estimados (1)}}{75}{figure.caption.57}
+\contentsline {figure}{\numberline {6.22}{\ignorespaces Secuencia 5: Par\IeC {\'a}metros estimados (2)}}{76}{figure.caption.58}
+\contentsline {figure}{\numberline {6.23}{\ignorespaces Secuencia 5: Pruebas BIC}}{77}{figure.caption.59}
+\contentsline {figure}{\numberline {6.24}{\ignorespaces Secuencia 5: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{78}{figure.caption.60}
+\contentsline {figure}{\numberline {6.25}{\ignorespaces Secuencia 5: Secuencia recuperada}}{79}{figure.caption.61}
+\contentsline {figure}{\numberline {6.26}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (1)}}{80}{figure.caption.62}
+\contentsline {figure}{\numberline {6.27}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (2)}}{82}{figure.caption.63}
+\contentsline {figure}{\numberline {6.28}{\ignorespaces Secuencia 6: Pruebas BIC}}{83}{figure.caption.64}
+\contentsline {figure}{\numberline {6.29}{\ignorespaces Secuencia 6: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{84}{figure.caption.65}
+\contentsline {figure}{\numberline {6.30}{\ignorespaces Secuencia 6: Secuencia recuperada}}{85}{figure.caption.66}
 \addvspace {10\p@ }

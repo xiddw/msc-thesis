@@ -16,7 +16,9 @@ Después de esta etapa de clasificación, ya se tendrán los datos como observac
 
 Luego, corresponderá usar el algoritmo \ac{EM} con cada uno de los modelos $\mc{M}_d$ propuestos, tanto para estimar sus parámetros como para estimar su verosimilitud. Como ya se mencionó en \autoref{ch:chap4} esta etapa se realizará varias veces, para evitar el estancamiento del método y obtener un buen ajuste del modelo. Del modelo con mayor versomilitud se calculará la segmentación correspondiente, y se almacenará. 
 
-Después, seguirá la etapa de selección de modelo. Se estimará \ac{BIC} para de todos los \ac{HMM} propuestos para generar una curva de selección. Como se verá en las pruebas, es necesario introducir un término de regularización en \ac{BIC} para que la penalización del modelo corresponda con las log-verosimilitudes obtenidas. 
+Después, seguirá la etapa de selección de modelo. Este proceso se realizara en dos partes: primero, explorando todo el espacio de soluciones y reduciendo los posibles modelos ganadores; y luego, seleccionando de entre los candidatos resultantes al mejor modelo.
+
+En un primero paso, se estimará \ac{BIC} para de todos los \ac{HMM} propuestos para generar una curva de selección. Como se verá en las pruebas, es necesario introducir un término de regularización en \ac{BIC} para que la penalización del modelo corresponda con las log-verosimilitudes obtenidas. 
 
 Esto se puede hacer de la siguiente forma: 
 \begin{equation}
@@ -28,7 +30,23 @@ Para escoger el valor adecuado de $\lambda$ se realizará un análisis de sensib
 
 Se busca mediante este análisis encontrar la región de inflexión que divide a la superficie en dos: en la primera parte de la superficie, el valor de $\lambda$ será pequeño, por lo que siempre tendrán una mayor verosimilitud los modelos con más parámetros; mientras que en la segunda parte, la penalización sera muy grande, y se escogerán siempre los modelos más sencillos, sin darle tomar en cuenta su verosimilitud.
 
-...
+Por esto mismo, se puede calcular el gradiente de la superficie generada por las funciones \ac{BIC}, y se buscará la región el valor de $\lambda$ en el que la suma de los valores absolutos sea menor. 
+
+Es importante recordar que el modelo \ac{HMM} al ser resuelto usando \ac{EM} buscará siempre maximizar la función de verosimilitud; por lo que es natural que mientras más parámetros tenga un modelo, mejor será su ajuste a los datos y mayor su verosimilitud.
+
+Basándonos en esto, si se comparan distintos modelos con un $\lambda$ pequeño, se espera que los modelos más complejos sean los que tengan un valor \ac{BIC} mayor; por lo que habrá un gradiente en esa dirección con pendiente positiva. Por otro lado, cuando el $\lambda$ sea demasiado grande, los modelos más sencillos seran los que tengan asociado un valor de \ac{BIC} mayor; y entonces el gradiente estará en el otro sentido, con una pendiente negativa. 
+
+El caso que nos interesa es cuando el valor de $\lambda$ penaliza de forma correcta, es decir, está en el mismo orden de magnitud que la mayoría de las verosimilitudes de los modelos. En ese momento, el gradiente de la superficie deberá tener dos direcciones, pues el valor máximo de \ac{BIC} no corresponderá al modelo más simple o al más complicado. Y además, la suma de los gradientes para ese valor será menor con respecto a otros valores de $\lambda$. 
+
+Una vez que se logre seleccionar el $\lambda$ adecuado de regularización, se procede a evaluar su curva \ac{BIC} asociada y de ahí se obtiene al modelo ganador o un subconjunto de posibles ganadores (en caso de que varios modelos tengan puntuaciones similares de acuerdo a \ac{BIC}).
+
+Como ya se mencionó, en el segundo paso, se realizará un proceso de refinamiento en caso de que se tengan varios modelos posibles. Para esto, se formarán pares de modelos que se deseen comparar, y se estimará su \ac{LLR}, que se denominará como $LLR_{obs}$. Para este mismo par de modelos, y mediante bootstrap paramétrico se hará una prueba de hipótesis para comproar cuál modelo es más adecuado para los datos.
+
+Esto es, a partir de los dos modelos a examinar, se simularán múltiples secuencias de datos con los parámetros que se estimaron para cada modelo; y luego, con los datos simulados se estimará su máxima verosimilitud, para luego calcular el \ac{LLR}, que ahora se denominará $LLR_{boot}$. 
+
+Como esta simulación se harán muchas réplicas, y con todos los valores $LLR_{boot}$ que se obtengan se formará una curva. Mediante una prueba de hipótesis se revisará si el $LLR_{obs}$ tiene la misma distribución que la curva de $LLR_{boot}$. La hipótesis nula corresponderá a que el primer modelo sea el correcto, y entonces tanto $LLR_{boot}$ como $LLR_{obs}$ tengan la misma distribución. Por otro lado, la hipótesis alternativa significaría que se rechaza $LLR_{obs}$ como una muestra de $LLR_{boot}$ bajo una significancia dada; y entonces se rechaza que el primer modelo sea el correcto.
+
+De esta forma, se pueden realizar pruebas de hipótesis para los modelos candidatos, e ir rechazando modelos de acuerdo al análisis propuesto. En el \autoref{ch:chap6} se describe más a detalle esta selección de moledo, con las pruebas realizadas.
 
 \section{Esquema general} 
 
