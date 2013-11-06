@@ -2,7 +2,7 @@ En esta primer secuencia se tomaron varios poemas del escritor Edgar Allan Poe, 
 
 Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales, mientras que el banco de filtros fue el mismo que anteriormente se mencionó.
 
-\begin{figure}[tp]
+\begin{figure}[t!]
   \centerline{  
     \hspace{1.2cm}
     \parbox[c]{0.38\textwidth}{\centering Modelo generador}
@@ -49,7 +49,7 @@ En la primer fila de la \autoref{fig:seq1p} se muestran las probabilidades a pri
 
 Se observa como en general para todos los modelos propuestos la matriz de transición que se recupera tiene una estructura diagonal, puesto que en este tipo de problemas, una persona suele hablar durante un periodo considerablemente largo, para que luego otra persona empiece a hablar.
 
-\begin{figure}[t!]
+\begin{figure}[tp]
   \centerline{
     \hspace{1.2cm}
     \parbox[c]{0.35\textwidth}{\centering Modelo generador}
@@ -120,7 +120,7 @@ Lo que nos interesa encontrar en la superficie, es el valor de $\lambda$ que rep
 
 Debido a la escala y a la forma en la que se calculó el gradiente, aunque para algunos valores cercanos de $\lambda$ no haya mucha variación en esa dirección; si \ac{BIC} está penalizando mal, entonces sí habrá gran variación para los diferentes modelos. Es por esto, que sólo en la zona en que la penalización sea del mismo orden de magnitud que la verosimilitud la variación en la curva \ac{BIC} con el $\lambda$ adecuado no será tan grande como en otras zonas.
 
-Por último, se muestra en \autoref{fig:seq1_bic3} la curva BIC con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}. El o los modelos que tengan un mayor valor \ac{BIC} serán los que se seleccionarán como modelos ganadores.
+Por último, se muestra en \autoref{fig:seq1_bic3} la curva BIC con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq1_bic2}. El o los modelos que tengan un mayor valor \ac{BIC} serán los que se seleccionarán como posibles soluciones.
 
 \begin{figure}[t!]
   \centerline  
@@ -159,7 +159,7 @@ A diferencia de la primer etapa, en la que se usa \ac{BIC} como criterio para  s
 
 Al plantear la prueba de hipótesis se harán una gran cantidad de simulaciones para ver qué tan bien se ajusta cada modelo a los datos originales, por lo que este proceso es computacionalmente intensivo y sólo se recomienda hacerlo para evitar la ambigüedad entre un par de modelos.
 
-Por último, ya con el modelo seleccionado, se compara la segmentación recuperada con la secuencia o la segmentación originalde la conversación:
+Por último, ya con el modelo seleccionado, se compara la segmentación recuperada con la segmentación original de la conversación:
 \begin{figure}[tp]
   \centerline
   {\begin{subfigure}[b]{1.3\textwidth}

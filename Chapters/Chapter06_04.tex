@@ -1,8 +1,8 @@
 Para la cuarta secuencia se utilizaron algunos poemas del escritor Manuel Acuña, alternando 6 voces diferentes en español. La secuencia de audio original tiene una duración de 10:41 min.
 
-Para la etapa de agrupación de los vectores MFCC con k-means++ se usaron 140 centros iniciales, mientras que el banco de filtros fue el mismo que en la secuencia anterior.
+Para la etapa de agrupación de los vectores \ac{MFCC} con k-means++ se usaron 140 centros iniciales, mientras que el banco de filtros fue el mismo que en la secuencia anterior.
 
-\begin{figure}[tp]
+\begin{figure}[t!]
   \centerline{  
     \hspace{1.2cm}
     \parbox[c]{0.38\textwidth}{\centering Modelo generador}
@@ -47,9 +47,9 @@ En las \autoref{fig:seq4p} y \autoref{fig:seq4q} se muestran los parámetros est
 
 En la primer fila de la \autoref{fig:seq4p} se muestran las probabilidades a priori de que cada uno de los interlocutores empiecen el diálogo. En la segunda fila se muestra en falso color la matriz de transición para cada uno de los modelos. Esta matriz representa la probabilidad de cambio entre las personas que participan en la conversación.
 
-Se observa como en general para todos los modelos propuestos la matriz de transición que se recupera tiene una estructura diagonal, puesto que en este tipo de problemas, una persona suele hablar durante un periodo considerablemente largo, para que luego otra persona empiece a hablar.
+De la misma manera, la matriz de transición que se recupera tiene estructura diagonal, como en la primer prueba.
 
-\begin{figure}[t!]
+\begin{figure}[t]
   \centerline{
     \hspace{1.2cm}
     \parbox[c]{0.35\textwidth}{\centering Modelo generador}
@@ -84,7 +84,7 @@ Se observa como en general para todos los modelos propuestos la matriz de transi
 
 En la \autoref{fig:seq4q} se muestran las probabilidades de emisión para cada uno de los participantes, de acuerdo a las palabras en las que se ha discretizado la conversación. Idealmente, cada interlocutor tiene asignadas con mayor probabilidad un cierto conjunto de palabras del diccionario, lo que hace que la identificación de las personas sea mucho más fácil de realizar.
 
-Para la selección del modelo y siguiendo la metodología propuesta, primero se efectúa una inspección por medio de BIC regularizado para encontrar cuál o cuáles son los modelos más probables.
+Para la selección del modelo y como se explicó en el \autoref{ch:chap5}, primero se realiza una exploración del conjunto de posibles soluciones, por medio de \ac{BIC} regularizado para encontrar cuál o cuáles son los modelos más probables.
 
 \begin{figure}[t!]
   \centerline{
@@ -106,21 +106,15 @@ Para la selección del modelo y siguiendo la metodología propuesta, primero se 
     \label{fig:seq4_bic3}
   \end{subfigure}
   }
-  \caption[Secuencia 4: Pruebas BIC]{En la \autoref{fig:seq4_bic2}, se muestra las curvas de nivel de la superficie al variar el valor de lambda para evaluar BIC, así como la dirección del gradiente en la misma. En la \autoref{fig:seq4_bic1} se muestra una perspectiva general de superficie en \autoref{fig:seq4_bic2}. En la \autoref{fig:seq4_bic3} se muestra el valor seleccionado para lambda de acuerdo al análisis de sensibilidad realizado en la superficie anterior.}
+  \caption[Secuencia 4: Pruebas BIC]{En la \autoref{fig:seq4_bic2}, se muestra las curvas de nivel de la superficie al variar el valor de lambda para evaluar \ac{BIC}, así como la dirección del gradiente en la misma. En la \autoref{fig:seq4_bic1} se muestra una perspectiva general de superficie en \autoref{fig:seq4_bic2}. En la \autoref{fig:seq4_bic3} se muestra el valor seleccionado para lambda de acuerdo al análisis de sensibilidad realizado en la superficie anterior.}
   \label{fig:seq4_bic}
 \end{figure}
 
-En la \autoref{fig:seq4_bic1} se muestra la superficie generada al variar el valor de $\lambda$ para diferentes curvas de selección BIC. Se observa cómo al principio $\lambda$ es muy pequeño, y entonces el término de penalización no funciona por lo que se prefieren los modelos más complejos y sobre ajustados. Por otro lado, cuando $\lambda$ es muy grande, la penalización no permite mas que escoger los modelos más simples.
-
-Haciendo un análisis de sensibilidad se puede determinar cuál es el parámetro $\lambda$ adecuado que penaliza de buena forma la log-verosimilitud.
+En la \autoref{fig:seq4_bic1} se muestra la superficie generada al variar el valor de $\lambda$ para diferentes curvas de selección \ac{BIC}. Haciendo un análisis de sensibilidad se puede determinar cuál es el parámetro $\lambda$ adecuado que penaliza de buena forma la log-verosimilitud.
 
 En la \autoref{fig:seq4_bic2} se muestran las curvas de nivel de la figura anterior, además de la dirección del gradiente de la misma. Así mismo, en falso color se resaltan las zonas en las que el gradiente es menor. 
 
-Lo que nos interesa encontrar en la superficie, es el valor de $\lambda$ que representa el punto de inflexión entre la selección de modelos demasiado complejos y modelos más simples. Para esto, se busca la zona en la que el gradiente sea lo más cercano a cero, pues implicaría que es un punto crítico.
-
-Debido a la escala y a la forma en la que se calculó el gradiente, aunque para algunos valores cercanos de $\lambda$ no haya mucha variación en esa dirección; si BIC está penalizando mal, entonces sí habrá gran variación para los diferentes modelos. Es por esto, que sólo en la zona en que la penalización sea del mismo orden de magnitud que la verosimilitud la variación en la curva BIC con el $\lambda$ adecuado no será tan grande como en otras zonas.
-
-Por último, se muestra en \autoref{fig:seq4_bic3} la curva BIC con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq4_bic2}. El o los modelos que tengan un mayor valor BIC serán los que se seleccionarán como modelos ganadores.
+Por último, se muestra en \autoref{fig:seq4_bic3} la curva \ac{BIC} con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq4_bic2}. El o los modelos que tengan un mayor valor \ac{BIC} serán los que se seleccionarán como posibles modelos ganadores.
 
 \begin{figure}[t!]
   \centerline  
@@ -155,16 +149,7 @@ Por último, se muestra en \autoref{fig:seq4_bic3} la curva BIC con el valor de 
 
 En caso de que después de utilizar BIC se presente ambigüedad para determinar un modelo ganador, o ya sea para realizar un análisis más exhaustivo, se puede propone hacer una prueba de hipótesis para determinar cuál modelo se ajusta mejor a los datos.
 
-A diferencia de la primer etapa, en la que se usa BIC como criterio para  seleccionar el mejor modelo de un conjunto no definido de modelos con diferentes parámetros, la intención de hacer pruebas de hipótesis es determinar en un pequeño conjunto de probables modelos, cuál es mejor, y qué tan bueno es un modelo respecto a otro.
-
-Al plantear la prueba de hipótesis se harán una gran cantidad de simulaciones para ver qué tan bien se ajusta cada modelo a los datos originales, por lo que este proceso es computacionalmente intensivo y sólo se recomienda hacerlo para evitar la ambigüedad entre un par de modelos.
-
-...
-
-Por último, ya con el modelo seleccionado, se procede a calcular el error relativo de predicción que se obtuvo, comparando con el ground truth que se dispone para esa secuencia, con lo que se obtiene: 
-
-...
-
+Por último, ya con el modelo seleccionado, se compara la segmentación recuperada con la secuencia o la segmentación originalde la conversación:
 \begin{figure}[tp]
   \centerline
   {\begin{subfigure}[b]{1.3\textwidth}
@@ -184,6 +169,5 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
   \label{fig:prb4_seq}
 \end{figure}
 
-Más a detalle, en la \autoref{fig:prb4_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.
-
+Más a detalle, en la \autoref{fig:prb4_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. 
 Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.

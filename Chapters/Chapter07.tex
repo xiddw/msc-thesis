@@ -17,7 +17,24 @@ Se presenta un método de selección de modelo en dos etapas:
 \item[Refinación:] A partir del subconjunto de soluciones obtenido en la primer etapa, se realiza un análisis estadístico mediante pruebas de hipótesis utilizando como estadístico a evaluar el \ac{LLR}; lo que nos permite discriminar uno a uno los modelos finalistas.
 \end{description}
 
-A diferencia de otras técnicas, el método propuesto permite explorar diferentes posibles soluciones al mismo tiempo, y escoger de acuerdo a su verosimilitud cuál es la que representa una mejor solución. Además, se realiza un análisis estadístico sobre la pertenencia de los datos a modelo 
+A diferencia de otras técnicas, el método propuesto permite explorar diferentes posibles soluciones al mismo tiempo, y escoger de acuerdo a su verosimilitud cuál es la que representa una mejor solución. Además, se realiza un análisis estadístico sobre la pertenencia de los datos a modelo. 
+
+Sin embargo, y como se mostró en el \autoref{ch:chap6}, se usan métodos computacionalmente demandantes, por lo que se debe de considerar qué tan importante es esta segunda etapa de refinación en algunos casos.
+
+Como opción alternativa, también se implementó el algoritmo de \acf{BW} en C++, buscando disminuir el tiempo de ejecución, y aunque se programó con OpenMP, por cuestiones de tiempo no se logró hacer un análisis completo sobre su desempeño. 
+
+\section{Trabajo futuro}
+
+Como trabajo futuro, hay varias etapas en las que se puede explorar mucho más el trabajo. 
+
+Principalmente, está el conseguir o armar de alguna manera un banco de pruebas con voces reales, que permitan analizar el comportamiento del método presentado en un entorno más real.
+
+En caso de que se hagan pruebas con conversaciones reales, es importante también, mejorar la forma en que se eliminan los silencios y ruidos; pues en pruebas con un ambiente \textit{normal}, hay muchas más fuentes de perturbación que las que hasta ahora se han considerado. Sería interesante también considerar la aplicación de algún filtro para atenuar ruidos propios de los micrófonos o del ambiente en que se graben las conversaciones.
+
+También es importante explorar otras estrategias para selección de la segmentación más óptima, buscando realizar el cálculo de manera eficiente.
+
+Evaluar la pertinencia de paralelizar el algoritmo principal de estimación de parámetros del \ac{HMM}, para mejorar el rendimiento general del sistema.
+
 
 
 

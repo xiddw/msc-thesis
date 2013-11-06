@@ -2,7 +2,7 @@ Para la segunda secuencia se utilizaron algunos fragmentos de la novela 'El labe
 
 Para la etapa de agrupación de los vectores \ac{MFCC} con k-means++ se usaron 90 centros iniciales, mientras que el banco de filtros fue el mismo que en la secuencia anterior.
 
-\begin{figure}[tp]
+\begin{figure}[t!]
   \centerline{  
     \hspace{1.2cm}
     \parbox[c]{0.38\textwidth}{\centering Modelo generador}
@@ -49,7 +49,7 @@ En la primer fila de la \autoref{fig:seq2p} se muestran las probabilidades a pri
 
 De la misma manera, la matriz de transición que se recupera tiene estructura diagonal, como en la primer prueba.
 
-\begin{figure}[t!]
+\begin{figure}[tp]
   \centerline{
     \hspace{1.2cm}
     \parbox[c]{0.35\textwidth}{\centering Modelo generador}
@@ -112,7 +112,7 @@ Para la selección del modelo y como se explicó en el \autoref{ch:chap5}, prime
 
 En la \autoref{fig:seq2_bic1} se muestra la superficie generada al variar el valor de $\lambda$ para diferentes curvas de selección \ac{BIC}. Haciendo un análisis de sensibilidad se puede determinar cuál es el parámetro $\lambda$ adecuado que penaliza de buena forma la log-verosimilitud. En la \autoref{fig:seq2_bic2} se muestran las curvas de nivel de la figura anterior, además de la dirección del gradiente de la misma. Así mismo, en falso color se resaltan las zonas en las que el gradiente es menor. 
 
-Por último, se muestra en \autoref{fig:seq2_bic3} la curva \ac{BIC} con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq2_bic2}. El o los modelos que tengan un mayor valor \ac{BIC} serán los que se seleccionarán como modelos ganadores.
+Por último, se muestra en \autoref{fig:seq2_bic3} la curva \ac{BIC} con el valor de $\lambda$ encontrado a partir del análisis de sensibilidad realizado en la \autoref{fig:seq2_bic2}. El o los modelos que tengan un mayor valor \ac{BIC} serán los que se seleccionarán como posibles modelos ganadores.
 
 \begin{figure}[t!]
   \centerline  
@@ -145,19 +145,11 @@ Por último, se muestra en \autoref{fig:seq2_bic3} la curva \ac{BIC} con el valo
   \label{fig:seq2_boot}
 \end{figure}
 
-En caso de que después de utilizar BIC se presente ambigüedad para determinar un modelo ganador, o ya sea para realizar un análisis más exhaustivo, se puede propone hacer una prueba de hipótesis para determinar cuál modelo se ajusta mejor a los datos.
+En caso de que después de utilizar \ac{BIC} se presente ambigüedad para determinar un modelo ganador, o ya sea para realizar un análisis más exhaustivo, se puede propone hacer una prueba de hipótesis para determinar cuál modelo se ajusta mejor a los datos, como ya se explicó en el \autoref{ch:chap5}.
 
-A diferencia de la primer etapa, en la que se usa BIC como criterio para  seleccionar el mejor modelo de un conjunto no definido de modelos con diferentes parámetros, la intención de hacer pruebas de hipótesis es determinar en un pequeño conjunto de probables modelos, cuál es mejor, y qué tan bueno es un modelo respecto a otro.
+Por último, ya con el modelo seleccionado, se compara la segmentación recuperada con la segmentación original de la conversación:
 
-Al plantear la prueba de hipótesis se harán una gran cantidad de simulaciones para ver qué tan bien se ajusta cada modelo a los datos originales, por lo que este proceso es computacionalmente intensivo y sólo se recomienda hacerlo para evitar la ambigüedad entre un par de modelos.
-
-...
-
-Por último, ya con el modelo seleccionado, se procede a calcular el error relativo de predicción que se obtuvo, comparando con el ground truth que se dispone para esa secuencia, con lo que se obtiene: 
-
-...
-
-\begin{figure}[tp]
+\begin{figure}[t]
   \centerline
   {\begin{subfigure}[b]{1.3\textwidth}
       \includegraphics[width=1\linewidth]{gfx/chap6/soledad1s_3_1}
@@ -176,6 +168,5 @@ Por último, ya con el modelo seleccionado, se procede a calcular el error relat
   \label{fig:prb2_seq}
 \end{figure}
 
-Más a detalle, en la \autoref{fig:prb2_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. Hay que notar que cuando el número de estados para un modelo no es el correcto, entonces inminentemente el número de errores en la secuencia obtenida será mayor, pues al menos todas las intervenciones de un hablante no podrán ser emparejadas o serán asignadas a alguien más.
-
-Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.
+Más a detalle, en la \autoref{fig:prb2_seq} se observa en azul el orden en el que participan los interlocutores de acuerdo a la secuencia recuperada. En rojo se marcan tanto los falsos positivos como los falsos negativos, de acuerdo al ground truth. 
+Se observa también que la mayoría de las veces, en la secuencia recuperada se encuentran algunos brincos entre las personas, pero en esencia la estructura y el orden en que hablan los interlocutores es el correcto.

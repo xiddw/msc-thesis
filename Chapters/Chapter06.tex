@@ -78,7 +78,7 @@ Usando dos motores para el sintetizador de voz, uno con voces en inglés y otro 
 
 A continuación se presentan la tabla \autoref{tab:carac} con las características de cada una de las secuencias utilizadas para las pruebas.
 
-\begin{table}[bth]
+\begin{table}[bt]
   \centerline {
   \begin{tabularx}{1\textwidth}{X rrrccc} \toprule
     \tableheadline{Sec. Id.}& 
@@ -104,7 +104,7 @@ En la tabla \autoref{tab:resul} se muestran los resultados obtenidos de las prue
 
 Como se muestra en la \autoref{fig:seq5_boot}, al momento de comparar el modelo verdadero ($n=3$) contra otro modelo ($n=4$), se rechaza la hipótesis nula de que el modelo generador sea el primero de estos, estando apenas el valor de $LLR_{obs}$ por debajo del valor de significancia usado; por lo que en caso de haber usado un umbral mucho más pequeño se habría logrado identificar de forma correcta al modelo verdadero.
 
-\begin{table}[bth]
+\begin{table}[bt]
   \centerline {
   \begin{tabularx}{0.7\textwidth}{X rrrccc} \toprule
     \tableheadline{Sec. Id.}& 
@@ -125,11 +125,9 @@ Como se muestra en la \autoref{fig:seq5_boot}, al momento de comparar el modelo 
   \label{tab:resul}
 \end{table}
 
-Por último, es importante resaltar también los tiempos de las pruebas que se realizaron, y que al ser técnicas computacionalmente demandantes, tardaron mucho en ejecutarse. Todas las pruebas se realizaron en una máquina de escritorio, con (...incluir especificaciones...). Para cada prueba se realizaron el mismo número de simulaciones, aunque en cada una varía la duración de cada grabación de audio, así como la longitud del diccionario de palabras utilizado. También es importante la complejidad de los modelos con los que se hicieron las pruebas de hipótesis, pues mientras más complejo un modelo, mayor número de parámetros se tienen que estimar a cada iteración del método.
+En la tabla \autoref{tab:times} se muestra algunos detalles de cada una las pruebas que se realizaron.
 
-En la tabla \autoref{tab:times} se muestra a detalle cuánto duró cada prueba.
-
-\begin{table}[bth]
+\begin{table}[h!]
   \centerline {
   \begin{tabularx}{1.1\textwidth}{X rrrrr} \toprule
     \tableheadline{Sec. Id.}& 
@@ -147,6 +145,10 @@ En la tabla \autoref{tab:times} se muestra a detalle cuánto duró cada prueba.
     \bottomrule
   \end{tabularx} 
   }
-  \caption[Resultados de pruebas realizadas]{Resultados de pruebas realizadas. Se observa en general que para la mayoría de las pruebas se encontró el modelo correcto, además de que se tiene un \ac{DER} en general abajo del 10\%. En el caso de la secuencia \texttt{CALDER}, se muestra el \ac{DER} correspondiente al modelo correcto.}  
-  \label{tab:resul}
+  \caption[Detalle de pruebas realizadas]{Detalle de pruebas realizadas.}  
+  \label{tab:times}
 \end{table}
+
+Es importante resaltar también los tiempos de las pruebas que se realizaron, y que al ser técnicas computacionalmente demandantes, tardaron mucho en ejecutarse. Todas las pruebas se realizaron en una máquina de escritorio, con (...incluir especificaciones...). 
+
+Para cada prueba se realizaron el mismo número de simulaciones, aunque en cada una varía la duración de cada grabación de audio, así como la longitud del diccionario de palabras utilizado. También es importante la complejidad de los modelos con los que se hicieron las pruebas de hipótesis, pues mientras más complejo un modelo, mayor número de parámetros se tienen que estimar a cada iteración del método.
