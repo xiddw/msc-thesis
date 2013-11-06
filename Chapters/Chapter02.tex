@@ -35,36 +35,36 @@ Denótese por $\mathcal{A}$ la evidencia acústica o los datos a partir del cuá
 \mathcal{A} = a_1, a_2, ..., a_K \quad a_i \in \mathbb{A}
 \label{eqn:2a-1}
 \end{equation}
-en donde los sub-índices de los elementos $a_i$ hacen referencia aun intervalo de tiempo $i$ en la secuencia de audio original, y pueden repetirse de acuerdo a la grabación.
+en donde los sub-índices de los elementos $a_i$ hacen referencia a un intervalo de tiempo $i$ en la secuencia de audio original, y sus valores pueden repetirse de acuerdo a la grabación.
 
 De la misma manera, definamos 
 \begin{equation}
 \mathcal{S} = s_1, s_2, ..., s_N \quad s_i \in \mathbb{S}
 \label{eqn:2a-2}
 \end{equation}
-donde $\mathcal{S}$ es la secuencia que corresponde a la segmentación correcta para un intervalo del audio original. En este caso $\mathbb{S}$ es el conjunto de todos los interlocutores que participan en la grabación de audio y que por el momento se considerará como información conocida.
+donde $\mathcal{S}$ es la secuencia que corresponde a la segmentación correcta para un intervalo del audio original. En este caso $\mathbb{S}$ es el conjunto de todos los interlocutores que participan en la grabación de audio y que por el momento se considerará como información conocida; y $s_i$ de igual manera representa al interlocutor que habla en el tiempo $i$.
 
-Si $P(s_i \,|\, \mathcal{A})$ denota la probabilidad de que el interlocutor $s_i$ esté hablando dada la evidencia acústica en $\mathcal{A}$, entonces una forma de escoger cuál es el interlocutor que habla en ese intervalo es por ejemplo:
+Si $P(\mathcal{S} \,|\, \mathcal{A})$ denota la probabilidad de que una secuencia de interlocutor $\mathcal{S}$ esté hablando dada la evidencia acústica en $\mathcal{A}$, entonces una forma de escoger cuáles son los interlocutor que hablan en ese intervalo es por ejemplo:
 \begin{equation}
-\hat{s} = \underset{s_i \in \mathcal{S}}{arg~max}~ P(s_i \,|\, \mathcal{A})
+\hat{\mathcal{S}} = \underset{\mathcal{S}}{arg~max}~ P(\mathcal{S} \,|\, \mathcal{A})
 \label{eqn:2a-3}
 \end{equation}
-Esto es, se seleccionaría al interlocutor más probable para una secuencia de datos dada.
+Esto es, se seleccionaría la sucesión de interlocutores más probable para una secuencia de datos dada.
 
 Por el teorema de Bayes, podemos reescribir la parte derecha de \eqref{eqn:2a-3} como sigue:
 \begin{equation}
-P(s_i \,|\, \mathcal{A}) ~=~ \frac{P(s_i) \cdot P(\mathcal{A} \,|\, s_i)}{P(\mathcal{A})}
+P(\mathcal{S} \,|\, \mathcal{A}) ~=~ \frac{P(\mathcal{S}) \cdot P(\mathcal{A} \,|\, \mathcal{S})}{P(\mathcal{A})}
 \label{eqn:2a-4}
 \end{equation}
-donde $P(s_i)$ es la probabilidad de que el interlocutor $s_i$ hable; $P(\mathcal{A} \,|\, s_i)$ la probabilidad de que sea observada la evidencia acústica $\mathcal{A}$ cuando el interlocutor $s_i$ está hablando, y $P(\mathcal{A})$ la probabilidad marginal de que los datos $\mathcal{A}$ sean observados. Por probabilidad total, esto último se puede escribir como: 
+donde $P(\mathcal{S})$ es la probabilidad de que la secuencia de interlocutor $\mathcal{S}$ hable a priori en ese orden; $P(\mathcal{A} \,|\, \mathcal{S})$ la probabilidad de que sea observada la evidencia acústica $\mathcal{A}$ cuando los interlocutores $\mathcal{S}$ están hablando, y $P(\mathcal{A})$ la probabilidad a priori de que los datos $\mathcal{A}$ sean observados. Por probabilidad total, esto último se puede escribir como: 
 \begin{equation}
-P(\mathcal{A}) = \sum_s P(s) \cdot P(s  \,|\, \mathcal{A})
+P(\mathcal{A}) = \sum_{\mathcal{S}'} P(\mathcal{S}') \cdot P(\mathcal{S}' \,|\, \mathcal{A})
 \label{eqn:2a-5}  
 \end{equation}
 
-Como en \eqref{eqn:2a-3} se está maximizando con respecto a $s_i$, es decir la variable $\mathcal{A}$ permanece fija -pues es la única evidencia acústica observada-, se sigue de \eqref{eqn:2a-3} y de \eqref{eqn:2a-4} que es equivalente maximizar únicamente el producto $P(s_i) \cdot P(\mathcal{A} \,|\, s_i)$:
+Como en \eqref{eqn:2a-3} se está maximizando con respecto a $\mathcal{S}$, es decir la variable $\mathcal{A}$ permanece fija -pues es la única evidencia acústica observada-, se sigue de \eqref{eqn:2a-3} y de \eqref{eqn:2a-4} que es equivalente maximizar únicamente el producto $P(\mathcal{S}) \cdot P(\mathcal{A} \,|\, \mathcal{S})$:
 \begin{equation}
-\hat{s} = \underset{s_i \in \mathcal{S}}{arg~max}~ P(s_i) \cdot P(\mathcal{A} \,|\, s_i)
+\hat{\mathcal{S}} = \underset{\mathcal{S}}{arg~max}~ P(\mathcal{S}) \cdot P(\mathcal{A} \,|\, \mathcal{S})
 \label{eqn:2a-6}
 \end{equation}
 
@@ -77,30 +77,50 @@ En general, todos los sistemas que involucran procesamiento de voz, tienen varia
 \begin{description}
 \item[Procesamiento acústico:]
 Primero, se necesita decidir de qué forma procesará la información. Usualmente se contará con un micrófono o un arreglo de micrófonos que captarán las voces y las transformarán en impulsos eléctricos. Luego, se deberá de muestrear esta señal analógica para poder almacenarla digitalmente para su posterior procesamiento. 
-\\~\\
+
 Después de este proceso se tendrá una representación discreta en el tiempo de la señal, que se analizará en pequeñas ventanas de tiempo. Dependiendo de la aplicación de interés, suele variar el intervalo de análisis. De la misma manera, hay diferentes formas de caracterizar estas ventanas de tiempo, estimando diferentes vectores característicos. Entre los más comunes para tareas relativas a procesamiento de voz se encuentran los \acs{MFCC}, \acs{LFCC} \cite{Davis1980} y \acs{aMFCC} \cite{Lei2009}. 
-\\~\\
+
 Por último, después de obtener alguna representación paramétrica de la señal, se deberá realizar una discretización de estos vectores. A este procedimiento se le conoce como construcción del \textit{diccionario de palabras}, pues a cada valor o clase posible en la discretización se le conocerá como \textit{palabra}.
 
 \item[Modelado acústico:] 
-En esta segunda etapa, se considera que ya se ha construido el diccionario de palabras o la evidencia acústica $\mathbb{A}$, por lo que ahora se necesita proponer una forma de calcular las probabilidades $P(\mathcal{A} \,|\, s_i)$ que se refieren a la probabilidad de que la secuencia $\mathcal{A}$ sea observada dado que el interlocutor $s_i$ habla. 
+En esta segunda etapa, se considera que ya se ha construido el diccionario de palabras o la evidencia acústica $\mathbb{A}$, por lo que ahora se necesita proponer una forma de calcular las probabilidades $P(\mathcal{A} \,|\, \mathcal{S})$ que se refieren a la probabilidad de que la secuencia $\mathcal{A}$ sea observada dado que los interlocutores $\mathcal{S}$ hablan. 
 \\~\\
-Puesto que esta probabilidad se debe de calcular para todos los pares posibles de $s_i \in \mathcal{S}$ con $\mathcal{A}$: se debe de hacer este cálculo de la forma más eficiente posible, pues el número de combinaciones existentes suele ser muy grande.
-\\~\\
-Para estimar las probabilidades $P(\mathcal{A} \,|\, s_i)$ se necesita un modelo estadístico que además de considerar la interacción de los interlocutores, tenga en cuenta el ambiente, la ubicación de los micrófonos y sus características, entre otras cosas.
-\\~\\
+Puesto que esta probabilidad se debe de calcular para todos los pares posibles de $\mathcal{S}$ con $\mathcal{A}$: se debe de hacer este cálculo de la forma más eficiente posible, ya que el número de combinaciones existentes suele ser muy grande.
+
+Para estimar las probabilidades $P(\mathcal{A} \,|\, \mathcal{S})$ se necesita un modelo estadístico que además de considerar la interacción de los interlocutores, tenga en cuenta el ambiente, la ubicación de los micrófonos y sus características, entre otras cosas.
+
 El modelo acústico más comúnmente utilizado en tareas de procesamiento de voz, es el \acf{HMM}, que se discutirá en el \autoref{ch:chap3}. Sin embargo, no es el único modelo existente, y hay trabajos que utilizan otras técnicas, como por ejemplo aquellos que usan \ac{ANN} \cite{Jothilakshmi2009} \cite{Gutzwiller2010}  o métodos de \ac{DTW} \cite{Huijbregts2011} 
  
-\item[Modelado del lenguaje:]
-Proin eu erat id augue congue rhoncus ac tempus velit. Mauris posuere, nibh ac euismod accumsan, metus sem tristique dolor, eget facilisis justo risus id justo. Duis nisi erat, viverra ac consectetur fermentum, commodo mollis libero. Cras a enim ac dolor sagittis euismod. Mauris in consequat nulla. 
+\item[Modelado de interlocutores:]
+Por otro lado, se tiene que estimar también $P(\mathcal{S})$, la probabilidad de que una secuencia $\mathcal{S}$ de interlocutores participe en ese orden a priori. 
+\\~\\
+De la misma manera, por el teorema de Bayes, y puesto que deseamos calcular la probabilidad $P(\mathcal{S})$ en ese orden, se puede reescribir entonces como
+\begin{equation}
+P(\mathcal{S}) = \pi_{i=1}^K P(s_i \,|\, s_1, ..., s_{i-1})
+\label{eqn:2a-7}
+\end{equation}
+
+De \eqref{eqn:2a-7}, es de donde empiezan a surgir elementos para que el usar un \ac{HMM} resulte una opción natural.
+
+Por otro lado, ahora se deberían de poder estimar las probabilidades a posteriori para cada uno de los tiempos $i$, $P(s_i \,|\, s_1, ..., s_{i-1})$. Hay que tener en cuenta que por el producto de \eqref{eqn:2a-7}, para cada muestra $i$ se vendrán acarreando $i-1$ productos, por lo que el cálculo de esa probabilidad estará propenso a errores numéricos en su representación.
+
+Por último, hay que notar también que la asunción de que el interlocutor $s_i$ depende de la secuencia completa de interlocutores hasta ese momento $s_1, ..., s_{i-1}$ es algo rigorista e irreal; por lo que es más natural considerar solo un subconjunto $\phi(s_1, ..., s_{i-1})$ de esa secuencia.
+
+Entonces, la \eqref{eqn:2a-7} se podría escribir como sigue
+\begin{equation}
+P(\mathcal{S}) = \pi_{i=1}^K P(s_i \,|\, \phi(s_1, ..., s_{i-1}))
+\label{eqn:2a-8}
+\end{equation}
 
 \item[Búsqueda de hipótesis:]
-In hac habitasse platea dictumst. Pellentesque sed pulvinar sem, at consectetur tortor. Cras vitae iaculis dui, a sodales dolor. Proin lobortis, mauris quis varius hendrerit, ante libero mollis dolor, non pharetra neque nibh ac lorem.
+En esta etapa, se deberá buscar de entre todos los posibles $\mathcal{S}$ cuál es el que maximiza \eqref{eqn:2a-6}. Como ya se mencionó, el espacio de búsqueda es realmente muy grande; por lo que no se puede hacer una búsqueda exhaustiva y deberá de seguirse una estrategia basada en la información que provee $\mathcal{A}$.
+\\~\\
+Por otra parte, y después de obtener la segmentación correspondiente para la señal de audio, se deberá ahora inferir cuál es el modelo más probable de entre todos los que se propongan. Hay que recordar que hasta ahora, se había supuesto que se conocía el número de participantes en la conversación; pero ese es un dato que también de deberá de estimar a partir de la evidencia acústica $\mathcal{A}$.
 \end{description}
 
 En este capítulo, se describirá a fondo la etapa de procesamiento acústico, en cuanto a todos los procesos que son necesarios para la caracterización de la señal de audio original.
 
-En el \autoref{ch:chap3} se ahondará en las etapas tanto de modelado acústico como modelado del lenguaje, proponiendo el modelo probabilístico que se utilizará para abordar el problema.
+En el \autoref{ch:chap3} se ahondará en las etapas tanto de modelado acústico como modelado del interlocutor, proponiendo el modelo probabilístico que se utilizará para abordar el problema.
 
 Por último, la etapa de búsqueda de hipótesis se cubrirá tanto en la segunda parte del \autoref{ch:chap3}, como en el \autoref{ch:chap4}; pues hay dos momentos en los que se deben hacer selecciones: se debe de escoger el número de personas que participan en la conversación, así como la segmentación correspondiente de la señal de audio para ese número de interlocutores.
 
