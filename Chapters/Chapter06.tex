@@ -76,28 +76,77 @@ Usando dos motores para el sintetizador de voz, uno con voces en inglés y otro 
 
 \section{Resultados}
 
-A continuación se presentan la tabla \autoref{tab:example} los resultados condensados de las pruebas realizadas con las secuencias antes descritas.
+A continuación se presentan la tabla \autoref{tab:carac} con las características de cada una de las secuencias utilizadas para las pruebas.
 
 \begin{table}[bth]
   \centerline {
-  \begin{tabularx}{1.2\textwidth}{X rrrccc} \toprule
+  \begin{tabularx}{1\textwidth}{X rrrccc} \toprule
     \tableheadline{Sec. Id.}& 
   	\tableheadline{Duración} & 
   	\tableheadline{$\#_{SAMPLES}$} &
   	\tableheadline{$\#_{WORDS}$} &  	
   	\tableheadline{$n_{TRUE}$} &
-  	\tableheadline{$n_{FOUND}$} & 
-    \tableheadline{DER} 	
 	  \\ \midrule
-    ALLPOE~ & 12:06 min & 7218 & 140 & 6 & 6 & 0.03324 \\ 
-    GARMÁR~ &  6:55 min & 4154 &  90 & 4 & 4 & 0.00652 \\
-    WSHAKE~ &  2:43 min & 1636 & 160 & 4 & 4 & 0.03324 \\ 
-    MACUÑA~ & 10:41 min & 6414 & 120 & 3 & 3 & 0.00343 \\ 
-    CALDER~ &  1:07 min &  676 & 160 & 3 & 3 & 0.08092 \\ 
-    LLOYDW~ &  6.48 min & 4084 & 160 & 5 & 5 & 0.01170 \\    
+    ALLPOE~ & 12:06 min & 7218 & 140 & 6 \\ 
+    GARMÁR~ &  6:55 min & 4154 &  90 & 4 \\
+    WSHAKE~ &  2:43 min & 1636 & 160 & 4 \\ 
+    MACUÑA~ & 10:41 min & 6414 & 120 & 3 \\ 
+    CALDER~ &  1:07 min &  676 & 160 & 3 \\ 
+    LLOYDW~ &  6.48 min & 4084 & 160 & 5 \\    
     \bottomrule
   \end{tabularx} 
   }
-  \caption[as]{asdasd}  
-  \label{tab:example}
+  \caption[Secuencias utilizadas en pruebas]{Descripción de características de secuencias utilizadas para las pruebas}  
+  \label{tab:carac}
+\end{table}
+
+En la tabla \autoref{tab:resul} se muestran los resultados obtenidos de las pruebas realizadas. Para 5 de los 6 casos se acertó al modelo generador, siendo el caso presentado en la  \autoref{ssub:calderon} el único en el que no se logró inferir de forma correcta. Como se observa en su curva \ac{BIC} (\autoref{fig:seq5_bic3}), la mayoría de los modelos obtuvieron un puntaje similar, e incluso, el modelo con una mayor valoración fue otro ($n=5$). De ahí la importancia de realizar la segunda etapa de refinamiento para mediante pruebas de hiótesis discernir al modelo correcto. 
+
+Como se muestra en la \autoref{fig:seq5_boot}, al momento de comparar el modelo verdadero ($n=3$) contra otro modelo ($n=4$), se rechaza la hipótesis nula de que el modelo generador sea el primero de estos, estando apenas el valor de $LLR_{obs}$ por debajo del valor de significancia usado; por lo que en caso de haber usado un umbral mucho más pequeño se habría logrado identificar de forma correcta al modelo verdadero.
+
+\begin{table}[bth]
+  \centerline {
+  \begin{tabularx}{0.7\textwidth}{X rrrccc} \toprule
+    \tableheadline{Sec. Id.}& 
+  	\tableheadline{$n_{TRUE}$} &
+  	\tableheadline{$n_{FOUND}$} & 
+    \tableheadline{DER (\%)} 	
+	  \\ \midrule
+    ALLPOE~ & 6 & 6 & 03.324 \\ 
+    GARMÁR~ & 4 & 4 & 00.652 \\
+    WSHAKE~ & 4 & 4 & 12.353 \\ 
+    MACUÑA~ & 3 & 3 & 00.343 \\ 
+    CALDER~ & 4 & 3 & *08.092 \\ 
+    LLOYDW~ & 5 & 5 & 01.170 \\    
+    \bottomrule
+  \end{tabularx} 
+  }
+  \caption[Resultados de pruebas realizadas]{Resultados de pruebas realizadas. Se observa en general que para la mayoría de las pruebas se encontró el modelo correcto, además de que se tiene un \ac{DER} en general abajo del 10\%. En el caso de la secuencia \texttt{CALDER}, se muestra el \ac{DER} correspondiente al modelo correcto.}  
+  \label{tab:resul}
+\end{table}
+
+Por último, es importante resaltar también los tiempos de las pruebas que se realizaron, y que al ser técnicas computacionalmente demandantes, tardaron mucho en ejecutarse. Todas las pruebas se realizaron en una máquina de escritorio, con (...incluir especificaciones...). Para cada prueba se realizaron el mismo número de simulaciones, aunque en cada una varía la duración de cada grabación de audio, así como la longitud del diccionario de palabras utilizado. También es importante la complejidad de los modelos con los que se hicieron las pruebas de hipótesis, pues mientras más complejo un modelo, mayor número de parámetros se tienen que estimar a cada iteración del método.
+
+En la tabla \autoref{tab:times} se muestra a detalle cuánto duró cada prueba.
+
+\begin{table}[bth]
+  \centerline {
+  \begin{tabularx}{1.1\textwidth}{X rrrrr} \toprule
+    \tableheadline{Sec. Id.}& 
+  	\tableheadline{Duración} & 
+  	\tableheadline{$\#_{WORDS}$} &  	
+  	\tableheadline{Modelos} &  	
+  	\tableheadline{Ejecución} &  	
+	  \\ \midrule
+    ALLPOE~ & 12:06 min & 140 & $~\lbrace 4, 5, 6, 7, 8 \rbrace~$ & $\sim 402$ hrs \\ 
+    GARMÁR~ &  6:55 min &  90 & $~\lbrace 2, 3, 4, 5, 6 \rbrace~$ & $\sim 140$ hrs \\
+    WSHAKE~ &  2:43 min & 160 & $~\lbrace 2, 3, 4, 5, 6 \rbrace~$ & $\sim  66$ hrs \\ 
+    MACUÑA~ & 10:41 min & 120 & $~\lbrace 2, 3, 4, 5, 6 \rbrace~$ & $\sim 176$ hrs \\ 
+    CALDER~ &  1:07 min & 160 & $~\lbrace 2, 3, 4, 5, 6 \rbrace~$ & $\sim  23$ hrs \\ 
+    LLOYDW~ &  6.48 min & 160 & $~\lbrace 3, 4, 5, 6, 7 \rbrace~$ & $\sim 193$ hrs \\    
+    \bottomrule
+  \end{tabularx} 
+  }
+  \caption[Resultados de pruebas realizadas]{Resultados de pruebas realizadas. Se observa en general que para la mayoría de las pruebas se encontró el modelo correcto, además de que se tiene un \ac{DER} en general abajo del 10\%. En el caso de la secuencia \texttt{CALDER}, se muestra el \ac{DER} correspondiente al modelo correcto.}  
+  \label{tab:resul}
 \end{table}
