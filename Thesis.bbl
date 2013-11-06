@@ -1,5 +1,12 @@
 \newcommand{\etalchar}[1]{$^{#1}$}
-\begin{thebibliography}{AMWP06}
+\begin{thebibliography}{AMBE{\etalchar{+}}12}
+
+\bibitem[AMBE{\etalchar{+}}12]{AngueraMiro2012}
+Xavier Anguera~Mir\'o, Simon Bozonnet, Nicholas W.~D. Evans, Corinne
+  Fredouille, Gerald Friedland, and Oriol Vinyals.
+\newblock Speaker diarization: A review of recent research.
+\newblock {\em IEEE Transactions on Audio, Speech \& Language Processing},
+  20(2):356--370, 2012.
 
 \bibitem[AMWP06]{AngueraMiro2006}
 Xavier Anguera~Mir\'o, Chuck Wooters, and Jos\'e~M. Pardo.
@@ -59,7 +66,14 @@ Corinne Fredouille, Simon Bozonnet, and Nicholas W.~D. Evans.
 \newblock In {\em {RT} 2009, {NIST} {R}ich {T}ranscription {W}orkshop, {M}ay
   28-29, 2009, {M}elbourne, {USA}}, {M}elbourne, {UNITED} {STATES}, 05 2009.
 
-\bibitem[FE07]{Fredouille2007}
+\bibitem[FE07a]{Fredouille2007}
+Corinne Fredouille and Nicholas W.~D. Evans.
+\newblock {The LIA RT'07 Speaker Diarization System}.
+\newblock In Rainer Stiefelhagen, Rachel Bowers, and Jonathan~G. Fiscus,
+  editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
+  pages 520--532. Springer, 2007.
+
+\bibitem[FE07b]{Gutzwiller2010}
 Corinne Fredouille and Nicholas W.~D. Evans.
 \newblock {The LIA RT'07 Speaker Diarization System}.
 \newblock In Rainer Stiefelhagen, Rachel Bowers, and Jonathan~G. Fiscus,
@@ -70,6 +84,13 @@ Corinne Fredouille and Nicholas W.~D. Evans.
 E.B. Fox, E.B. Sudderth, M.I. Jordan, and A.S. Willsky.
 \newblock {A Sticky HDP-HMM with Application to Speaker Diarization}.
 \newblock {\em Annals of Applied Statistics}, 5(2A):1020--1056, 2011.
+
+\bibitem[HMvL11]{Huijbregts2011}
+M.~Huijbregts, M.~McLaren, and D.~van Leeuwen.
+\newblock {Unsupervised acoustic sub-word unit detection for query-by-example
+  spoken term detection}.
+\newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE
+  International Conference on}, pages 4436--4439, 2011.
 
 \bibitem[HTF01]{Hastie2001}
 Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
@@ -90,8 +111,14 @@ Frederick Jelinek.
 \newblock {\em {Statistical Methods for Speech Recognition}}.
 \newblock Language, Speech, and Communication. MIT Press, 1998.
 
+\bibitem[JRP09]{Jothilakshmi2009}
+S.~Jothilakshmi, V.~Ramalingam, and S.~Palanivel.
+\newblock Speaker diarization using autoassociative neural networks.
+\newblock {\em Engineering Applications of Artificial Intelligence},
+  22(4--5):667--675, 2009.
+
 \bibitem[LG09]{Lei2009}
-Howard Lei and Eduardo~Lopez Gonzalo.
+Howard Lei and Eduardo~L\'opez Gonzalo.
 \newblock {Mel, linear, and antimel frequency cepstral coefficients in broad
   phonetic regions for telephone speaker recognition.}
 \newblock In {\em INTERSPEECH}, pages 2323--2326. ISCA, 2009.

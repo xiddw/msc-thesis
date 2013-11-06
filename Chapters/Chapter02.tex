@@ -51,7 +51,7 @@ Si $P(s_i \,|\, \mathcal{A})$ denota la probabilidad de que el interlocutor $s_i
 \end{equation}
 Esto es, se seleccionaría al interlocutor más probable para una secuencia de datos dada.
 
-Por el teorema de Bayes, podemos reescribir la parte derecha de \eqref{eqn:2as-3} como sigue:
+Por el teorema de Bayes, podemos reescribir la parte derecha de \eqref{eqn:2a-3} como sigue:
 \begin{equation}
 P(s_i \,|\, \mathcal{A}) ~=~ \frac{P(s_i) \cdot P(\mathcal{A} \,|\, s_i)}{P(\mathcal{A})}
 \label{eqn:2a-4}
@@ -59,7 +59,7 @@ P(s_i \,|\, \mathcal{A}) ~=~ \frac{P(s_i) \cdot P(\mathcal{A} \,|\, s_i)}{P(\mat
 donde $P(s_i)$ es la probabilidad de que el interlocutor $s_i$ hable; $P(\mathcal{A} \,|\, s_i)$ la probabilidad de que sea observada la evidencia acústica $\mathcal{A}$ cuando el interlocutor $s_i$ está hablando, y $P(\mathcal{A})$ la probabilidad marginal de que los datos $\mathcal{A}$ sean observados. Por probabilidad total, esto último se puede escribir como: 
 \begin{equation}
 P(\mathcal{A}) = \sum_s P(s) \cdot P(s  \,|\, \mathcal{A})
-\label{eqn:2a-5}
+\label{eqn:2a-5}  
 \end{equation}
 
 Como en \eqref{eqn:2a-3} se está maximizando con respecto a $s_i$, es decir la variable $\mathcal{A}$ permanece fija -pues es la única evidencia acústica observada-, se sigue de \eqref{eqn:2a-3} y de \eqref{eqn:2a-4} que es equivalente maximizar únicamente el producto $P(s_i) \cdot P(\mathcal{A} \,|\, s_i)$:
@@ -83,8 +83,13 @@ Después de este proceso se tendrá una representación discreta en el tiempo de
 Por último, después de obtener alguna representación paramétrica de la señal, se deberá realizar una discretización de estos vectores. A este procedimiento se le conoce como construcción del \textit{diccionario de palabras}, pues a cada valor o clase posible en la discretización se le conocerá como \textit{palabra}.
 
 \item[Modelado acústico:] 
-En esta segunda etapa, se considera que se tiene ya construido el diccionario de palabras $\mathbf{A}$, por lo que ahora se necesita, por lo que ahora se necesita estimar cuál persona sea 
-
+En esta segunda etapa, se considera que ya se ha construido el diccionario de palabras o la evidencia acústica $\mathbb{A}$, por lo que ahora se necesita proponer una forma de calcular las probabilidades $P(\mathcal{A} \,|\, s_i)$ que se refieren a la probabilidad de que la secuencia $\mathcal{A}$ sea observada dado que el interlocutor $s_i$ habla. 
+\\~\\
+Puesto que esta probabilidad se debe de calcular para todos los pares posibles de $s_i \in \mathcal{S}$ con $\mathcal{A}$: se debe de hacer este cálculo de la forma más eficiente posible, pues el número de combinaciones existentes suele ser muy grande.
+\\~\\
+Para estimar las probabilidades $P(\mathcal{A} \,|\, s_i)$ se necesita un modelo estadístico que además de considerar la interacción de los interlocutores, tenga en cuenta el ambiente, la ubicación de los micrófonos y sus características, entre otras cosas.
+\\~\\
+El modelo acústico más comúnmente utilizado en tareas de procesamiento de voz, es el \acf{HMM}, que se discutirá en el \autoref{ch:chap3}. Sin embargo, no es el único modelo existente, y hay trabajos que utilizan otras técnicas, como por ejemplo aquellos que usan \ac{ANN} \cite{Jothilakshmi2009} \cite{Gutzwiller2010}  o métodos de \ac{DTW} \cite{Huijbregts2011} 
  
 \item[Modelado del lenguaje:]
 Proin eu erat id augue congue rhoncus ac tempus velit. Mauris posuere, nibh ac euismod accumsan, metus sem tristique dolor, eget facilisis justo risus id justo. Duis nisi erat, viverra ac consectetur fermentum, commodo mollis libero. Cras a enim ac dolor sagittis euismod. Mauris in consequat nulla. 
@@ -93,7 +98,23 @@ Proin eu erat id augue congue rhoncus ac tempus velit. Mauris posuere, nibh ac e
 In hac habitasse platea dictumst. Pellentesque sed pulvinar sem, at consectetur tortor. Cras vitae iaculis dui, a sodales dolor. Proin lobortis, mauris quis varius hendrerit, ante libero mollis dolor, non pharetra neque nibh ac lorem.
 \end{description}
 
-\section{Procesamiento de señal}
+En este capítulo, se describirá a fondo la etapa de procesamiento acústico, en cuanto a todos los procesos que son necesarios para la caracterización de la señal de audio original.
+
+En el \autoref{ch:chap3} se ahondará en las etapas tanto de modelado acústico como modelado del lenguaje, proponiendo el modelo probabilístico que se utilizará para abordar el problema.
+
+Por último, la etapa de búsqueda de hipótesis se cubrirá tanto en la segunda parte del \autoref{ch:chap3}, como en el \autoref{ch:chap4}; pues hay dos momentos en los que se deben hacer selecciones: se debe de escoger el número de personas que participan en la conversación, así como la segmentación correspondiente de la señal de audio para ese número de interlocutores.
+
+En la \autoref{fig:esquema} se muestra el esquema de los componentes principales que conforman el sistema particular utilizado para la tarea de \sd.
+
+\begin{figure}[ht]
+  \centerline
+  {\includegraphics[width=1.4\linewidth]{gfx/chap2/ASR_flow}} \quad
+  \caption{Esquema general del sistema. Se muestran las etapas principales para la estimación de la segmentación.}
+  \label{fig:esquema}
+\end{figure}
+
+
+\section{Procesamiento acústico}
 
 Antes de abordar de lleno el problema de \sd, se tiene que realizar cierto tratamiento a la señal de audio con la que se trabajará. 
 
@@ -102,14 +123,6 @@ Es decir, a partir de la señal de entrada (que se considerará es digital) se t
 Una vez que se tienen estos vectores, se les aplica un algoritmo de aglomeración para entonces obtener un conjunto de etiquetas que se podrían considerar como posibles estados o palabras de diccionario referentes a la señal de audio.
 
 El proceso en detalle se especifica a continuación: 
-\subsection{Esquema general del sistema}
-
-\begin{figure}[ht]
-  \centerline
-  {\includegraphics[width=1.4\linewidth]{gfx/chap2/ASR_flow}} \quad
-  \caption{Esquema general del sistema.}
-  \label{fig:esquema}
-\end{figure}
 
 \subsection{Pre-procesamiento de señal de audio}
 
