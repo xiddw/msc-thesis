@@ -1,8 +1,5 @@
 % **************************************************************************************************************
 % To Do:
-%		 * [hgh] => Metodology chapter
-%    * [med] => Redaction for experiments
-%    * [med] => Results table
 %    * [low] => Cites / bibliography
 % **************************************************************************************************************
 \documentclass[titlepage, numbers=noenddot, headinclude,
@@ -37,6 +34,9 @@
 
 \usepackage{bbm}
 
+\usepackage{bookmark}
+\usepackage{lettrine} 
+
 \usepackage{epstopdf}
 
 \usepackage{algorithm}
@@ -53,8 +53,8 @@
 
 \newcommand{\algorithmautorefname}{Algoritmo}
 
-\newcommand{\sd}{\textit{speaker diarisation}}
-\newcommand{\SD}{\textit{Speaker Diarisation}}
+\newcommand{\sd}{\textit{speaker diarization}}
+\newcommand{\SD}{\textit{Speaker Diarization}}
 \newcommand{\unk}{1-de-\textit{K}}
 \newcommand{\aem}{\textit{expectation-maximization}}
 
@@ -104,15 +104,15 @@
 %********************************************************************
 % Frontmatter
 %*******************************************************
-%\include{FrontBackmatter/DirtyTitlepage}
-%\include{FrontBackmatter/Titlepage}
-%\include{FrontBackmatter/Titleback}
+\include{FrontBackmatter/DirtyTitlepage}
+\include{FrontBackmatter/Titlepage}
+\include{FrontBackmatter/Titleback}
 
-%\cleardoublepage\include{FrontBackmatter/Dedication}
-%\cleardoublepage\include{FrontBackmatter/Foreword}
-%\cleardoublepage\include{FrontBackmatter/Abstract}
-%\cleardoublepage\include{FrontBackmatter/Publication}
-%\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+\cleardoublepage\include{FrontBackmatter/Dedication}
+%%\cleardoublepage\include{FrontBackmatter/Foreword}
+\cleardoublepage\include{FrontBackmatter/Abstract}
+%%\cleardoublepage\include{FrontBackmatter/Publication}
+\cleardoublepage\include{FrontBackmatter/Acknowledgments}
 \pagestyle{scrheadings}
 \cleardoublepage
 \include{FrontBackmatter/Contents}
@@ -162,9 +162,8 @@
 %********************************************************************
 % Other Stuff in the Back
 %*******************************************************
+\bookmarksetup{startatroot}
 \include{FrontBackmatter/Bibliography}
-
-
 %\cleardoublepage\include{FrontBackmatter/Colophon}
 %\cleardoublepage\include{FrontBackmatter/Declaration}
 

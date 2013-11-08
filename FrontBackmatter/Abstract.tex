@@ -2,18 +2,19 @@
 % Abstract
 %*******************************************************
 %\renewcommand{\abstractname}{Abstract}
-\pdfbookmark[1]{Abstract}{Abstract}
+\pdfbookmark[1]{Resumen}{Resumen}
 \begingroup
 \let\clearpage\relax
 \let\cleardoublepage\relax
 \let\cleardoublepage\relax
 
-\chapter*{Abstract}
-En este trabajo, se abordará \dots
+\chapter*{Resumen}
+En este trabajo de tesis se aborda el problema \SD, o de segmentación automática de una señal de audio de acuerdo a los interlocutores que participan en una grabación. Las grabaciones que se utilizarán, simulan ser conversaciones entre dos o más personas, y se tratará de identificar tanto el número de personas que hablan, así como los momentos en los que participan. 
 
+Para esto resolver este problema, se propondrán múltiples modelos con Cadenas Escondidas de Markov, a partir de la cuales se estimarán posibles segmentaciones correcta. Para seleccionar cuáles son los modelos que mejor se ajustan a los datos, se propondrá primero una exploración de todas las posibles soluciones utilizando una función de penalización estilo \ac{BIC} con un parámetro de regularización auto-ajustable. Después, de entre las mejores candidatos se escogerá a la mejor solución utilizando simulaciones bootstrap para realizar una prueba de hipótesis.
 
+Para probar el desempeño de la metodología propuesta, se realizaron pruebas con 6 secuencias de audio generadas sintéticamente. Se muestran los resultados tanto en la selección de modelo correcto (número de personas que participan), como con la segmentación recuperada de la señal de audio.
 \vfill
-
 \endgroup			
 
 \vfill

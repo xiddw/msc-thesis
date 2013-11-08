@@ -4,7 +4,7 @@
 \bibitem[AMBE{\etalchar{+}}12]{AngueraMiro2012}
 Xavier Anguera~Mir\'o, Simon Bozonnet, Nicholas W.~D. Evans, Corinne
   Fredouille, Gerald Friedland, and Oriol Vinyals.
-\newblock Speaker diarization: A review of recent research.
+\newblock {Speaker Diarization: A Review of Recent Research}.
 \newblock {\em IEEE Transactions on Audio, Speech \& Language Processing},
   20(2):356--370, 2012.
 
@@ -46,7 +46,7 @@ Gerda Claeskens and Nils~Lid Hjort.
 \bibitem[DE83]{Diaconis1983}
 Persi Diaconis and Bradley Efron.
 \newblock {Computer-Intensive Methods in Statistics}.
-\newblock Technical Report~5, May 1983.
+\newblock Technical Report~5, Stanford University, May 1983.
 
 \bibitem[DM80]{Davis1980}
 Steven~B. Davis and Paul Mermelstein.
@@ -113,14 +113,14 @@ Frederick Jelinek.
 
 \bibitem[JRP09]{Jothilakshmi2009}
 S.~Jothilakshmi, V.~Ramalingam, and S.~Palanivel.
-\newblock Speaker diarization using autoassociative neural networks.
+\newblock {Speaker diarization using autoassociative neural networks}.
 \newblock {\em Engineering Applications of Artificial Intelligence},
   22(4--5):667--675, 2009.
 
 \bibitem[LG09]{Lei2009}
 Howard Lei and Eduardo~L\'opez Gonzalo.
 \newblock {Mel, linear, and antimel frequency cepstral coefficients in broad
-  phonetic regions for telephone speaker recognition.}
+  phonetic regions for telephone speaker recognition}.
 \newblock In {\em INTERSPEECH}, pages 2323--2326. ISCA, 2009.
 
 \bibitem[Mac07]{MacKinnon2007}
@@ -172,6 +172,13 @@ Tobias Ryden.
   Models: A Computational Perspective}.
 \newblock {\em Bayesian Analysis}, 2008.
 
+\bibitem[SDDG13]{Shum2013}
+Stephen Shum, Najim Dehak, R{\'e}da Dehak, and James~R. Glass.
+\newblock Unsupervised methods for speaker diarization: An integrated and
+  iterative approach.
+\newblock {\em IEEE Transactions on Audio, Speech {\&} Language Processing},
+  21(10):2015--2028, 2013.
+
 \bibitem[TR06]{Tranter2006}
 Sue Tranter and Douglas Reynolds.
 \newblock {An Overview of Automatic Speaker Diarisation Systems}.
@@ -184,5 +191,13 @@ Chuck Wooters and Marijn Huijbregts.
 \newblock In Rainer Stiefelhagen, Rachel Bowers, and Jonathan~G. Fiscus,
   editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
   pages 509--519. Springer, 2007.
+
+\bibitem[ZGRD{\etalchar{+}}11]{Zhou2011}
+Xinhui Zhou, Daniel Garcia-Romero, Ramani Duraiswami, Carol~Y. Espy-Wilson, and
+  Shihab~A. Shamma.
+\newblock {Linear versus mel frequency cepstral coefficients for speaker
+  recognition}.
+\newblock In David Nahamoo and Michael Picheny, editors, {\em ASRU}, pages
+  559--564. IEEE, 2011.
 
 \end{thebibliography}
