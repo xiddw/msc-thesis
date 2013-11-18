@@ -1,6 +1,6 @@
-%htEX root = ../Thesis.tex
+%!TEX root = ../Thesis.tex
 
-\chapter{Speaker diarisation} \label{ch:chap2}
+\chapter{Speaker diarization} \label{ch:chap2}
 
 \epigraphhead[70]{
 \epigraph{I thank you for your voices: thank you:
@@ -35,7 +35,7 @@ Denótese por $\mathcal{A}$ la evidencia acústica o los datos a partir del cuá
 \mathcal{A} = a_1, a_2, ..., a_K \quad a_i \in \mathbb{A}
 \label{eqn:2a-1}
 \end{equation}
-en donde los sub-índices de los elementos $a_i$ hacen referencia a un intervalo de tiempo $i$ en la secuencia de audio original, y sus valores pueden repetirse de acuerdo a la grabación.
+en donde los sub-índices de los elementos $a_i$ hacen referencia a un intervalo de tiempo $i$ en la secuencia de audio original, y los valores que tomen pueden repetirse de acuerdo a la grabación.
 
 De la misma manera, definamos 
 \begin{equation}
@@ -44,7 +44,7 @@ De la misma manera, definamos
 \end{equation}
 donde $\mathcal{S}$ es la secuencia que corresponde a la segmentación correcta para un intervalo del audio original. En este caso $\mathbb{S}$ es el conjunto de todos los interlocutores que participan en la grabación de audio y que por el momento se considerará como información conocida; y $s_i$ de igual manera representa al interlocutor que habla en el tiempo $i$.
 
-Si $P(\mathcal{S} \,|\, \mathcal{A})$ denota la probabilidad de que una secuencia de interlocutor $\mathcal{S}$ esté hablando dada la evidencia acústica en $\mathcal{A}$, entonces una forma de escoger cuáles son los interlocutor que hablan en ese intervalo es por ejemplo:
+Si $P(\mathcal{S} \,|\, \mathcal{A})$ denota la probabilidad de que una secuencia de interlocutores $\mathcal{S}$ esté hablando dada la evidencia acústica en $\mathcal{A}$, entonces una forma de escoger cuáles son los personas que hablan en ese intervalo se puede calcular de la siguiente manera:
 \begin{equation}
 \hat{\mathcal{S}} = \underset{\mathcal{S}}{arg~max}~ P(\mathcal{S} \,|\, \mathcal{A})
 \label{eqn:2a-3}
@@ -96,7 +96,7 @@ Por otro lado, se tiene que estimar también $P(\mathcal{S})$, la probabilidad d
 \\~\\
 De la misma manera, por el teorema de Bayes, y puesto que deseamos calcular la probabilidad $P(\mathcal{S})$ en ese orden, se puede reescribir entonces como
 \begin{equation}
-P(\mathcal{S}) = \pi_{i=1}^K P(s_i \,|\, s_1, ..., s_{i-1})
+P(\mathcal{S}) = \Pi_{i=1}^K P(s_i \,|\, s_1, ..., s_{i-1})
 \label{eqn:2a-7}
 \end{equation}
 
@@ -203,7 +203,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 \begin{figure}[t]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap2/melfb}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/example_mfcc}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
   \label{fig:sign_melfb}
 \end{figure}
