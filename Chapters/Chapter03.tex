@@ -172,9 +172,11 @@ De la misma manera, el grafo correspondiente a la matriz de transición, se pued
         \label{fig:mod_hmm3}
 \end{figure}
 
-Por último, para completar el modelo se tiene que considerar además la distribución condicional de las variables observadas, es decir $p(x_n \,|\, z_n, \phi)$ donde $\phi$ es un conjunto de parámetros específicos a la distribución de $x$. Se les conoce como probabilidades de emisión, y puede ser tanto una distribución discreta como una continua. Para el caso en que la probabilidad de emisión esté dada por una distribución discreta, entonces se tendrá una tabla de probabilidades.
+Por último, para completar el modelo se tiene que considerar además la distribución condicional de las variables observadas, es decir $p(x_n \,|\, z_n, \phi)$ donde $\phi$ es el conjunto de parámetros específicos a la distribución de $x$. Se les conoce como probabilidades de emisión, y puede ser tanto una distribución discreta como una continua. Para el caso en que la probabilidad de emisión esté dada por una distribución discreta, entonces se tendrá una tabla de probabilidades.
 
-Para calcular entonces esta probabilidad de emisión, se tiene tanto $z_n$ como unos parámetros $\phi$ dados, por lo que entonces se tienen un vector de $K$ valores para cada uno de los posibles estados del vector indicador $z_n$.
+Como se considera que se observa $x_n$, y puesto que los parámetros $\phi$ también son conocidos; la distribución de $p(x_n \,|\, z_n, \phi)$ está conformada por un vector de $K$ probabilidades para cada uno de los posibles estados del vector indicador $z_n$.
+
+De la misma manera, se puede formar una matriz de probabilidades de emisión $\mathbf{B}$, tal que cada entrada de la matriz esté dada por $\mathbf{B}_{jk} = p(x_{nk} = 1 \,|\, z_{n, j} = 1)$
 
 Se puede escribir entonces la probabilidad de emisión como sigue:
 \begin{equation}

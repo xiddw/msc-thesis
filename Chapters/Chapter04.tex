@@ -192,15 +192,15 @@ Ahora, para hacer la prueba con boostrap se simularán datos de los \ac{HMM} pro
    $ \mathbf{A} \in \mathcal{R}^{N \times N}; ~~
    \mathbf{A}_{jk} = p(z_{nk} \,|\, z_{n-1, j})$ \\
 
-   $ \mathbf{E} \in \mathcal{R}^{K \times N}; ~~
-   \mathbf{E}_{jk} = p(x_{nk} \,|\, z_{n, j})$\\  
+   $ \mathbf{B} \in \mathcal{R}^{K \times N}; ~~
+   \mathbf{B}_{jk} = p(x_{nk} \,|\, z_{n, j})$\\  
    \STATE
    \STATE $z_1 \sim Multinomial(\pi)$   
    \STATE $x_1 \sim Multinomial(\mathbf{E}_{[z_1,~:]})$
 
    \FOR{$i = 1 \to T$} 
     \STATE $z_t \sim Multinomial(\mathbf{A}_{[z_{t-1},~:]})$ 
-    \STATE $x_t \sim Multinomial(\mathbf{E}_{[z_t,~:]})$
+    \STATE $x_t \sim Multinomial(\mathbf{B}_{[z_t,~:]})$
    \ENDFOR   
 \end{algorithmic}
 \end{algorithm}
