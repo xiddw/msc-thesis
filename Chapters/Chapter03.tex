@@ -44,6 +44,10 @@ El modelo generativo más sencillo que se podría pensar, es considerar que toda
 
 Al asumir que no hay ninguna dependencia entre los datos, sin embargo, se pierde la información relativa al orden en que se fueron dando estas observaciones; situación que en muchos casos nos interesa conservar.
 
+Las cadenas de Márkov son un tema bastante estudiado, tanto por sus cualidades como por sus múltiples aplicaciones en la modelación de fenómenos temporales. 
+
+A continuación se presentará el planteamiento desarrollado por Bishop~\cite{Bishop2006}, con una introducción a las propiedades del modelo, así como una generalización y correspondiente solución.
+
 Si se tiene un conjunto $N$ de observaciones $\mb{X} = \lbrace x_1, ..., x_N \rbrace$, y se asume que son i.i.d, la distribución conjunta de la secuencia de datos se puede escribir como sigue:
 \begin{equation}
 \label{eqn:2-1}
@@ -88,7 +92,7 @@ p(x_1, ..., x_N) ~=~ p(x_1) \cdot p(x_2 \,|\, x_1)
 \end{equation}
 puesto que se tiene que $x_n \perp x_1, ..., x_{n-3} \,|\, x_{n-1}, x_{n-2}$.
 
-En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en el que se puede observar la dependencia de una $x_n$ en específico únicamente con sus dos observaciones anteriores.
+En este caso su modelo gráfico correspondiente es la \autoref{fig:mod_mm2}, en el que se puede observar la dependencia de una $x_n$ en específico únicamente con las dos observaciones anteriores.
 
 \begin{figure}[tp]
         \myfloatalign

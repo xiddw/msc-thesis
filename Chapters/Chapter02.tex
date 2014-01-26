@@ -206,7 +206,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/example_mfcc}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
   \label{fig:sign_melfb}
-\end{figure}
+\end{figure}  
 
 Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le calcula la \ac{FT} y entonces a ésta es a quien se le aplica el banco de filtros.
 
@@ -246,8 +246,8 @@ Cabe aclarar que usamos una variante del algoritmo original de k-means, que se l
    \caption{\textit{k-means++}}
    \label{alg:kmeanspp}
 \begin{algorithmic}
-   \STATE {\bfseries Input:} \\ Conjunto de datos $\lbrace x_n \rbrace_1^N $, número de grupos $k$
-   \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, k)$   
+   \STATE {\bfseries Input:} \\ Conjunto de datos $\lbrace x_n \rbrace_1^N $, número de grupos $K$
+   \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, K)$   
    
    \STATE $t = 0$
    \STATE $l_{1:N}^{(t)} = 0$

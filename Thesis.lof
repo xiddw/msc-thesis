@@ -14,9 +14,9 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Observaciones independientes e id\IeC {\'e}nticamente distribuidas.\relax }}{21}{figure.caption.26}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Modelo de M\IeC {\'a}rkov de primer orden.\relax }}{22}{figure.caption.27}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Modelo de M\IeC {\'a}rkov de segundo orden.\relax }}{23}{figure.caption.28}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Modelo oculto de M\IeC {\'a}rkov.\relax }}{23}{figure.caption.29}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Modelo oculto de M\IeC {\'a}rkov.\relax }}{24}{figure.caption.29}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (grafo).\relax }}{25}{figure.caption.30}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{25}{figure.caption.31}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{26}{figure.caption.31}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del proceso bootstrap.}}{41}{figure.caption.35}
 \addvspace {10\p@ }
@@ -32,11 +32,11 @@
 \contentsline {figure}{\numberline {6.8}{\ignorespaces Secuencia 2: Pruebas BIC}}{60}{figure.caption.45}
 \contentsline {figure}{\numberline {6.9}{\ignorespaces Secuencia 2: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{61}{figure.caption.46}
 \contentsline {figure}{\numberline {6.10}{\ignorespaces Secuencia 2: Secuencia recuperada}}{62}{figure.caption.47}
-\contentsline {figure}{\numberline {6.11}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (1)}}{62}{figure.caption.48}
-\contentsline {figure}{\numberline {6.12}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (2)}}{63}{figure.caption.49}
-\contentsline {figure}{\numberline {6.13}{\ignorespaces Secuencia 3: Pruebas BIC}}{64}{figure.caption.50}
-\contentsline {figure}{\numberline {6.14}{\ignorespaces Secuencia 3: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{65}{figure.caption.51}
-\contentsline {figure}{\numberline {6.15}{\ignorespaces Secuencia 3: Secuencia recuperada}}{66}{figure.caption.52}
+\contentsline {figure}{\numberline {6.11}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (1)}}{63}{figure.caption.48}
+\contentsline {figure}{\numberline {6.12}{\ignorespaces Secuencia 3: Par\IeC {\'a}metros estimados (2)}}{64}{figure.caption.49}
+\contentsline {figure}{\numberline {6.13}{\ignorespaces Secuencia 3: Pruebas BIC}}{65}{figure.caption.50}
+\contentsline {figure}{\numberline {6.14}{\ignorespaces Secuencia 3: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{66}{figure.caption.51}
+\contentsline {figure}{\numberline {6.15}{\ignorespaces Secuencia 3: Secuencia recuperada}}{67}{figure.caption.52}
 \contentsline {figure}{\numberline {6.16}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (1)}}{67}{figure.caption.53}
 \contentsline {figure}{\numberline {6.17}{\ignorespaces Secuencia 4: Par\IeC {\'a}metros estimados (2)}}{68}{figure.caption.54}
 \contentsline {figure}{\numberline {6.18}{\ignorespaces Secuencia 4: Pruebas BIC}}{69}{figure.caption.55}
@@ -48,8 +48,8 @@
 \contentsline {figure}{\numberline {6.24}{\ignorespaces Secuencia 5: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{74}{figure.caption.61}
 \contentsline {figure}{\numberline {6.25}{\ignorespaces Secuencia 5: Secuencia recuperada}}{75}{figure.caption.62}
 \contentsline {figure}{\numberline {6.26}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (1)}}{76}{figure.caption.63}
-\contentsline {figure}{\numberline {6.27}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (2)}}{77}{figure.caption.64}
-\contentsline {figure}{\numberline {6.28}{\ignorespaces Secuencia 6: Pruebas BIC}}{78}{figure.caption.65}
-\contentsline {figure}{\numberline {6.29}{\ignorespaces Secuencia 6: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{79}{figure.caption.66}
-\contentsline {figure}{\numberline {6.30}{\ignorespaces Secuencia 6: Secuencia recuperada}}{80}{figure.caption.67}
+\contentsline {figure}{\numberline {6.27}{\ignorespaces Secuencia 6: Par\IeC {\'a}metros estimados (2)}}{78}{figure.caption.64}
+\contentsline {figure}{\numberline {6.28}{\ignorespaces Secuencia 6: Pruebas BIC}}{79}{figure.caption.65}
+\contentsline {figure}{\numberline {6.29}{\ignorespaces Secuencia 6: Pruebas de hip\IeC {\'o}tesis usando bootstrap}}{80}{figure.caption.66}
+\contentsline {figure}{\numberline {6.30}{\ignorespaces Secuencia 6: Secuencia recuperada}}{81}{figure.caption.67}
 \addvspace {10\p@ }
