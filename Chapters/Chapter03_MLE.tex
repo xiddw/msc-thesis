@@ -23,7 +23,7 @@ Sin embargo, la función obtenida presenta algunas dificultades, pues no se pued
 
 Por esto, se usará el algoritmo de \ac{EM} para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
 
-La función de verosimilitud completa se define entonces como sigue:
+Bishop~\cite{Bishop2006} define una función de verosimilitud completa como sigue:
 \begin{equation}
 \mc{Q}(\theta, \theta^{old}) = 
   \sum_{\mb{Z}} p(\mb{Z} \,|\, \mb{X}, \theta^{old})
