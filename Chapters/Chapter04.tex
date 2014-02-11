@@ -41,6 +41,8 @@ Entre las más comunes, se encuentran por ejemplo el \acf{AIC} o el \acf{BIC}, q
 
 Cuando hay varios modelos candidatos, una estategia bayesiana se encargaría de seleccionar el modelo que a posteriori sea más probable. Este modelo puede ser identificado calculando la probabilidad posterior de cada uno de los modelos y luego seleccionando aquél modelo cuya probabilidad sea la mayor.
 
+A continuación, se muestra la derivación matemática de BIC desarrollada por Claeskens~et~al.~\cite{Claeskens2010}, así como una aproximación numérica para esta función. 
+
 Sean $\mathcal{M}_1, ..., \mathcal{M}_k$ los modelos propuestos, y sea $\mb{X} = \lbrace x_1, ..., x_n \rbrace $ el vector de datos observados. La probabilidad a posteriori para cada modelo se puede calcular como sigue: 
 \begin{equation}
 P(\mc{M}_j \,|\, \mb{X}) \equiv \frac{P(\mc{M}_j)}{f(\mb{X})} 
@@ -81,7 +83,7 @@ Sin embargo, el cálculo de los diferentes $BIC_{n, j}^{exact}$ es difícil de e
 
 Para esto, primero hay que considerar el método de Laplace, que es usado para aproximar integrales de la forma $\int_a^b e^{M f(x)} dx$, por lo que \eqref{eqn:4-3} debe escribirse de esa manera: 
 \begin{equation}
-\lambda_{n, j}(\mb{X}) = \int_{Theta} exp\left\lbrace n h_{n, j}(\theta) \cdot \pi(\theta \,|\, \mc{M}_j) \right\rbrace ~d\theta 
+\lambda_{n, j}(\mb{X}) = \int_{\Theta} exp\left\lbrace n h_{n, j}(\theta) \cdot \pi(\theta \,|\, \mc{M}_j) \right\rbrace ~d\theta 
 \label{eqn:4-6}
 \end{equation}
 donde $h_{n, j}(\theta) = n^{-1} \ell_{n, j}(\theta)$ y $p = \#\theta$ es la cardinalidad del $\theta$; por lo que ahora usando la aproximación básica de Laplace, se tiene: 
@@ -93,7 +95,7 @@ donde $h_{n, j}(\theta) = n^{-1} \ell_{n, j}(\theta)$ y $p = \#\theta$ es la car
 \end{split}
 \label{eqn:4-7}
 \end{equation}
-donde $\theta_0$ es el valor que maximiza la función $h(\cdot)$ y $J(\theta_0)$ es la matriz Hessiana 
+donde $\theta_0$ es el valor que maximiza la función $h(\cdot)$ y $J(\theta_0)$ es el negativo de la matriz Hessiana 
 \begin{equation}
 J(\theta) \equiv -\frac{\partial^2 h(\theta)}{\partial \theta \cdot \partial \theta^T}
 \label{eqn:4-8}
