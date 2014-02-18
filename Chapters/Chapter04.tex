@@ -110,7 +110,7 @@ En este caso, tenemos que $h(\theta) = n^{-1} \ell_{n, j}(\theta)$ y que se maxi
 
 Bootstrap es una técnica estadística que nos permite tener noción sobre qué tan precisa es alguna medida muestral estimada. Este método permite aproximar la distribución de muestreo de casi cualquier estadístico, usando métodos simples aunque computacionalmente intensivos. 
 
-Como menciona Persi~et.al~\cite{Diaconis1983}, esta técnica fue desarrollada en 1978 por Efron~\cite{Efron1978}, quien generalizó el método de \textit{Jacknife}; siendo ambos métodos estadísticos altamente demandantes en cuanto a procesamiento computacional; y que empezaron a tener más auge a finales de la década de 1970 debido al crecimiento del poder de cómputo disponible.
+Como menciona Persi~et~al.~\cite{Diaconis1983}, esta técnica fue desarrollada en 1978 por Efron~\cite{Efron1978}, quien generalizó el método de \textit{Jacknife}; siendo ambos métodos estadísticos altamente demandantes en cuanto a procesamiento computacional; y que empezaron a tener más auge a finales de la década de 1970 debido al crecimiento del poder de cómputo disponible.
 
 La técnica bootstrap se describe a continuación en un ejemplo: supongamos que se tiene que ajustar un modelo a un conjunto de datos. Sea este conjunto de entrenamiento $\mb{Z} = (z_1, z_2, ..., z_N)$ donde $z_i = (x_i, y_i)$ y son independientes con distribución $F$. Como $\mb{Z}$ es una muestra finita no se conoce tal cual la distribución $F$, pero se puede estimar una función empírica $\hat F$ donde a cada observación $z_i$ se le asigna un peso $\frac{1}{N}$ en la densidad.
 
@@ -142,7 +142,7 @@ Como ya se mencionó, el bootstrap clásico es no paramétrico, y se vale única
 
 Entonces, a partir de este modelo ajustado es que se muestrea. Al igual que en con la técnica no paramétrica, se suelen generan muestras de datos del mismo tamaño que el conjunto original. Luego, para cada nueva conjunto bootstrap $\mb{Z}^{*}_b$ muestreado se calcula el estadístico de nuestro interés. Éste proceso de muestreo se repite igualmente una gran cantidad de veces. 
 
-La diferencia principal con el método clásico de bootstrap, es que al usar un modelo paramétrico al momento de muestrar permite utilizar técnicas diferentes de las que comúnmente se usan para el bootstrap tradicional.
+El método de bootstrap paramétrico se suele utilizar en problemas en los que se desea ajustar un modelo y además encontrar sus parámetros correspondientes. Nos permite ajustar de mejor forma los parámetros de un modelo, calculando algún estadístido de interés que permita analizar el comportamiento de cada uno de los parámetros estimados.
 
 \section{Selección de modelo usando BIC}
 
