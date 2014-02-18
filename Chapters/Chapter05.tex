@@ -6,7 +6,7 @@
 \epigraph{There was nowhere to go but everywhere, so just keep on rolling under the stars.}
 {Jack Kerouac}}
 
-A continuación se describe la metodología que se llevo a cabo para la tarea de \sd. 
+A continuación se describe la metodología que se llevó a cabo para la tarea de \sd. 
 
 Como ya se describió en el \autoref{ch:chap2} es necesaria una etapa de pre-procesamiento en el sistema; primero para eliminar de la señal de audio las cosas que no nos interesan (que en este caso son silencios), para lo que se usó un detector de energía y así ignorar los instantes en los que ningún interlocutor participa. 
 
@@ -16,9 +16,9 @@ Después de esta etapa de clasificación, ya se tendrán los datos como observac
 
 Luego, corresponderá usar el algoritmo \ac{EM} con cada uno de los modelos $\mc{M}_d$ propuestos, tanto para estimar sus parámetros como para estimar su verosimilitud. Como ya se mencionó en \autoref{ch:chap4} esta etapa se realizará varias veces, para evitar el estancamiento del método y obtener un buen ajuste del modelo. Del modelo con mayor versomilitud se calculará la segmentación correspondiente, y se almacenará. 
 
-Después, seguirá la etapa de selección de modelo. Este proceso se realizara en dos partes: primero, explorando todo el espacio de soluciones y reduciendo los posibles modelos ganadores; y luego, seleccionando de entre los candidatos resultantes al mejor modelo.
+Después, seguirá la etapa de selección de modelo. Este proceso se realizará en dos partes: primero, explorando todo el espacio de soluciones y reduciendo los posibles modelos ganadores; y luego, seleccionando de entre los candidatos resultantes al mejor modelo.
 
-En un primero paso, se estimará \ac{BIC} para de todos los \ac{HMM} propuestos para generar una curva de selección. Como se verá en las pruebas, es necesario introducir un término de regularización en \ac{BIC} para que la penalización del modelo corresponda con las log-verosimilitudes obtenidas. 
+En un primero paso, se estimará \ac{BIC} para todos los \ac{HMM} propuestos para generar una curva de selección. Como se verá en las pruebas, es necesario introducir un término de regularización en \ac{BIC} para que la penalización del modelo corresponda con las log-verosimilitudes obtenidas. 
 
 Esto se puede hacer de la siguiente forma: 
 \begin{equation}

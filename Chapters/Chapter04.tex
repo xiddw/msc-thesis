@@ -181,7 +181,7 @@ Para calcular el \ac{MLE} de un modelo, se estimó la verosimilitud varias veces
 
 Se usó entonces como \ac{MLE} del modelo la máxima verosimilitud correspondiente a los mejores parámetros estimados y que se denotó por $LLR_{obs}$.
 
-Ahora, para hacer la prueba con boostrap se simularán datos de los \ac{HMM} propuestos, utilizando el algoritmo \ref{alg:ancsamp} para el muestreo, tanto para el modelo $\mc{M}_d$ como para el modelo $\mc{M}_{d+1}$. Para ambos modelos se estimará su log-verosimilitud y se procederá con el cálculo del \ac{LLR}, que es la réplica bootstrap que nos interesa. 
+Ahora, para hacer la prueba con bootstrap se simularán datos de los \ac{HMM} propuestos, utilizando el algoritmo \ref{alg:ancsamp} para el muestreo, tanto para el modelo $\mc{M}_d$ como para el modelo $\mc{M}_{d+1}$. Para ambos modelos se estimará su log-verosimilitud y se procederá con el cálculo del \ac{LLR}, que es la réplica bootstrap que nos interesa. 
 
 \begin{algorithm}[tp]
    \caption{Muestreo ancestral para un HMM}
