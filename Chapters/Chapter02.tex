@@ -203,7 +203,7 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 \begin{figure}[t]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap2/example_mfcc}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_filterbank}} \quad
   \caption{Banco de filtros triangulares en frecuencia Mel.}
   \label{fig:sign_melfb}
 \end{figure}  
@@ -213,7 +213,7 @@ Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 \begin{figure}[t]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mel}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_result2}} \quad
   \caption{Respuesta al banco de filtros.}
   \label{fig:sign_melres}
 \end{figure}
@@ -225,7 +225,7 @@ Para esto, la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT
 Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
 \begin{figure}[t]
   \myfloatalign
-  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-mfcc}} \quad
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_result3}} \quad
   \caption{Mel Frequency Cepstrum Coefficients.}
   \label{fig:sign_mfcc}
 \end{figure}
@@ -236,7 +236,8 @@ Para esto, podemos utilizar diferentes métodos tanto de reducción de dimension
 
 Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida:
 \begin{figure}[t]
-  {\includegraphics[width=0.9\linewidth]{gfx/chap2/signal-clusters}} \quad
+  \myfloatalign
+  {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_result4}} \quad
   \caption{MFCC agrupados con k-means++.}
   \label{fig:sign_clusters}
 \end{figure}
