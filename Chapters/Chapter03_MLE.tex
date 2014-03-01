@@ -105,35 +105,34 @@ Para deducir el algoritmo, se deben tener en cuenta varias propiedades de una ca
 
 Estas propiedades entre otras más están ennumeradas en Jordan (paper 2007) y  se pueden deducir usando el teorema de separación-D.
 
-\hspace{-3.5cm} {
-\begin{flalign}
-\begin{split}
-  p(\mb{X} \,|\, z_n) =~ &p(x_1, ..., x_n \,|\, z_n) \cdot
-  p(x_{n+1}, ..., x_N \,|\, z_n)
-\end{split} \label{eqn:3-10} \\
+\hspace{-.2\textwidth}
+\begin{minipage}{1.25\textwidth}
+\begin{align}
+p(\mb{X} \,|\, z_n) =~ &p(x_1, ..., x_n \,|\, z_n) 
+  \cdot p(x_{n+1}, ..., x_N \,|\, z_n) \label{eqn:3-10} &\\
 p(x_1, ..., x_{n-1} \,|\, x_n, z_n) =~ 
   &p(x_1, ..., x_{n-1} \,|\, z_n) 
-\label{eqn:3-11} \\
+\label{eqn:3-11} &\\
 p(x_1, ..., x_{n-1} \,|\, z_{n-1}, z_n) =~ 
   &p(x_1, ..., x_{n-1} \,|\, z_{n-1}) 
-\label{eqn:3-12} \\
+\label{eqn:3-12} &\\
 p(x_{n+1}, ..., x_N \,|\, z_n, z_{n+1}) =~ 
   &p(x_{n+1}, ..., x_N \,|\, z_{n+1}) 
-\label{eqn:3-13} \\
+\label{eqn:3-13} &\\
 p(x_{n+2}, ..., x_N \,|\, z_{n+1}, x_{n+1}) =~ 
   &p(x_{n+2}, ..., x_N \,|\, z_{n+1})
-\label{eqn:3-14} \\ 
+\label{eqn:3-14} &\\ 
 \begin{split}
-  p(\mb{X} \,|\, z_{n-1}, z_n) =~ &p(x_1, ..., x_{n-1} \,|\, z_{n-1}) 
-  \\ &p(x_n \,|\, z_n) 
-  \\ &p(x_{n+1}, ..., x_N | z_n)
-\end{split} \label{eqn:3-15} \\
+  p(\mb{X} \,|\, z_{n-1}, z_n) =~ &p(x_1, ..., x_{n-1} \,|\, z_{n-1}) \cdot
+  p(x_n \,|\, z_n) \\ &\cdot p(x_{n+1}, ..., x_N | z_n)
+\end{split} \label{eqn:3-15} &\\
   p(x_{N+1} \,|\, \mb{X} ,z_{N+1}) =~ &p(x_{N+1} \,|\, z_{N+1}) 
-\label{eqn:3-16} \\
+\label{eqn:3-16} &\\
 p(z_{N+1} \,|\, z_N, \mb{X}) =~ &p(z_{N+1} \,|\, z_N) 
-\label{eqn:3-17} \\
-\end{flalign}
-}
+\label{eqn:3-17} &\\
+\end{align}
+\end{minipage}
+
 donde $\mathbf{X} = \lbrace x_1, ..., x_N \rbrace$. 
 
 Además, se debe tener en cuenta que éste desarrollo es general, puesto que es independiente de las probabilidades de emisión $p(x \,|\, z)$, y entonces no importa si las variables observadas son discretas o continuas, pues lo único que se requiere es poder evaluar $p(x_n \,|\, z_n)$ para cada $z_n$, que sabemos que son discretas.
