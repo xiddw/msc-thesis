@@ -21,9 +21,9 @@ Si se tiene un conjunto de datos observados $\mb{X} = \lbrace x_1, ..., x_N \rbr
 
 Sin embargo, la función obtenida presenta algunas dificultades, pues no se puede tratar $z_n$ como si fueran variables independientes y separarlas, puesto que cada variable latente $z_n$ depende del estado anterior. Además, no es factible separar las sumas de estas $N$ variables, pues para cada una se tendría que considerar cada uno de sus $K$ posibles estados, y entonces el número de términos en la suma es del orden $K^N$, y crece exponencialmente con el largo de la cadena. Por esto y algunas otras razones, es que se descarta el estimar los parámetros del modelo de forma directa por máxima verosimilitud.
 
-Por esto, se usará el algoritmo de \ac{EM} para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa; que se puede escribir como una función tanto de la primera estimación de $\theta^{old}$ así como de los nuevos parámetros $\theta$.
+Por esto, se usará el algoritmo de \ac{EM} para maximizar la verosimilitud. Inicialmente, se hace una selección inicial de los parámetros que denotaremos como $\theta^{old}$. Luego, en el primer paso del \aem -conocido como \estep- se toman estos parámetros para encontrar la probabilidad a posteriori de las variables latentes $p(\mb{Z} \,|\, \mb{X}, \theta^{old})$, las cuales se usarán para evaluar la esperanza de la log-verosimilitud completa.
 
-Bishop~\cite{Bishop2006} define una función de verosimilitud completa como sigue:
+Bishop~\cite{Bishop2006} define esta esperaza en función tanto de la estimación previa de parámetros $\theta^{old}$ así como de los nuevos parámetros $\theta$ calculados:
 \begin{equation}
 \mc{Q}(\theta, \theta^{old}) = 
   \sum_{\mb{Z}} p(\mb{Z} \,|\, \mb{X}, \theta^{old})
@@ -146,8 +146,7 @@ Se puede comenzar por evaluar $\gamma(z_n)$, que es la probabilidad a posteriori
 y usando la regla del producto, tenemos que
 \begin{equation}
   \gamma(z_n) = \frac{
-    p(x_1, ..., x_n, z_n) p(x_{n+1}, ..., x_N \,|\, z_n) 
-    }
+    p(x_1, ..., x_n, z_n) p(x_{n+1}, ..., x_N \,|\, z_n)}
     {p(\mb{X})} = \frac{\alpha(z_n) \beta(z_n)}{p(\mb{X})}
   \label{eqn:3-11}
 \end{equation}
@@ -234,10 +233,10 @@ que en este caso dependería del valor de $\beta(z_{n+1})$ y aplicaría para cua
 
 Para este caso, igual partiríamos de la definición en \eqref{eqn:3-11}
 \begin{equation}
-  p(z_n \,|\, \bf{X}) = \frac{p(\bf{X}, z_N) \beta(z_N)} {p(\bf{X})}
+  p(z_N \,|\, \mathbf{X}) = \frac{p(\mathbf{X}, z_N) \beta(z_n)}{p(\bf{X})}
   \label{eqn:3-19}
 \end{equation}
-de donde se obtiene que 
+y resolviendo para $\beta(z_N)$ se obtiene:
 \begin{equation}
   \beta(z_N) = 1
   \label{eqn:3-20}
