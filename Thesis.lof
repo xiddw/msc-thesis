@@ -3,20 +3,20 @@
 \select@language {spanish}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema general del sistema. Se muestran las etapas principales para la estimaci\IeC {\'o}n de la segmentaci\IeC {\'o}n.\relax }}{15}{figure.caption.15}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Esquema general del sistema.}}{15}{figure.caption.15}
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Se\IeC {\~n}al original de audio.\relax }}{16}{figure.caption.16}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Identificaci\IeC {\'o}n y eliminaci\IeC {\'o}n de silencio en se\IeC {\~n}al.\relax }}{16}{figure.caption.17}
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Identificaci\IeC {\'o}n/eliminaci\IeC {\'o}n de silencios.}}{16}{figure.caption.17}
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Banco de filtros triangulares en frecuencia Mel.\relax }}{18}{figure.caption.19}
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Respuesta al banco de filtros.\relax }}{18}{figure.caption.22}
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Mel Frequency Cepstrum Coefficients.\relax }}{19}{figure.caption.24}
 \contentsline {figure}{\numberline {2.7}{\ignorespaces MFCC agrupados con k-means++.\relax }}{19}{figure.caption.25}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Observaciones independientes e id\IeC {\'e}nticamente distribuidas.\relax }}{22}{figure.caption.26}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Observaciones i.i.d.}}{22}{figure.caption.26}
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Modelo de M\IeC {\'a}rkov de primer orden.\relax }}{23}{figure.caption.27}
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Modelo de M\IeC {\'a}rkov de segundo orden.\relax }}{24}{figure.caption.28}
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Modelo oculto de M\IeC {\'a}rkov.\relax }}{25}{figure.caption.29}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (grafo).\relax }}{26}{figure.caption.30}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de modelo oculto de M\IeC {\'a}rkov (rejilla).\relax }}{27}{figure.caption.31}
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Matriz de transici\IeC {\'o}n de HMM (grafo)}}{26}{figure.caption.30}
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Matriz de transici\IeC {\'o}n de HMM (rejilla)}}{27}{figure.caption.31}
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Esquema del proceso bootstrap.}}{43}{figure.caption.35}
 \addvspace {10\p@ }

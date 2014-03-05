@@ -28,8 +28,11 @@
    %*******************************************************    
    % \phantomsection 
    \refstepcounter{dummy}
-   % \addcontentsline{toc}{chapter}{\listfigurename}
-   \pdfbookmark[1]{\listfigurename}{lof}
+   \addcontentsline{toc}{chapter}{\listfigurename}
+   % \pdfbookmark[1]{\listfigurename}{lof}
+
+   % \renewcommand*\l@figure{\@dottedtocline{1}{2em}{1em}}
+
    \listoffigures
 
    \vspace*{8ex}
@@ -63,15 +66,19 @@
    %*******************************************************
    % Acronyms
    %*******************************************************
-   \let\clearpage\relax
+   \let\clearpage\relax   
    \phantomsection 
     \refstepcounter{dummy}
-    \pdfbookmark[1]{Acrónimos}{acronyms}
+
+    \addcontentsline{toc}{chapter}{Acrónimos}
+    %\pdfbookmark[1]{Acrónimos}{acronyms}
+
     \markboth{\spacedlowsmallcaps{Acronyms}}{\spacedlowsmallcaps{Acronyms}}
     \chapter*{Acrónimos}
+
     \begin{acronym}[FXMMM]
         \acro{NIST}{Instituto Nacional de Normas y Tecnología
-                  \acroextra{(National Institute of Standards and Technology)}} 
+                  \acroextra{(National Institute of Standards and Technology)}}
     
         \acro{HMM}{Modelo Oculto de Márkov
                   \acroextra{(Hidden Markov Model)}}
@@ -96,7 +103,7 @@
                   \acroextra{(Linear Frequency Cepstral Coefficients)}}
                   
         \acro{aMFCC}{Coeficientes Cepstrales en la Frecuencia anti-Mel
-                  \acroextra{(Anti-Mel Frequency Cepstral Coefficients)}}                                    
+                  \acroextra{(Anti-Mel Frequency Cepstral Coefficients)}}
                   
         \acro{ANN}{Redes Neuronales Artificiales
                   \acroextra{(Artificial Neural Network)}}
