@@ -112,6 +112,8 @@ Bootstrap es una técnica estadística que nos permite tener noción sobre qué 
 
 Como menciona Persi~et~al.~\cite{Diaconis1983}, esta técnica fue desarrollada en 1978 por Efron~\cite{Efron1978}, quien generalizó el método de \textit{Jacknife}; siendo ambos métodos estadísticos altamente demandantes en cuanto a procesamiento computacional; y que empezaron a tener más auge a finales de la década de 1970 debido al crecimiento del poder de cómputo disponible.
 
+Una de las principales ventajas de esta ténica, como menciona Burns~\cite{Burns2013}, es que no se asume que los datos con los se trabajarán tienen una distribución normal o alguna otra en específico; sino que al contrario, a partir de los observaciones se construirá su distribución empírica. Mientras mayor sea la cantidad de datos disponible, esta aproximación será mejor.
+
 La técnica bootstrap se describe a continuación en un ejemplo: supongamos que se tiene que ajustar un modelo a un conjunto de datos. Sea este conjunto de entrenamiento $\mb{Z} = (z_1, z_2, ..., z_N)$ donde $z_i = (x_i, y_i)$ y son independientes con distribución $F$. Como $\mb{Z}$ es una muestra finita no se conoce tal cual la distribución $F$, pero se puede estimar una función empírica $\hat F$ donde a cada observación $z_i$ se le asigna un peso $\frac{1}{N}$ en la densidad.
 
 Con esto, seleccionaremos de forma aleatoria y con reemplazo de $\hat{F}$ un conjunto de datos del mismo tamaño que el conjunto original. A este conjunto se le denotara $\mb{Z}^{*}_1$. Este proceso de selección se realiza $B$ veces, produciendo $B$ conjuntos bootstrap $\mb{Z}^{*}_{\cdot} = \lbrace \mb{Z}^{*}_1, \mb{Z}^{*}_2, ..., \mb{Z}^{*}_B \rbrace$. 

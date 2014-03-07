@@ -33,6 +33,10 @@ Christopher~M. Bishop.
 \newblock {\em {Pattern Recognition and Machine Learning}}.
 \newblock Information Science and Statistics. Springer, 2006.
 
+\bibitem[Bur13]{Burns2013}
+Patrick Burns.
+\newblock {The Statistical Bootstrap and Other Resampling Methods}, 10 2013.
+
 \bibitem[CH10]{Claeskens2010}
 Gerda Claeskens and Nils~Lid Hjort.
 \newblock {\em {Model Selection and Model Averaging}}.
