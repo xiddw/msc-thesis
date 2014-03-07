@@ -7,9 +7,7 @@ I'm skipping whatever remains of this command
 A level-1 auxiliary file: FrontBackmatter/DirtyTitlepage.aux
 A level-1 auxiliary file: FrontBackmatter/Titlepage.aux
 A level-1 auxiliary file: FrontBackmatter/Titleback.aux
-A level-1 auxiliary file: FrontBackmatter/Dedication.aux
 A level-1 auxiliary file: FrontBackmatter/Abstract.aux
-A level-1 auxiliary file: FrontBackmatter/Acknowledgments.aux
 A level-1 auxiliary file: FrontBackmatter/Contents.aux
 A level-1 auxiliary file: Chapters/Chapter01.aux
 A level-1 auxiliary file: Chapters/Chapter02.aux
@@ -21,6 +19,4 @@ A level-1 auxiliary file: Chapters/Chapter06.aux
 A level-1 auxiliary file: Chapters/Chapter07.aux
 A level-1 auxiliary file: FrontBackmatter/Bibliography.aux
 Database file #1: FrontBackmatter/Bibliography.bib
-Warning--entry type for "Burns2013" isn't style-file defined
---line 74 of file FrontBackmatter/Bibliography.bib
 (There was 1 error message)

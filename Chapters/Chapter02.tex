@@ -181,7 +181,7 @@ A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto 
   \label{fig:sign_ident}  
 \end{figure}
 
-Como se observa en la \autoref{fig:sign_trunc} basta entonces con eliminar los segmentos que con baja energía y reagrupar la señal restante.
+Como se observa en la \autoref{fig:sign_trunc} basta entonces con eliminar los segmentos que contienen baja energía y reagrupar los segmentos restantes.
 
 Con esto, se obtiene una señal en general más pequeña, y que se podría  considerar sólo contiene realmente los datos que se desea modelar.
 
@@ -193,13 +193,13 @@ Tanto la extracción como selección de la mejor representación paramétrica de
 
 Para la tarea de \sd, se usarán los \ac{MFCC}, que son ampliamente utilizados por ejemplo en \sd~ entre otros procesos relacionados al procesamiento de voz; cuyo objetivo es comprimir la señal de audio eliminando la información que no es útil para análisis fonético.
 
-Cabe mencionar, que originalmente los \ac{MFCC} fueron diseñados para la tarea específica de reconocimiento de voz [referencia ICASSP 82], por lo que al momento de diseñarlos se trataba principalmente de que una misma palabra fuera parametrizada de la misma manera sin importar quién fuera quien la pronunciara. 
+Cabe mencionar, que originalmente los \ac{MFCC} fueron utilizados para la tarea específica de reconocimiento de voz por Davis~y~Mermelstein~\cite{Davis1980}, por lo que al momento de diseñarlos se trataba principalmente de que palabras iguales fueran parametrizadas de la misma manera sin importar quién la pronunciara. 
 
 Ésto va en contra del proceso requerido en \sd, puesto que se desea identificar a las diferentes personas que hablan, sin dar tanta importancia a qué es lo que están diciendo; por lo que la tarea de segmentación de señales de audio se vuelve un poco más complicada.
 
 Para calcular los \ac{MFCC}, se usa la Escala de Frecuencia Mel, que está espaciada de forma lineal en frecuencias bajas, mientras que aumenta su separación de forma logarítmica para frecuencias más altas. Este cambio de separación se realiza comúnmente a partir de los $1000Hz$. 
 
-A partir de esta escala, se diseña un banco de filtros triangulares que después se usará (Ver \autoref{fig:sign_melfb}); y esto corresponde de forma similar a la que el oído (la cóclea) captura las características importantes del habla. 
+A partir de esta escala, se diseña un banco de filtros triangulares que después se usará para construir un espectrograma de la señal (Ver \autoref{fig:sign_melfb}). Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le calcula la \ac{FT} y entonces a ésta es a quien se le aplica el banco de filtros.
 
 \begin{figure}[t]
   \myfloatalign
@@ -208,9 +208,8 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
   \label{fig:sign_melfb}
 \end{figure}  
 
-Puesto que el banco de filtros de Mel trabajan en la frecuencia; a la señal de audio se le calcula la \ac{FT} y entonces a ésta es a quien se le aplica el banco de filtros.
-
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
+
 \begin{figure}[t]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_result2}} \quad
@@ -218,9 +217,13 @@ Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la resp
   \label{fig:sign_melres}
 \end{figure}
 
-La dimensión de la respuesta al banco de filtros dependerá de la misma construcción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se tendrá que es muy alta; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
+La matriz que se muestra en \autoref{fig:sign_melres} corresponde a la respuesta al banco de filtros. Cada renglón representa la frecuencia a la que está entonado un filtro en específico del banco; mientras que cada columna indica la muestra en tiempo en que se analiza la señal. Por último, la intensidad en la escala de colores es la respuesta al banco de filtros, o la amplitud con la que cada frecuencia se presenta en cierto momento.
 
-Para esto, la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT}, para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes.
+La dimensión de esta matriz dependerá de la misma construcción del banco de filtros (tanto el número de canales que se usarán, como el tamaño de ventana que se usará para las convoluciones); pero en general se obtendrán matriz de gran tamaño; por lo que es conveniente tratar de disminuir la dimensionalidad de estos datos.
+
+Para esto, a la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT}, para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes. A esta etapa se le conoce como extracción de los coeficientes cepstrales. 
+
+Como ya se mencionó previamente, el banco de filtros utilizado está separado  en la frecuencia Mel, pues aproximan mucho mejor la respuesta del sistema auditivo humano que un banco de filtros linealmente espaciados \cite{Vyas2013}. 
 
 Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
 \begin{figure}[t]
