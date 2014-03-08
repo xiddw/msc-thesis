@@ -154,16 +154,19 @@ Se considera que se tiene una señal digital de voz, y que a partir de ésta se 
   \label{fig:sign_orig}
 \end{figure}
 
-El primer paso en el procesamiento de la señal, es tanto la detección como eliminación de silencios; pues éstos realmente no nos interesan para la modelación del sistema.
+El primer paso en el procesamiento de la señal, es tanto la detección como eliminación de silencios; pues éstos realmente no nos interesan para la modelación del sistema. A esta etapa de pre-procesamiento se le suele conocer como \ac{SAD}.
 
 \graffito{Nota: Tanto en ancho de la ventana, como el umbral para definir si será silencio se pueden ajustar dependiendo del tipo de señal.}
 
 Para realizar entonces la detección de los silencios, en esta primer etapa y como un primer intento para la eliminación de silencios, se hace una detección básica de qué partes de la señal son mayormente silencios.
 
-Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo señal, y que irá calculando el total de energía de la señal dentro de la ventana. Se considerará entonces silencio aquellas partes de la señal cuyo total de energía esté debajo de un umbral específico.
+Para ésto, se utiliza una ventana móvil que se irá recorriendo a lo largo señal, y que irá calculando el total de energía de la señal dentro de la ventana. Se considerará entonces silencio aquellas partes de la señal cuyo amplitud total esté debajo de un umbral específico.
 
-A partir de esta ventana se obtienen entonces las regiones que pertenecen tanto al silencio, como a la señal que realmente se desea modelar.
-  
+A partir de esta ventana se podrán diferencias las partes que se tratarán como silencio de las partes que serán la señal resultante.
+
+Como ya se mencionó, esta es una forma sencilla aunque no muy robusta de detectar en qué partes de la señal hay actividad. En otros trabajos, como 
+en el de Istrate~et~al.~\cite{Istrate2005}, se presenta una etapa de \ac{SAD} mucho más profunda y diseñada para funcionar en entornos con múltiples micrófonos y proponen entrenar un modelo \ac{GMM} que sirva como clasificador luego para los silencios; que si bien muestra varias ventajas, está fuera del alcance de este trabajo.
+
 \begin{figure}[ht]
   \begin{subfigure}[b]{\textwidth}
     \includegraphics[width=0.9\linewidth]{gfx/chap2/signal1}

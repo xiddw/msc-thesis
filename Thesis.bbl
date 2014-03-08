@@ -80,12 +80,31 @@ Corinne Fredouille and Nicholas W.~D. Evans.
   editors, {\em CLEAR}, volume 4625 of {\em Lecture Notes in Computer Science},
   pages 520--532. Springer, 2007.
 
+\bibitem[FSJW11]{Fox2011}
+E.B. Fox, E.B. Sudderth, M.I. Jordan, and A.S. Willsky.
+\newblock {A Sticky HDP-HMM with Application to Speaker Diarization}.
+\newblock {\em Annals of Applied Statistics}, 5(2A):1020--1056, 2011.
+
 \bibitem[HMvL11]{Huijbregts2011}
 M.~Huijbregts, M.~McLaren, and D.~van Leeuwen.
 \newblock {Unsupervised acoustic sub-word unit detection for query-by-example
   spoken term detection}.
 \newblock In {\em Acoustics, Speech and Signal Processing (ICASSP), 2011 IEEE
   International Conference on}, pages 4436--4439, 2011.
+
+\bibitem[HTF01]{Hastie2001}
+Trevor Hastie, Robert Tibshirani, and Jerome Friedman.
+\newblock {\em {The Elements of Statistical Learning}}.
+\newblock Springer Series in Statistics. Springer New York Inc., New York, NY,
+  USA, 2001.
+
+\bibitem[IFM{\etalchar{+}}05]{Istrate2005}
+Dan Istrate, Corinne Fredouille, Sylvain Meignier, Laurent Besacier, and J.-F.
+  Bonastre.
+\newblock {NIST RT'05S Evaluation: Pre-processing Techniques and Speaker
+  Diarization on Multiple Microphone Meetings}.
+\newblock In Steve Renals and Samy Bengio, editors, {\em MLMI}, volume 3869 of
+  {\em Lecture Notes in Computer Science}, pages 428--439. Springer, 2005.
 
 \bibitem[Jel98]{Jelinek1998}
 Frederick Jelinek.
