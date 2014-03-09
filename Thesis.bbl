@@ -123,6 +123,12 @@ Howard Lei and Eduardo~L\'opez Gonzalo.
   phonetic regions for telephone speaker recognition}.
 \newblock In {\em INTERSPEECH}, pages 2323--2326. ISCA, 2009.
 
+\bibitem[Mac07]{MacKinnon2007}
+James~G. MacKinnon.
+\newblock {Bootstrap Hypothesis Testing}.
+\newblock Working Papers 1127, Queen's University, Department of Economics,
+  June 2007.
+
 \bibitem[MBI01]{Meignier2001}
 S.~Meignier, J.-F. Bonastre, and S.~Igounet.
 \newblock {E-HMM approach for learning and adapting sound models for speaker

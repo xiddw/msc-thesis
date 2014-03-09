@@ -129,7 +129,7 @@ En \eqref{eqn:4-15}, $S(\mb{Z})$ representa cualquier estadístico calculado del
 \end{equation}
 donde $\bar{S}^{*} = \frac{1}{B} \sum_{b=1}^B S(\mb{Z}^{*b})$. Se puede pensar en $\widehat{Var} \left[ S(\mb{Z}) \right]$ como un estimador tipo Monte-Carlo para la varianza de $S(\mb{Z})$ a partir del muestro de la función de distribución empírica $\widehat{F}$ de los datos $(z_1, z_2, ..., z_n)$. De esta misma manera, se puede calcular la desviación estándar de otros estimadores de interés, tales como el coeficiente de correlación, algún cuantil, etc.
 
-En la \autoref{fig:bootesq} se muestra el proceso general que se sigue para obtener las réplicas bootstrap (\cite{Hastie2001}).
+En la \autoref{fig:bootesq} se muestra el proceso general que se sigue para obtener las réplicas bootstrap \cite{Hastie2001}.
 
 \begin{figure}[tp]
   \centerline
@@ -139,6 +139,8 @@ En la \autoref{fig:bootesq} se muestra el proceso general que se sigue para obte
 \end{figure}
 
 Hay que observar que lo que hace bootstrap es realmente estimar la varianza muestral a partir de la distribución empírica $\hat F$ y conforme $B \rightarrow \infty$, $\widehat{Var}(\hat F)$ tiende a la varianza poblacional $\widehat{Var}(\hat F) = {Var}(\hat F)$ de la misma $\hat F$. Para que realmente $\widehat{Var}(\hat F)$ converja a  ${Var}(F)$ se necesita además que $N \rightarrow \infty$, es decir, que se tengan muestras infinitas de la distribución original.
+
+El ejemplo anterior, así como la mayor cantidad de literatura disponible tratan sobre bootstrap como una técnica para estimar errores estándar o construir intervalos de confianza de un estadístico \cite{MacKinnon2007}. Sin embargo, en este caso se usará bootstrap para realizar pruebas de hipótesis de una cola, fijando un nivel de significancia $\alpha$ que más adelante se especificará.
 
 \subsection{Bootstrap paramétrico}
 
