@@ -213,6 +213,8 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 
+Para ser más específicos, la operación que se utiliza para construir el espectrograma es en realidad la \ac{STFT}; que si bien es una \ac{FT}, esta se aplica de forma separada por segmentos a la señal de audio. Esto permite definir una resolución específica con la que se trabajará, dependiendo de las características que se desean obtener.
+
 \begin{figure}[t]
   \myfloatalign
   {\includegraphics[width=0.9\linewidth]{gfx/chap2/mfcc_result2}} \quad
