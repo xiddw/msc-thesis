@@ -150,6 +150,11 @@ Lawrence~R Rabiner.
 \newblock errata at
   http://alumni.media.mit.edu/~rahimi/rabiner/rabiner-errata/rabiner-errata.html.
 
+\bibitem[RS07]{Rabiner2007}
+Lawrence~R. Rabiner and R.W. Schafer.
+\newblock {Introduction to digital speech processing}.
+\newblock {\em Foundations and trends in signal processing}, 1:1--194, 2007.
+
 \bibitem[VK13]{Vyas2013}
 Garima Vyas and Barkha Kumari.
 \newblock {Speaker recognition system based on MFCC and DCT}.

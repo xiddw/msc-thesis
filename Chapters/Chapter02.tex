@@ -156,7 +156,7 @@ Se considera que se tiene una señal digital de voz, y que a partir de ésta se 
 
 El primer paso en el procesamiento de la señal, es tanto la detección como eliminación de silencios; pues éstos realmente no nos interesan para la modelación del sistema. A esta etapa de pre-procesamiento se le suele conocer como \ac{SAD}.
 
-\graffito{Nota: Tanto en ancho de la ventana, como el umbral para definir si será silencio se pueden ajustar dependiendo del tipo de señal.}
+\graffito{Nota: Tanto en ancho de la ventana, como el umbral del \ac{SAD} se pueden ajustar dependiendo de las características de la señal.}
 
 Para realizar entonces la detección de los silencios, en esta primer etapa y como un primer intento para la eliminación de silencios, se hace una detección básica de qué partes de la señal son mayormente silencios.
 
@@ -213,7 +213,9 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 
-Para ser más específicos, la operación que se utiliza para construir el espectrograma es en realidad la \ac{STFT}; que si bien es una \ac{FT}, esta se aplica de forma separada por segmentos a la señal de audio. Esto permite definir una resolución específica con la que se trabajará, dependiendo de las características que se desean obtener.
+Para ser más específicos, la operación que se utiliza para construir el espectrograma es en realidad la \ac{STFT}; que si bien está basada en una \ac{FT}, se aplica de forma separada a segmentos de la señal de audio. Esto permite definir una resolución específica con la que se trabajará, dependiendo de las características que se desean obtener. 
+
+Se puede pensar como una secuencia de operaciones \ac{DCT} por segmentos usando una ventana movible. Como menciona Rabiner~y~Schafer~\cite{Rabiner2007}, este método es la base en la mayoría de las técnicas relativas a procesamiento de voz, pues la construcción de un espectrógrama permite de forma sencilla analizad (y visualizar) la respuesta de una señal a un cierto banco de filtros entonado a alguna frecuencia.
 
 \begin{figure}[t]
   \myfloatalign
