@@ -213,9 +213,11 @@ A partir de esta escala, se diseña un banco de filtros triangulares que despué
 
 Sea pues \autoref{fig:sign_trunc} la señal procesada sin los silencios, la respuesta que se obtiene al aplicar la \ac{FFT} y luego el banco de filtros de \autoref{fig:sign_melfb} se puede observar en la figura \autoref{fig:sign_melres}.
 
-Para ser más específicos, la operación que se utiliza para construir el espectrograma es en realidad la \ac{STFT}; que si bien está basada en una \ac{FT}, se aplica de forma separada a segmentos de la señal de audio. Esto permite definir una resolución específica con la que se trabajará, dependiendo de las características que se desean obtener. 
+Para ser más específicos, la operación que se utiliza para construir el espectrograma es en realidad la \ac{STFT}; que si bien está basada en una \ac{FT}, se aplica de forma separada a segmentos de la señal de audio. 
 
 Se puede pensar como una secuencia de operaciones \ac{DCT} por segmentos usando una ventana movible. Como menciona Rabiner~y~Schafer~\cite{Rabiner2007}, este método es la base en la mayoría de las técnicas relativas a procesamiento de voz, pues la construcción de un espectrógrama permite de forma sencilla analizad (y visualizar) la respuesta de una señal a un cierto banco de filtros entonado a alguna frecuencia.
+
+Esto permite definir una resolución específica con la que se trabajará, dependiendo de las características que se desean obtener. Por ejemplo, si se desea que la respuesta tenga una mejor resolución en frecuencia, se debería usar un tamaño de ventana mayor, en relación a la periodicidad de la señal; aunque esto implicará que se pierda sensibilidad en la dimensión del tiempo. Por otro lado, si se utiliza una ventana de tamaño menor, la respuesta será mucho más precisa en cuanto al tiempo, pero se la resolución en frecuencia será más burda \cite{Rabiner1993}.
 
 \begin{figure}[t]
   \myfloatalign
