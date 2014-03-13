@@ -60,7 +60,7 @@ Si se sustituye $p(\mb{X}, \mb{Z} \,|\, \theta)$ de \eqref{eqn:2-11} en \eqref{e
 
 Por lo que entonces en el \estep~ se debe evaluar tanto $\gamma(z_{nk})$ como $\xi(z_{n-1,j}, z_{nk})$ de forma eficiente para luego continuar con la segunda etapa del algoritmo.
 
-El segundo paso, también conocido como \mstep, consiste en maximizar la unción $\mc{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
+El segundo paso, también conocido como \mstep, consiste en maximizar la función $\mc{Q}(\theta, \theta^{old})$ con respecto a cada uno de los parámetros $\theta = \lbrace \pi, \mb{A}, \phi \rbrace$ mientras que ahora $\gamma(z_{nk})$ y $\xi(z_{n-1,j}, z_{nk})$ se tratan como constantes.
 
 Para maximizar entonces $\pi$, se deriva $\mc{Q}(\theta, \theta^{old})$ con respecto a $\pi_k$, usando multiplicadores de Lagrange para la restricción de $\sum_k \pi_k = 1$, por lo que entonces se tiene: 
 \begin{equation*}
@@ -109,27 +109,28 @@ Para deducir el algoritmo, se deben tener en cuenta varias propiedades de una ca
 \begin{minipage}{1.25\textwidth}
 \begin{align}
 p(\mb{X} \,|\, z_n) =~ &p(x_1, ..., x_n \,|\, z_n) 
-  \cdot p(x_{n+1}, ..., x_N \,|\, z_n) \label{eqn:3-10} &\\
+  \cdot p(x_{n+1}, ..., x_N \,|\, z_n) 
+\label{eqn:A-01} &\\
 p(x_1, ..., x_{n-1} \,|\, x_n, z_n) =~ 
   &p(x_1, ..., x_{n-1} \,|\, z_n) 
-\label{eqn:3-11} &\\
+\label{eqn:A-02} &\\
 p(x_1, ..., x_{n-1} \,|\, z_{n-1}, z_n) =~ 
   &p(x_1, ..., x_{n-1} \,|\, z_{n-1}) 
-\label{eqn:3-12} &\\
+\label{eqn:A-03} &\\
 p(x_{n+1}, ..., x_N \,|\, z_n, z_{n+1}) =~ 
   &p(x_{n+1}, ..., x_N \,|\, z_{n+1}) 
-\label{eqn:3-13} &\\
+\label{eqn:A-04} &\\
 p(x_{n+2}, ..., x_N \,|\, z_{n+1}, x_{n+1}) =~ 
   &p(x_{n+2}, ..., x_N \,|\, z_{n+1})
-\label{eqn:3-14} &\\ 
+\label{eqn:A-05} &\\ 
 \begin{split}
   p(\mb{X} \,|\, z_{n-1}, z_n) =~ &p(x_1, ..., x_{n-1} \,|\, z_{n-1}) \cdot
   p(x_n \,|\, z_n) \\ &\cdot p(x_{n+1}, ..., x_N | z_n)
-\end{split} \label{eqn:3-15} &\\
+\end{split} \label{eqn:A-06} &\\
   p(x_{N+1} \,|\, \mb{X} ,z_{N+1}) =~ &p(x_{N+1} \,|\, z_{N+1}) 
-\label{eqn:3-16} &\\
+\label{eqn:A-07} &\\
 p(z_{N+1} \,|\, z_N, \mb{X}) =~ &p(z_{N+1} \,|\, z_N) 
-\label{eqn:3-17} &\\
+\label{eqn:A-08}
 \end{align}
 \end{minipage}
 
