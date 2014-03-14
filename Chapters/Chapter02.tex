@@ -232,6 +232,25 @@ La dimensión de esta matriz dependerá de la misma construcción del banco de f
 
 Para esto, a la respuesta obtenida del banco de filtros se le aplicará la \ac{DCT}, para tratar de concentrar la energía en ciertos componentes (los primeros $n$ coeficientes), y descartar los restantes. A esta etapa se le conoce como extracción de los coeficientes cepstrales. 
 
+\begin{algorithm}[bt]
+   \caption{\textit{MFCC}}
+   \label{alg:mfcc}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} \\ Señal digital $\lbrace s_n \rbrace_1^T $,
+   \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, K)$   
+   
+   \STATE $t = 0$
+   \STATE $l_{1:N}^{(t)} = 0$
+      
+   \REPEAT  
+   \STATE $t=t+1$ 
+   \STATE $l_n^{(t)} = \text{arg min}_k {\left \| x_n - \mu_k \right \|}^2 $
+   \STATE $r_{nk}$ = $\mathbbm{1}_k\left(l_n^{(t)}\right)$
+   \STATE $\mu_k = \left\lbrace {\sum_{n=1}^N r_{nk} x_n} \right\rbrace / \left\lbrace {\sum_{n=1}^N r_{nk}} \right\rbrace $
+   \UNTIL{$l^{(t)}$ == $l^{(t+1)}$}
+\end{algorithmic}
+\end{algorithm}
+
 Como ya se mencionó previamente, el banco de filtros utilizado está separado  en la frecuencia Mel, pues aproximan mucho mejor la respuesta del sistema auditivo humano que un banco de filtros linealmente espaciados \cite{Vyas2013}. 
 
 Después de este proceso, nuestros datos se podrían representar de la siguiente manera (\autoref{fig:sign_mfcc}) que son los \ac{MFCC} que antes habíamos mencionado.
@@ -255,11 +274,12 @@ Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida
 \end{figure}
 Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} \cite{Arthur2007} y que propone una mejor inicialización para que el algoritmo converja más rápido. En \autoref{alg:kmeanspp} se describe mejor esta etapa inicial.
 
-\begin{algorithm}[bth]
-   \caption{\textit{k-means++}}
-   \label{alg:kmeanspp}
+\begin{algorithm}[bt]
+   \caption{\textit{k-means}}
+   \label{alg:kmeans}
 \begin{algorithmic}
    \STATE {\bfseries Input:} \\ Conjunto de datos $\lbrace x_n \rbrace_1^N $, número de grupos $K$
+   \STATE 
    \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, K)$   
    
    \STATE $t = 0$
@@ -268,6 +288,33 @@ Cabe aclarar que usamos una variante del algoritmo original de k-means, que se l
    \REPEAT  
    \STATE $t=t+1$ 
    \STATE $l_n^{(t)} = \text{arg min}_k {\left \| x_n - \mu_k \right \|}^2 $
+   \STATE $r_{nk}$ = $\mathbbm{1}_k\left(l_n^{(t)}\right)$
+   \STATE $\mu_k = \left\lbrace {\sum_{n=1}^N r_{nk} x_n} \right\rbrace / \left\lbrace {\sum_{n=1}^N r_{nk}} \right\rbrace $
+   \UNTIL{$l^{(t)}$ == $l^{(t+1)}$}
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[bt]
+   \caption{\textit{k-means++}}
+   \label{alg:kmeanspp}
+\begin{algorithmic}
+   \STATE {\bfseries Input:} \\ Conjunto de datos $\lbrace x_n \rbrace_1^N $, número de grupos $K$
+   \STATE 
+   \STATE $\mu_{1} = sample(x_{1:N}, 1)$   
+   \FOR{k:=2 \TO $K$} 
+     \STATE $m_n = \text{arg min}_{\mu_j} {\left \| x_n - \mu_j \right \|}^2 
+      ~~\forall~~ j = {1, ..., k-1}; ~n = {1, ..., N} $
+     \STATE $D_{n} = dist(x_n, m_n) ~~\forall~~  n = {1, ..., N}$
+     \STATE $p_{n} = D_{n}^2 ~~\forall~~  n = {1, ..., N}$
+     \STATE $\mu_{k} = sample(x_{1:N}, 1, p_{1:N})$   
+   \ENDFOR
+   
+   \STATE $t = 0$
+   \STATE $l_{1:N}^{(t)} = 0$
+      
+   \REPEAT  
+   \STATE $t=t+1$ 
+   \STATE $l_n^{(t)} = \text{arg min}_k {\left \| x_n - \mu_k \right \|}^2$
    \STATE $r_{nk}$ = $\mathbbm{1}_k\left(l_n^{(t)}\right)$
    \STATE $\mu_k = \left\lbrace {\sum_{n=1}^N r_{nk} x_n} \right\rbrace / \left\lbrace {\sum_{n=1}^N r_{nk}} \right\rbrace $
    \UNTIL{$l^{(t)}$ == $l^{(t+1)}$}
