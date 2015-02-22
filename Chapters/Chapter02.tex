@@ -236,18 +236,14 @@ Para esto, a la respuesta obtenida del banco de filtros se le aplicará la \ac{D
    \caption{\textit{MFCC}}
    \label{alg:mfcc}
 \begin{algorithmic}
-   \STATE {\bfseries Input:} \\ Señal digital $\lbrace s_n \rbrace_1^T $,
-   \STATE Iniciar $\mu_{1:k} = sample(x_{1:N}, K)$   
-   
-   \STATE $t = 0$
-   \STATE $l_{1:N}^{(t)} = 0$
-      
-   \REPEAT  
-   \STATE $t=t+1$ 
-   \STATE $l_n^{(t)} = \text{arg min}_k {\left \| x_n - \mu_k \right \|}^2 $
-   \STATE $r_{nk}$ = $\mathbbm{1}_k\left(l_n^{(t)}\right)$
-   \STATE $\mu_k = \left\lbrace {\sum_{n=1}^N r_{nk} x_n} \right\rbrace / \left\lbrace {\sum_{n=1}^N r_{nk}} \right\rbrace $
-   \UNTIL{$l^{(t)}$ == $l^{(t+1)}$}
+   \STATE {\bfseries Input:} \\ Señal $\lbrace s_n \rbrace_1^T $,
+   \STATE Banco de filtros $M$   
+   \STATE
+   \STATE $F = FFT(s)$
+   \STATE $F_M = Convolucion(F, M)$
+   \STATE $P = Real(F_M)$
+   \STATE $H = DCT(P)$
+   \STATE $MFCC = H(1:N, )$
 \end{algorithmic}
 \end{algorithm}
 
@@ -272,7 +268,7 @@ Se tendría entonces el siguiente resultado para nuestra matriz de MFCC obtenida
   \caption{MFCC agrupados con k-means++.}
   \label{fig:sign_clusters}
 \end{figure}
-Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} \cite{Arthur2007} y que propone una mejor inicialización para que el algoritmo converja más rápido. En \autoref{alg:kmeanspp} se describe mejor esta etapa inicial.
+Cabe aclarar que usamos una variante del algoritmo original de k-means, que se llama \textit{k-means++} \cite{Arthur2007} y que propone una mejor inicialización para que el algoritmo converja más rápido. En \autoref{alg:kmeans} y \autoref{alg:kmeanspp} se describen los algoritmos de ambos métodos, para una mejor comparación de ambos.
 
 \begin{algorithm}[bt]
    \caption{\textit{k-means}}
